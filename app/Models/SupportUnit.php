@@ -20,4 +20,9 @@ class SupportUnit extends Model
     {
         return $this->hasMany(SupportTopic::class);
     }
+
+    public function agents()
+    {
+        return $this->belongsToMany(User::class)->withTimestamps()->withTrashed();
+    }
 }
