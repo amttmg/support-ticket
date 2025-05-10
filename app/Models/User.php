@@ -54,4 +54,9 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(SupportUnit::class)->withTimestamps()->withTrashed();
     }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'created_by');
+    }
 }
