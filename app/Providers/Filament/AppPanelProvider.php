@@ -56,6 +56,7 @@ class AppPanelProvider extends PanelProvider
             ->authMiddleware([
                 Authenticate::class,
             ])
+            ->spa()
             ->plugins([FilamentSpatieRolesPermissionsPlugin::make()]);
     }
 }

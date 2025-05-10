@@ -9,7 +9,7 @@ class CustomField extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['support_topic_id', 'label', 'field_type', 'is_required', 'options', 'sort_order'];
+    protected $fillable = ['support_topic_id', 'label', 'field_type', 'is_required', 'options', 'sort'];
 
     public function supportTopic()
     {
