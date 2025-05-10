@@ -126,7 +126,7 @@ return new class extends Migration
             $table->string('field_type');
             $table->boolean('is_required')->default(false);
             $table->text('options')->nullable();
-            $table->integer('sort_order')->default(0);
+            $table->integer('sort')->default(0);
             $table->timestamps();
             $table->softDeletes();
         });
