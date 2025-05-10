@@ -45,6 +45,16 @@ return new class extends Migration
             $table->timestamps();
             $table->softDeletes();
         });
+        Schema::create('ticket_statuses', function (Blueprint $table) {
+            $table->id();
+            $table->string('name'); // e.g., 'Not Assigned', 'Assigned', etc.
+            $table->string('slug')->unique(); // e.g., 'not_assigned'
+            $table->string('color')->default('gray'); // For UI display
+            $table->boolean('is_default')->default(false);
+            $table->integer('order')->default(0);
+            $table->timestamps();
+            $table->softDeletes();
+        });
 
         // Tickets
         Schema::create('tickets', function (Blueprint $table) {
@@ -53,7 +63,7 @@ return new class extends Migration
             $table->foreignId('created_by')->constrained('users');
             $table->string('title');
             $table->text('description');
-            $table->enum('status', ['not_assigned', 'assigned', 'in_progress', 'complete']);
+            $table->foreignId('status_id')->constrained('ticket_statuses');
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->timestamps();
             $table->softDeletes();
