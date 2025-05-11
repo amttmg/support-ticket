@@ -1,5 +1,6 @@
 <script setup>
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, usePage } from '@inertiajs/vue3'
+    import { ref } from 'vue';
 
     defineProps({
         canLogin: {
@@ -9,6 +10,48 @@
             type: Boolean,
         },
     });
+
+    const page = usePage(); // Get Inertia page instance
+    const showAuthModal = ref(false);
+    const authMode = ref('login'); // 'login' or 'register'
+
+    // Login Form
+    const loginForm = ref({
+        email: '',
+        password: '',
+        remember: false,
+    });
+
+    // Registration Form
+    const registerForm = ref({
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+    });
+
+    const openAuthModal = (mode) => {
+        authMode.value = mode;
+        showAuthModal.value = true;
+    };
+
+    const handleCreateTicket = () => {
+        if (page.props.auth.user) {
+            window.location.href = route('tickets.create');
+        } else {
+            openAuthModal('login');
+        }
+    };
+
+    const handleLogin = () => {
+        // Handle login submission
+        console.log('Login form submitted:', loginForm.value);
+    };
+
+    const handleRegister = () => {
+        // Handle registration submission
+        console.log('Register form submitted:', registerForm.value);
+    };
 </script>
 
 <template>
@@ -61,7 +104,7 @@
                             <!-- Ticket Form -->
                             <div class="mt-8 max-w-2xl mx-auto">
                                 <div class="text-center">
-                                    <button
+                                    <button @click="handleCreateTicket"
                                         class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                         Create a Ticket
                                     </button>
@@ -145,6 +188,99 @@
                         reserved.</p>
                 </div>
             </footer>
+        </div>
+
+        <!-- Auth Modal -->
+        <div v-if="showAuthModal" class="fixed inset-0 overflow-y-auto z-50">
+            <div class="flex items-center justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                <!-- Background overlay -->
+                <div class="fixed inset-0 transition-opacity" aria-hidden="true">
+                    <div class="absolute inset-0 bg-gray-500 opacity-75" @click="showAuthModal = false"></div>
+                </div>
+
+                <!-- Modal content -->
+                <div
+                    class="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-sm sm:w-full sm:p-6">
+                    <div>
+                        <div class="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-indigo-100">
+                            <svg class="h-6 w-6 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                    d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4" />
+                            </svg>
+                        </div>
+                        <div class="mt-3 text-center sm:mt-5">
+                            <h3 class="text-lg leading-6 font-medium text-gray-900">
+                                {{ authMode === 'login' ? 'Sign in to create a ticket' : 'Create an account' }}
+                            </h3>
+
+                            <!-- Login Form (Shown when authMode === 'login') -->
+                            <form v-if="authMode === 'login'" @submit.prevent="handleLogin">
+                                <div class="mt-4">
+                                    <input type="email" placeholder="Email" v-model="loginForm.email" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-4">
+                                    <input type="password" placeholder="Password" v-model="loginForm.password" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-4 flex items-center justify-between">
+                                    <label class="flex items-center">
+                                        <input type="checkbox" v-model="loginForm.remember"
+                                            class="h-4 w-4 text-indigo-600 border-gray-300 rounded">
+                                        <span class="ml-2 text-sm text-gray-600">Remember me</span>
+                                    </label>
+                                    <Link :href="route('password.request')"
+                                        class="text-sm text-indigo-600 hover:text-indigo-500">
+                                    Forgot your password?
+                                    </Link>
+                                </div>
+                                <div class="mt-6">
+                                    <button type="submit"
+                                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Sign in
+                                    </button>
+                                    <button v-if="canRegister" @click="authMode = 'register'" type="button"
+                                        class="w-full flex justify-center mt-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Create new account
+                                    </button>
+                                </div>
+                            </form>
+
+                            <!-- Registration Form (Shown when authMode === 'register') -->
+                            <form v-else @submit.prevent="handleRegister">
+                                <div class="mt-4">
+                                    <input type="text" placeholder="Full Name" v-model="registerForm.name" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-4">
+                                    <input type="email" placeholder="Email" v-model="registerForm.email" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-4">
+                                    <input type="password" placeholder="Password" v-model="registerForm.password"
+                                        required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-4">
+                                    <input type="password" placeholder="Confirm Password"
+                                        v-model="registerForm.password_confirmation" required
+                                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                </div>
+                                <div class="mt-6">
+                                    <button type="submit"
+                                        class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Register
+                                    </button>
+                                    <button @click="authMode = 'login'" type="button"
+                                        class="w-full flex justify-center mt-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                        Already have an account? Sign in
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </template>
