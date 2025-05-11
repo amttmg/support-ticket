@@ -32,7 +32,7 @@
                         Dashboard
                         </Link>
 
-                        <template v-else>
+                        <!-- <template v-else>
                             <Link :href="route('login')"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100">
                             Log in
@@ -42,7 +42,7 @@
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 ml-4">
                             Register
                             </Link>
-                        </template>
+                        </template> -->
                     </nav>
                 </div>
             </header>
@@ -60,81 +60,12 @@
 
                             <!-- Ticket Form -->
                             <div class="mt-8 max-w-2xl mx-auto">
-                                <form class="space-y-6">
-                                    <div>
-                                        <label for="subject"
-                                            class="block text-sm font-medium text-gray-700">Subject</label>
-                                        <input type="text" id="subject" name="subject"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3 px-4 border"
-                                            placeholder="Briefly describe your issue">
-                                    </div>
-
-                                    <div>
-                                        <label for="department"
-                                            class="block text-sm font-medium text-gray-700">Department</label>
-                                        <select id="department" name="department"
-                                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-3 px-4 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                            <option>Technical Support</option>
-                                            <option>Billing</option>
-                                            <option>Sales</option>
-                                            <option>General Inquiry</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label for="priority"
-                                            class="block text-sm font-medium text-gray-700">Priority</label>
-                                        <select id="priority" name="priority"
-                                            class="mt-1 block w-full rounded-md border border-gray-300 bg-white py-3 px-4 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-indigo-500 sm:text-sm">
-                                            <option>Low</option>
-                                            <option>Medium</option>
-                                            <option>High</option>
-                                            <option>Critical</option>
-                                        </select>
-                                    </div>
-
-                                    <div>
-                                        <label for="description"
-                                            class="block text-sm font-medium text-gray-700">Description</label>
-                                        <textarea id="description" name="description" rows="6"
-                                            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm py-3 px-4 border"
-                                            placeholder="Please describe your issue in detail"></textarea>
-                                    </div>
-
-                                    <div>
-                                        <label for="attachments"
-                                            class="block text-sm font-medium text-gray-700">Attachments</label>
-                                        <div
-                                            class="mt-1 flex justify-center rounded-md border-2 border-dashed border-gray-300 px-6 pt-5 pb-6">
-                                            <div class="space-y-1 text-center">
-                                                <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor"
-                                                    fill="none" viewBox="0 0 48 48" aria-hidden="true">
-                                                    <path
-                                                        d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
-                                                        stroke-width="2" stroke-linecap="round"
-                                                        stroke-linejoin="round" />
-                                                </svg>
-                                                <div class="flex text-sm text-gray-600">
-                                                    <label for="file-upload"
-                                                        class="relative cursor-pointer rounded-md bg-white font-medium text-indigo-600 focus-within:outline-none hover:text-indigo-500">
-                                                        <span>Upload files</span>
-                                                        <input id="file-upload" name="file-upload" type="file"
-                                                            class="sr-only" multiple>
-                                                    </label>
-                                                    <p class="pl-1">or drag and drop</p>
-                                                </div>
-                                                <p class="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="flex justify-end">
-                                        <button type="submit"
-                                            class="inline-flex justify-center rounded-md border border-transparent bg-indigo-600 py-3 px-6 text-sm font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
-                                            Submit Ticket
-                                        </button>
-                                    </div>
-                                </form>
+                                <div class="text-center">
+                                    <button
+                                        class="inline-flex items-center justify-center rounded-md bg-indigo-600 px-6 py-3 text-lg font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
+                                        Create a Ticket
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -210,7 +141,8 @@
             <!-- Footer -->
             <footer class="bg-white py-8 mt-12">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-                    <p class="text-center text-sm text-gray-500">&copy; 2023 Support Center. All rights reserved.</p>
+                    <p class="text-center text-sm text-gray-500">&copy; 2025 IT Department Support Center. All rights
+                        reserved.</p>
                 </div>
             </footer>
         </div>
