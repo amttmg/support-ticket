@@ -15,6 +15,11 @@ class EnsureBackEndUser
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (auth('admin')->check() && auth('admin')->user()->user_type !== 'back') {
+            auth('admin')->logout();
+            abort(403, 'Unauthorized access');
+        }
+
         return $next($request);
     }
 }

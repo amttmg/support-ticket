@@ -15,6 +15,11 @@ class EnsureFrontEndUser
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if (auth('web')->check() && auth('web')->user()->user_type !== 'front') {
+            auth('web')->logout();
+            abort(403, 'Unauthorized access');
+        }
+
         return $next($request);
     }
 }
