@@ -1,29 +1,26 @@
 <script setup>
-    import { Head, Link, usePage } from '@inertiajs/vue3'
+    import { Head, Link, usePage, useForm } from '@inertiajs/vue3'
     import { ref } from 'vue';
 
     defineProps({
-        canLogin: {
-            type: Boolean,
-        },
-        canRegister: {
-            type: Boolean,
-        },
+        canLogin: Boolean,
+        canRegister: Boolean,
+        errors: Object, // Laravel validation errors
     });
 
-    const page = usePage(); // Get Inertia page instance
+    const page = usePage();
     const showAuthModal = ref(false);
     const authMode = ref('login'); // 'login' or 'register'
 
-    // Login Form
-    const loginForm = ref({
+    // Login Form (using Inertia's useForm)
+    const loginForm = useForm({
         email: '',
         password: '',
         remember: false,
     });
 
-    // Registration Form
-    const registerForm = ref({
+    // Registration Form (using Inertia's useForm)
+    const registerForm = useForm({
         name: '',
         email: '',
         password: '',
@@ -43,14 +40,22 @@
         }
     };
 
-    const handleLogin = () => {
-        // Handle login submission
-        console.log('Login form submitted:', loginForm.value);
+    const submitLogin = () => {
+        loginForm.post(route('login'), {
+            onSuccess: () => {
+                showAuthModal.value = false;
+                loginForm.reset();
+            },
+        });
     };
 
-    const handleRegister = () => {
-        // Handle registration submission
-        console.log('Register form submitted:', registerForm.value);
+    const submitRegister = () => {
+        registerForm.post(route('register'), {
+            onSuccess: () => {
+                showAuthModal.value = false;
+                registerForm.reset();
+            },
+        });
     };
 </script>
 
@@ -214,14 +219,17 @@
                             </h3>
 
                             <!-- Login Form (Shown when authMode === 'login') -->
-                            <form v-if="authMode === 'login'" @submit.prevent="handleLogin">
+                            <form v-if="authMode === 'login'" @submit.prevent="submitLogin">
                                 <div class="mt-4">
                                     <input type="email" placeholder="Email" v-model="loginForm.email" required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                    <div v-if="errors.email" class="text-red-500 text-sm mt-1">{{ errors.email }}</div>
                                 </div>
                                 <div class="mt-4">
                                     <input type="password" placeholder="Password" v-model="loginForm.password" required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                    <div v-if="errors.password" class="text-red-500 text-sm mt-1">{{ errors.password }}
+                                    </div>
                                 </div>
                                 <div class="mt-4 flex items-center justify-between">
                                     <label class="flex items-center">
@@ -235,9 +243,10 @@
                                     </Link>
                                 </div>
                                 <div class="mt-6">
-                                    <button type="submit"
+                                    <button type="submit" :disabled="loginForm.processing"
                                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Sign in
+                                        <span v-if="loginForm.processing">Logging in...</span>
+                                        <span v-else>Sign in</span>
                                     </button>
                                     <button v-if="canRegister" @click="authMode = 'register'" type="button"
                                         class="w-full flex justify-center mt-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
@@ -247,19 +256,23 @@
                             </form>
 
                             <!-- Registration Form (Shown when authMode === 'register') -->
-                            <form v-else @submit.prevent="handleRegister">
+                            <form v-else @submit.prevent="submitRegister">
                                 <div class="mt-4">
                                     <input type="text" placeholder="Full Name" v-model="registerForm.name" required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                    <div v-if="errors.name" class="text-red-500 text-sm mt-1">{{ errors.name }}</div>
                                 </div>
                                 <div class="mt-4">
                                     <input type="email" placeholder="Email" v-model="registerForm.email" required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                    <div v-if="errors.email" class="text-red-500 text-sm mt-1">{{ errors.email }}</div>
                                 </div>
                                 <div class="mt-4">
                                     <input type="password" placeholder="Password" v-model="registerForm.password"
                                         required
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
+                                    <div v-if="errors.password" class="text-red-500 text-sm mt-1">{{ errors.password }}
+                                    </div>
                                 </div>
                                 <div class="mt-4">
                                     <input type="password" placeholder="Confirm Password"
@@ -267,9 +280,10 @@
                                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm px-3 py-2 border">
                                 </div>
                                 <div class="mt-6">
-                                    <button type="submit"
+                                    <button type="submit" :disabled="registerForm.processing"
                                         class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                        Register
+                                        <span v-if="registerForm.processing">Registering...</span>
+                                        <span v-else>Register</span>
                                     </button>
                                     <button @click="authMode = 'login'" type="button"
                                         class="w-full flex justify-center mt-2 py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-700 bg-indigo-100 hover:bg-indigo-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
