@@ -10,8 +10,9 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'laravelVersion' => Application::VERSION,
-            'phpVersion' => PHP_VERSION,
+            'appName' => config('app.name'),
+            // 'laravelVersion' => Application::VERSION,
+            // 'phpVersion' => PHP_VERSION,
         ]);
     });
 

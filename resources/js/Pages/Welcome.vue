@@ -8,6 +8,7 @@
         errors: Object, // Laravel validation errors
     });
 
+    const appName = usePage().props.appName
     const page = usePage();
     const showAuthModal = ref(false);
     const authMode = ref('login'); // 'login' or 'register'
@@ -61,7 +62,7 @@
 
 <template>
 
-    <Head title="Support Center" />
+    <Head :title="appName" />
     <div class="min-h-screen bg-gray-50">
         <div class="relative flex min-h-screen flex-col">
             <!-- Header -->
@@ -72,7 +73,7 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                 d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z" />
                         </svg>
-                        <span class="ml-2 text-xl font-bold text-gray-900">Support Center</span>
+                        <span class="ml-2 text-xl font-bold text-gray-900">{{ appName }}</span>
                     </div>
                     <nav v-if="canLogin" class="-mx-3 flex flex-1 justify-end">
                         <Link v-if="$page.props.auth.user" :href="route('dashboard')"
