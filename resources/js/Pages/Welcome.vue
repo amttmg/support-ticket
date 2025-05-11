@@ -81,17 +81,17 @@
                         Dashboard
                         </Link>
 
-                        <!-- <template v-else>
-                            <Link :href="route('login')"
+                        <template v-else>
+                            <button type="button" @click="openAuthModal('login')"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100">
-                            Log in
-                            </Link>
+                                Log in
+                            </button>
 
-                            <Link v-if="canRegister" :href="route('register')"
+                            <button type="button" v-if="canRegister" @click="openAuthModal('register')"
                                 class="rounded-md px-3 py-2 text-sm font-medium text-gray-900 hover:bg-gray-100 ml-4">
-                            Register
-                            </Link>
-                        </template> -->
+                                Register
+                            </button>
+                        </template>
                     </nav>
                 </div>
             </header>
