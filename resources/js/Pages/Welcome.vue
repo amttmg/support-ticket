@@ -120,7 +120,7 @@
                     </div>
 
                     <!-- Additional Help Section -->
-                    <div class="mt-12 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+                    <div class="mt-8 grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
                         <div class="bg-white overflow-hidden shadow rounded-lg">
                             <div class="px-4 py-5 sm:p-6">
                                 <div class="flex items-center">
@@ -188,7 +188,7 @@
             </main>
 
             <!-- Footer -->
-            <footer class="bg-white py-8 mt-12">
+            <footer class="bg-white py-8 mt-8">
                 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
                     <p class="text-center text-sm text-gray-500">&copy; 2025 IT Department Support Center. All rights
                         reserved.</p>
