@@ -20,7 +20,8 @@ class UserTableSeeder extends Seeder
         $user = User::updateOrCreate(['email' => 'admin@mail.com'], [
             'name' => 'Admin',
             'email' => 'admin@mail.com',
-            'password' => bcrypt('password')
+            'password' => bcrypt('password'),
+            'user_type' => 'back',
         ]);
 
         $user->assignRole($roleObj);
