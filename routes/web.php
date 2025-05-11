@@ -1,30 +1,36 @@
 <?php
 
+use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
 Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
+
+    // This route is used to serve the frontend application before login
     Route::get('/', function () {
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
-            'appName' => config('app.name'),
-            // 'laravelVersion' => Application::VERSION,
-            // 'phpVersion' => PHP_VERSION,
+            'appName' => config('app.name')
         ]);
     });
+    require __DIR__ . '/auth.php';
 
-    Route::get('/dashboard', function () {
-        return Inertia::render('Dashboard');
-    })->middleware(['auth', 'verified'])->name('dashboard');
+    // This route is used to serve the frontend application after login
 
     Route::middleware('auth')->group(function () {
+
+        Route::get('/dashboard', function () {
+            return Inertia::render('Dashboard');
+        })->name('dashboard');
+
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-    });
 
-    require __DIR__ . '/auth.php';
+        Route::resource('tickets', TicketController::class);
+        Route::get('/abc')->name('knowledge-base');
+    });
 });
