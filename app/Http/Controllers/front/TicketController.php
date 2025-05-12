@@ -17,7 +17,12 @@ class TicketController extends Controller
     public function index()
     {
         return Inertia::render('Tickets/Index', [
-            'tickets' => Ticket::where('created_by', auth()->id())
+            'tickets' => Ticket::with([
+                'supportTopic',
+                'supportTopic.supportUnit',
+                'supportTopic.supportUnit.department',
+                'status'
+            ])->where('created_by', auth()->id())
                 ->latest()
                 ->get()
         ]);

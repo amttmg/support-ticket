@@ -42,4 +42,9 @@ class Ticket extends Model
     {
         return $this->hasMany(TicketInternalNote::class);
     }
+
+    public function status()
+    {
+        return $this->belongsTo(TicketStatus::class);
+    }
 }
