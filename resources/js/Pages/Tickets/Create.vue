@@ -184,10 +184,10 @@
                             </h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div v-for="dept in departments" :key="dept.id" @click="selectDepartment(dept.id)"
-                                    class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
-                                    <div class="text-4xl text-center">
+                                    class="block p-8 transition duration-200 border-2 border-blue-200 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
+                                    <!-- <div class="text-4xl text-center">
                                         💻
-                                    </div>
+                                    </div> -->
                                     <h3 class="mt-4 text-xl font-semibold text-center text-blue-800">{{ dept.name }}
                                     </h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this department
@@ -218,8 +218,8 @@
                                 this?</h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div v-for="unit in units" :key="unit.id" @click="selectUnit(unit.id)"
-                                    class="block p-8 transition duration-200 border-2 border-purple-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-purple-50 to-white hover:border-purple-300 hover:shadow-md">
-                                    <h3 class="text-xl font-semibold text-center text-purple-800">{{ unit.name }}</h3>
+                                    class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
+                                    <h3 class="text-xl font-semibold text-center text-blue-800">{{ unit.name }}</h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this unit</p>
                                 </div>
                             </div>
@@ -252,8 +252,8 @@
                             <h2 class="text-xl font-semibold text-center text-gray-800">What's the specific issue?</h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div v-for="topic in topics" :key="topic.id" @click="selectTopic(topic.id)"
-                                    class="block p-8 transition duration-200 border-2 border-green-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-green-50 to-white hover:border-green-300 hover:shadow-md">
-                                    <h3 class="text-xl font-semibold text-center text-green-800">{{ topic.name }}</h3>
+                                    class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
+                                    <h3 class="text-xl font-semibold text-center text-blue-800">{{ topic.name }}</h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this topic</p>
                                 </div>
                             </div>
