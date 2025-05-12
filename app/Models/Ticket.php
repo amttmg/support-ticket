@@ -9,7 +9,14 @@ class Ticket extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['support_topic_id', 'created_by', 'title', 'description', 'status', 'priority'];
+    protected $fillable = [
+        'support_topic_id',
+        'created_by',
+        'title',
+        'description',
+        'status_id',
+        'priority'
+    ];
 
     public function supportTopic()
     {
