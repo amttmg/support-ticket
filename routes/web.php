@@ -31,6 +31,10 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         Route::resource('tickets', TicketController::class);
+        Route::get('/departments', [TicketController::class, 'getDepartments']);
+        Route::get('/departments/{departmentId}/units', [TicketController::class, 'getUnits']);
+        Route::get('/units/{unitId}/topics', [TicketController::class, 'getTopics']);
+        Route::get('/ticket-statuses', [TicketController::class, 'getStatuses']);
         Route::get('/abc')->name('knowledge-base');
     });
 });

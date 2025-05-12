@@ -1,102 +1,41 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, useForm } from '@inertiajs/vue3';
-    import { ref, computed } from 'vue';
+    import { Head, useForm, router } from '@inertiajs/vue3';
+    import { ref, onMounted, computed } from 'vue';
+    import axios from 'axios';
 
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import TextInput from '@/Components/TextInput.vue';
     import TextArea from '@/Components/TextArea.vue';
-    import SelectInput from '@/Components/SelectInput.vue';
 
+    // Reactive state
     const selectedDepartment = ref(null);
     const selectedUnit = ref(null);
     const selectedTopic = ref(null);
+    const departments = ref([]);
+    const units = ref([]);
+    const topics = ref([]);
 
+    // Form handling
     const form = useForm({
         title: '',
         description: '',
         priority: 'medium',
-        department: '',
-        unit: '',
-        topic: '',
+        support_topic_id: '',
     });
 
-    const departments = [
-        { id: 'it', name: 'IT Department', icon: '💻' },
-        { id: 'digital', name: 'Digital Banking', icon: '🏦' },
-        { id: 'psd', name: 'Payment and Settlement', icon: '💰' },
-    ];
-
-    const departmentUnits = {
-        it: [
-            { id: 'infrastructure', name: 'Infrastructure Team', icon: '🖥️' },
-            { id: 'development', name: 'Development Team', icon: '👨‍💻' },
-            { id: 'support', name: 'Support Team', icon: '🛠️' },
-        ],
-        digital: [
-            { id: 'mobile', name: 'Mobile Banking', icon: '📱' },
-            { id: 'web', name: 'Web Banking', icon: '🌐' },
-            { id: 'cards', name: 'Digital Cards', icon: '💳' },
-        ],
-        psd: [
-            { id: 'domestic', name: 'Domestic Payments', icon: '🏠' },
-            { id: 'international', name: 'International Payments', icon: '✈️' },
-        ],
-    };
-
-    const unitTopics = {
-        infrastructure: [
-            { id: 'hardware', name: 'Hardware Issue', icon: '💽' },
-            { id: 'network', name: 'Network Problem', icon: '📶' },
-            { id: 'server', name: 'Server Down', icon: '🖥️' },
-        ],
-        development: [
-            { id: 'bug', name: 'Bug Report', icon: '🐛' },
-            { id: 'feature', name: 'Feature Request', icon: '✨' },
-            { id: 'api', name: 'API Issue', icon: '🔌' },
-        ],
-        support: [
-            { id: 'account', name: 'Account Problem', icon: '👤' },
-            { id: 'access', name: 'Access Issue', icon: '🔑' },
-            { id: 'other', name: 'Other IT Support', icon: '❓' },
-        ],
-        mobile: [
-            { id: 'login', name: 'Login Problem', icon: '🔐' },
-            { id: 'transfer', name: 'Transfer Issue', icon: '💸' },
-            { id: 'app-crash', name: 'App Crashing', icon: '💥' },
-        ],
-        web: [
-            { id: 'authentication', name: 'Authentication Issue', icon: '🔒' },
-            { id: 'ui', name: 'UI Problem', icon: '🎨' },
-            { id: 'performance', name: 'Performance Issue', icon: '⚡' },
-        ],
-        cards: [
-            { id: 'virtual', name: 'Virtual Card', icon: '💳' },
-            { id: 'digital-wallet', name: 'Digital Wallet', icon: '📲' },
-        ],
-        domestic: [
-            { id: 'transfer', name: 'Domestic Transfer', icon: '🏦' },
-            { id: 'bill', name: 'Bill Payment', icon: '🧾' },
-        ],
-        international: [
-            { id: 'swift', name: 'SWIFT Transfer', icon: '🌍' },
-            { id: 'fx', name: 'Foreign Exchange', icon: '💱' },
-        ],
-    };
-
+    // Priority options
     const priorities = [
         { value: 'low', label: 'Low', color: 'text-green-600' },
         { value: 'medium', label: 'Medium', color: 'text-yellow-600' },
         { value: 'high', label: 'High', color: 'text-red-600' },
     ];
 
-    const units = computed(() => selectedDepartment.value ? departmentUnits[selectedDepartment.value] : []);
-    const topics = computed(() => selectedUnit.value ? unitTopics[selectedUnit.value] : []);
-
+    // Computed properties
     const selectedDepartmentName = computed(() => {
-        const dept = departments.find(d => d.id === selectedDepartment.value);
+        const dept = departments.value.find(d => d.id === selectedDepartment.value);
         return dept ? dept.name : '';
     });
 
@@ -110,6 +49,50 @@
         return topic ? topic.name : '';
     });
 
+    // Fetch departments on mount
+    onMounted(async () => {
+        try {
+            const response = await axios.get('/departments');
+            departments.value = response.data;
+        } catch (error) {
+            console.error('Error fetching departments:', error);
+        }
+    });
+
+    // Department selected
+    const selectDepartment = async (departmentId) => {
+        selectedDepartment.value = departmentId;
+        selectedUnit.value = null;
+        selectedTopic.value = null;
+
+        try {
+            const response = await axios.get(`/departments/${departmentId}/units`);
+            units.value = response.data;
+        } catch (error) {
+            console.error('Error fetching units:', error);
+        }
+    };
+
+    // Unit selected
+    const selectUnit = async (unitId) => {
+        selectedUnit.value = unitId;
+        selectedTopic.value = null;
+
+        try {
+            const response = await axios.get(`/units/${unitId}/topics`);
+            topics.value = response.data;
+        } catch (error) {
+            console.error('Error fetching topics:', error);
+        }
+    };
+
+    // Topic selected
+    const selectTopic = (topicId) => {
+        selectedTopic.value = topicId;
+        form.support_topic_id = topicId;
+    };
+
+    // Navigation functions
     const goBackToDepartment = () => {
         selectedDepartment.value = null;
         selectedUnit.value = null;
@@ -160,30 +143,36 @@
                         <!-- Progress Steps -->
                         <div class="flex items-center justify-center mb-10">
                             <div class="flex items-center">
-                                <!-- Step 1 -->
-                                <div
-                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${!selectedDepartment ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-800'} font-semibold`">
+                                <!-- Step 1: Department -->
+                                <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
+                                        !selectedDepartment ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-800'
+                                    } font-semibold`">
                                     1
                                 </div>
                                 <div class="w-16 h-1 mx-2 bg-blue-200"></div>
 
-                                <!-- Step 2 -->
-                                <div
-                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${selectedDepartment && !selectedUnit ? 'bg-blue-600 text-white' : selectedUnit ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'} font-semibold`">
+                                <!-- Step 2: Unit -->
+                                <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
+                                        selectedDepartment && !selectedUnit ? 'bg-blue-600 text-white' : 
+                                        selectedUnit ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'
+                                    } font-semibold`">
                                     2
                                 </div>
                                 <div class="w-16 h-1 mx-2 bg-blue-200"></div>
 
-                                <!-- Step 3 -->
-                                <div
-                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${selectedUnit && !selectedTopic ? 'bg-blue-600 text-white' : selectedTopic ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'} font-semibold`">
+                                <!-- Step 3: Topic -->
+                                <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
+                                        selectedUnit && !selectedTopic ? 'bg-blue-600 text-white' : 
+                                        selectedTopic ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'
+                                    } font-semibold`">
                                     3
                                 </div>
                                 <div class="w-16 h-1 mx-2 bg-blue-200"></div>
 
-                                <!-- Step 4 -->
-                                <div
-                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${selectedTopic ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'} font-semibold`">
+                                <!-- Step 4: Form -->
+                                <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
+                                        selectedTopic ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'
+                                    } font-semibold`">
                                     4
                                 </div>
                             </div>
@@ -194,9 +183,8 @@
                             <h2 class="text-xl font-semibold text-center text-gray-800">Which department can help you?
                             </h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                                <div v-for="dept in departments" :key="dept.id" @click="selectedDepartment = dept.id"
+                                <div v-for="dept in departments" :key="dept.id" @click="selectDepartment(dept.id)"
                                     class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
-                                    <div class="text-4xl text-center">{{ dept.icon }}</div>
                                     <h3 class="mt-4 text-xl font-semibold text-center text-blue-800">{{ dept.name }}
                                     </h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this department
@@ -205,7 +193,7 @@
                             </div>
                         </div>
 
-                        <!-- Step 2: Select Support Unit -->
+                        <!-- Step 2: Select Unit -->
                         <div v-else-if="!selectedUnit" class="space-y-6">
                             <div class="flex items-center justify-between">
                                 <button @click="goBackToDepartment"
@@ -226,11 +214,9 @@
                             <h2 class="text-xl font-semibold text-center text-gray-800">Which support unit should handle
                                 this?</h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                                <div v-for="unit in units" :key="unit.id" @click="selectedUnit = unit.id"
+                                <div v-for="unit in units" :key="unit.id" @click="selectUnit(unit.id)"
                                     class="block p-8 transition duration-200 border-2 border-purple-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-purple-50 to-white hover:border-purple-300 hover:shadow-md">
-                                    <div class="text-4xl text-center">{{ unit.icon }}</div>
-                                    <h3 class="mt-4 text-xl font-semibold text-center text-purple-800">{{ unit.name }}
-                                    </h3>
+                                    <h3 class="text-xl font-semibold text-center text-purple-800">{{ unit.name }}</h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this unit</p>
                                 </div>
                             </div>
@@ -262,11 +248,9 @@
 
                             <h2 class="text-xl font-semibold text-center text-gray-800">What's the specific issue?</h2>
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                                <div v-for="topic in topics" :key="topic.id" @click="selectedTopic = topic.id"
+                                <div v-for="topic in topics" :key="topic.id" @click="selectTopic(topic.id)"
                                     class="block p-8 transition duration-200 border-2 border-green-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-green-50 to-white hover:border-green-300 hover:shadow-md">
-                                    <div class="text-4xl text-center">{{ topic.icon }}</div>
-                                    <h3 class="mt-4 text-xl font-semibold text-center text-green-800">{{ topic.name }}
-                                    </h3>
+                                    <h3 class="text-xl font-semibold text-center text-green-800">{{ topic.name }}</h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this topic</p>
                                 </div>
                             </div>
@@ -305,27 +289,22 @@
 
                             <div class="space-y-6">
                                 <div>
-                                    <InputLabel for="title" value="Title"
-                                        class="block text-sm font-medium text-gray-700" />
-                                    <TextInput v-model="form.title" id="title"
-                                        class="block w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    <InputLabel for="title" value="Title" />
+                                    <TextInput v-model="form.title" id="title" type="text" class="block w-full mt-1"
                                         placeholder="Briefly describe your issue" />
                                     <InputError :message="form.errors.title" class="mt-2" />
                                 </div>
 
                                 <div>
-                                    <InputLabel for="description" value="Description"
-                                        class="block text-sm font-medium text-gray-700" />
-                                    <TextArea v-model="form.description" id="description"
-                                        class="block w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                    <InputLabel for="description" value="Description" />
+                                    <TextArea v-model="form.description" id="description" class="block w-full mt-1"
                                         rows="5"
                                         placeholder="Please provide detailed information about your issue..." />
                                     <InputError :message="form.errors.description" class="mt-2" />
                                 </div>
 
                                 <div>
-                                    <InputLabel for="priority" value="Priority"
-                                        class="block text-sm font-medium text-gray-700" />
+                                    <InputLabel value="Priority" />
                                     <div class="mt-1 space-y-2">
                                         <div v-for="p in priorities" :key="p.value" class="flex items-center">
                                             <input v-model="form.priority" :id="`priority-${p.value}`" :value="p.value"
