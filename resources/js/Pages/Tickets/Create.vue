@@ -24,11 +24,16 @@
     const departments = [
         { id: 'it', name: 'IT Department', icon: '💻' },
         { id: 'digital', name: 'Digital Banking', icon: '🏦' },
+        { id: 'psd', name: 'Payment and Settelment', icon: '🏦' },
     ];
 
     const departmentTopics = {
         it: [
             { id: 'hardware', name: 'Hardware Issue', icon: '🖥️' },
+            { id: 'software', name: 'Software Problem', icon: '📱' },
+            { id: 'software', name: 'Software Problem', icon: '📱' },
+            { id: 'software', name: 'Software Problem', icon: '📱' },
+            { id: 'software', name: 'Software Problem', icon: '📱' },
             { id: 'software', name: 'Software Problem', icon: '📱' },
         ],
         digital: [
