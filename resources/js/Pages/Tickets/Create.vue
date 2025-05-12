@@ -1,7 +1,8 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, useForm } from '@inertiajs/vue3';
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
+
     import InputError from '@/Components/InputError.vue';
     import InputLabel from '@/Components/InputLabel.vue';
     import PrimaryButton from '@/Components/PrimaryButton.vue';
@@ -9,27 +10,70 @@
     import TextArea from '@/Components/TextArea.vue';
     import SelectInput from '@/Components/SelectInput.vue';
 
+    const selectedDepartment = ref(null);
+    const selectedTopic = ref(null);
+
     const form = useForm({
         title: '',
         description: '',
         priority: 'medium',
+        department: '',
+        topic: '',
     });
 
-    const priorities = [
-        { value: 'low', label: 'Low' },
-        { value: 'medium', label: 'Medium' },
-        { value: 'high', label: 'High' },
+    const departments = [
+        { id: 'it', name: 'IT Department', icon: '💻' },
+        { id: 'digital', name: 'Digital Banking', icon: '🏦' },
     ];
 
+    const departmentTopics = {
+        it: [
+            { id: 'hardware', name: 'Hardware Issue', icon: '🖥️' },
+            { id: 'software', name: 'Software Problem', icon: '📱' },
+        ],
+        digital: [
+            { id: 'ebanking', name: 'E-Banking Issue', icon: '🌐' },
+            { id: 'mobileapp', name: 'Mobile App Problem', icon: '📲' },
+        ],
+    };
+
+    const priorities = [
+        { value: 'low', label: 'Low', color: 'text-green-600' },
+        { value: 'medium', label: 'Medium', color: 'text-yellow-600' },
+        { value: 'high', label: 'High', color: 'text-red-600' },
+    ];
+
+    const topics = computed(() => selectedDepartment.value ? departmentTopics[selectedDepartment.value] : []);
+
+    const selectedDepartmentName = computed(() => {
+        const dept = departments.find(d => d.id === selectedDepartment.value);
+        return dept ? dept.name : '';
+    });
+
+    const selectedTopicName = computed(() => {
+        const topic = topics.value.find(t => t.id === selectedTopic.value);
+        return topic ? topic.name : '';
+    });
+
+    const goBackToDepartment = () => {
+        selectedDepartment.value = null;
+        selectedTopic.value = null;
+    };
+
+    const goBackToTopics = () => {
+        selectedTopic.value = null;
+    };
+
     const submit = () => {
+        form.department = selectedDepartment.value;
+        form.topic = selectedTopic.value;
+
         form.post(route('tickets.store'), {
             preserveScroll: true,
             onSuccess: () => {
                 form.reset();
-                // Optionally show success notification
-            },
-            onError: () => {
-                // Focus on first error field if needed
+                selectedDepartment.value = null;
+                selectedTopic.value = null;
             }
         });
     };
@@ -40,91 +84,161 @@
     <Head title="Create Support Ticket" />
 
     <AuthenticatedLayout>
-        <template #header>
-            <div class="flex items-center justify-between">
-                <h2 class="text-xl font-semibold text-gray-800 leading-tight">
-                    Create New Support Ticket
-                </h2>
-                <Link :href="route('tickets.index')" class="text-sm text-indigo-600 hover:text-indigo-900">
-                Back to Tickets
-                </Link>
-            </div>
-        </template>
-
         <div class="py-8">
-            <div class="max-w-3xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
-                    <div class="p-6 bg-white border-b border-gray-200">
-                        <form @submit.prevent="submit" class="space-y-6">
-                            <!-- Title Field -->
-                            <div>
-                                <InputLabel for="title" value="Ticket Title *" />
-                                <TextInput id="title" type="text" class="mt-1 block w-full" v-model="form.title"
-                                    required autofocus placeholder="Briefly describe your issue" />
-                                <InputError class="mt-2" :message="form.errors.title" />
-                            </div>
+            <div class="w-full max-w-4xl mx-auto sm:px-6 lg:px-8">
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-xl">
+                    <div class="p-8 bg-white border-b border-gray-200">
+                        <!-- Header -->
+                        <div class="mb-8 text-center">
+                            <h1 class="text-3xl font-bold text-gray-900">Create Support Ticket</h1>
+                            <p class="mt-2 text-gray-600">Get help from our support team</p>
+                        </div>
 
-                            <!-- Description Field -->
-                            <div>
-                                <InputLabel for="description" value="Description *" />
-                                <TextArea id="description" class="mt-1 block w-full" v-model="form.description"
-                                    :rows="6" :required="true"
-                                    placeholder="Please provide detailed information about your issue..." />
-                                <p class="mt-1 text-sm text-gray-500">
-                                    Be as specific as possible. Include error messages, steps to reproduce, etc.
-                                </p>
-                                <InputError class="mt-2" :message="form.errors.description" />
+                        <!-- Progress Steps -->
+                        <div class="flex items-center justify-center mb-10">
+                            <div class="flex items-center">
+                                <div
+                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${!selectedDepartment ? 'bg-blue-600 text-white' : 'bg-blue-100 text-blue-800'} font-semibold`">
+                                    1
+                                </div>
+                                <div class="w-16 h-1 mx-2 bg-blue-200"></div>
+                                <div
+                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${selectedDepartment && !selectedTopic ? 'bg-blue-600 text-white' : selectedTopic ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'} font-semibold`">
+                                    2
+                                </div>
+                                <div class="w-16 h-1 mx-2 bg-blue-200"></div>
+                                <div
+                                    :class="`flex items-center justify-center w-10 h-10 rounded-full ${selectedTopic ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'} font-semibold`">
+                                    3
+                                </div>
                             </div>
+                        </div>
 
-                            <!-- Priority Field -->
-                            <div>
-                                <InputLabel for="priority" value="Priority *" />
-                                <SelectInput id="priority" class="mt-1 block w-full" v-model="form.priority"
-                                    :required="true">
-                                    <option value="low">Low</option>
-                                    <option value="medium">Medium</option>
-                                    <option value="high">High</option>
-                                </SelectInput>
-                                <div class="mt-2 space-y-1 text-sm text-gray-600">
-                                    <p v-if="form.priority === 'high'" class="text-red-600">
-                                        <strong>High Priority:</strong> Critical issue affecting core functionality
-                                    </p>
-                                    <p v-else-if="form.priority === 'medium'" class="text-yellow-600">
-                                        <strong>Medium Priority:</strong> Important issue but workaround exists
-                                    </p>
-                                    <p v-else class="text-green-600">
-                                        <strong>Low Priority:</strong> Minor issue or general question
+                        <!-- Step 1: Select Department -->
+                        <div v-if="!selectedDepartment" class="space-y-6">
+                            <h2 class="text-xl font-semibold text-center text-gray-800">Which department can help you?
+                            </h2>
+                            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                <div v-for="dept in departments" :key="dept.id" @click="selectedDepartment = dept.id"
+                                    class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
+                                    <div class="text-4xl text-center">{{ dept.icon }}</div>
+                                    <h3 class="mt-4 text-xl font-semibold text-center text-blue-800">{{ dept.name }}
+                                    </h3>
+                                    <p class="mt-2 text-sm text-center text-gray-600">Click to select this department
                                     </p>
                                 </div>
-                                <InputError class="mt-2" :message="form.errors.priority" />
+                            </div>
+                        </div>
+
+                        <!-- Step 2: Select Topic -->
+                        <div v-else-if="!selectedTopic" class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <button @click="goBackToDepartment"
+                                    class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Back to departments
+                                </button>
+                                <span class="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">{{
+                                    selectedDepartmentName }}</span>
                             </div>
 
-                            <!-- Form Actions -->
-                            <div class="flex items-center justify-end space-x-4 pt-4 border-t border-gray-200">
-                                <Link :href="route('tickets.index')"
-                                    class="px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md shadow-sm hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
-                                Cancel
-                                </Link>
-
-                                <PrimaryButton :class="{ 'opacity-50 cursor-not-allowed': form.processing }"
-                                    :disabled="form.processing">
-                                    <span v-if="form.processing">
-                                        <svg class="animate-spin -ml-1 mr-2 h-4 w-4 text-white inline"
-                                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                                            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                                stroke-width="4"></circle>
-                                            <path class="opacity-75" fill="currentColor"
-                                                d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
-                                            </path>
-                                        </svg>
-                                        Processing...
-                                    </span>
-                                    <span v-else>
-                                        Submit Ticket
-                                    </span>
-                                </PrimaryButton>
+                            <h2 class="text-xl font-semibold text-center text-gray-800">What's the issue about?</h2>
+                            <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                <div v-for="topic in topics" :key="topic.id" @click="selectedTopic = topic.id"
+                                    class="block p-8 transition duration-200 border-2 border-green-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-green-50 to-white hover:border-green-300 hover:shadow-md">
+                                    <div class="text-4xl text-center">{{ topic.icon }}</div>
+                                    <h3 class="mt-4 text-xl font-semibold text-center text-green-800">{{ topic.name }}
+                                    </h3>
+                                    <p class="mt-2 text-sm text-center text-gray-600">Click to select this topic</p>
+                                </div>
                             </div>
-                        </form>
+                        </div>
+
+                        <!-- Step 3: Ticket Form -->
+                        <div v-else class="space-y-6">
+                            <div class="flex items-center justify-between">
+                                <button @click="goBackToTopics"
+                                    class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" viewBox="0 0 20 20"
+                                        fill="currentColor">
+                                        <path fill-rule="evenodd"
+                                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
+                                            clip-rule="evenodd" />
+                                    </svg>
+                                    Back to topics
+                                </button>
+                                <div class="space-x-2">
+                                    <span
+                                        class="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">{{
+                                        selectedDepartmentName }}</span>
+                                    <span
+                                        class="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">{{
+                                        selectedTopicName }}</span>
+                                </div>
+                            </div>
+
+                            <h2 class="text-xl font-semibold text-center text-gray-800">Tell us more about your issue
+                            </h2>
+
+                            <div class="space-y-6">
+                                <div>
+                                    <InputLabel for="title" value="Title"
+                                        class="block text-sm font-medium text-gray-700" />
+                                    <TextInput v-model="form.title" id="title"
+                                        class="block w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                        placeholder="Briefly describe your issue" />
+                                    <InputError :message="form.errors.title" class="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel for="description" value="Description"
+                                        class="block text-sm font-medium text-gray-700" />
+                                    <TextArea v-model="form.description" id="description"
+                                        class="block w-full px-4 py-3 mt-1 border border-gray-300 rounded-lg shadow-sm focus:ring-blue-500 focus:border-blue-500"
+                                        rows="5"
+                                        placeholder="Please provide detailed information about your issue..." />
+                                    <InputError :message="form.errors.description" class="mt-2" />
+                                </div>
+
+                                <div>
+                                    <InputLabel for="priority" value="Priority"
+                                        class="block text-sm font-medium text-gray-700" />
+                                    <div class="mt-1 space-y-2">
+                                        <div v-for="p in priorities" :key="p.value" class="flex items-center">
+                                            <input v-model="form.priority" :id="`priority-${p.value}`" :value="p.value"
+                                                type="radio" class="w-4 h-4 border-gray-300 focus:ring-blue-500">
+                                            <label :for="`priority-${p.value}`"
+                                                :class="`ml-3 block text-sm font-medium ${p.color}`">
+                                                {{ p.label }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="pt-4">
+                                    <PrimaryButton @click="submit" :disabled="form.processing"
+                                        class="w-full px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+                                        <span v-if="!form.processing">Submit Ticket</span>
+                                        <span v-else class="flex items-center justify-center">
+                                            <svg class="w-5 h-5 mr-2 -ml-1 animate-spin"
+                                                xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                                    stroke-width="4"></circle>
+                                                <path class="opacity-75" fill="currentColor"
+                                                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z">
+                                                </path>
+                                            </svg>
+                                            Processing...
+                                        </span>
+                                    </PrimaryButton>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
