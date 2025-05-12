@@ -185,6 +185,9 @@
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div v-for="dept in departments" :key="dept.id" @click="selectDepartment(dept.id)"
                                     class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
+                                    <div class="text-4xl text-center">
+                                        💻
+                                    </div>
                                     <h3 class="mt-4 text-xl font-semibold text-center text-blue-800">{{ dept.name }}
                                     </h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this department
