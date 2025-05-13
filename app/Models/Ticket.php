@@ -9,7 +9,14 @@ class Ticket extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['support_topic_id', 'created_by', 'title', 'description', 'status', 'priority'];
+    protected $fillable = [
+        'support_topic_id',
+        'created_by',
+        'title',
+        'description',
+        'status_id',
+        'priority'
+    ];
 
     public function supportTopic()
     {
@@ -34,5 +41,10 @@ class Ticket extends Model
     public function internalNotes()
     {
         return $this->hasMany(TicketInternalNote::class);
+    }
+
+    public function status()
+    {
+        return $this->belongsTo(TicketStatus::class);
     }
 }

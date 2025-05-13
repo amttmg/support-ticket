@@ -25,6 +25,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'user_type',
     ];
 
     /**
@@ -53,5 +54,10 @@ class User extends Authenticatable
     public function supportUnits()
     {
         return $this->belongsToMany(SupportUnit::class)->withTimestamps()->withTrashed();
+    }
+
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'created_by');
     }
 }

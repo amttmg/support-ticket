@@ -40,6 +40,10 @@ return [
             'driver' => 'session',
             'provider' => 'users',
         ],
+        'admin' => [ // For backend/filament users
+            'driver' => 'session',
+            'provider' => 'users',
+        ],
     ],
 
     /*
