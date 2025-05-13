@@ -1,26 +1,49 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link } from '@inertiajs/vue3';
-    import { ref } from 'vue';
+    import { computed } from 'vue';
 
-    defineProps({
+    const props = defineProps({
         tickets: Array,
     });
 
-    const statusColors = {
-        open: 'bg-blue-100 text-blue-800',
-        pending: 'bg-yellow-100 text-yellow-800',
-        solved: 'bg-green-100 text-green-800',
-        closed: 'bg-gray-100 text-gray-800',
-        cancelled: 'bg-red-100 text-red-800'
-    };
-
+    // Priority colors
     const priorityColors = {
         low: 'bg-green-100 text-green-800',
         medium: 'bg-yellow-100 text-yellow-800',
         high: 'bg-red-100 text-red-800',
         urgent: 'bg-purple-100 text-purple-800'
     };
+
+    // Dynamic status color class generator
+    const getStatusColorClass = (status) => {
+        if (status.color) {
+            const colorMap = {
+                gray: 'bg-gray-100 text-gray-800',
+                blue: 'bg-blue-100 text-blue-800',
+                yellow: 'bg-yellow-100 text-yellow-800',
+                green: 'bg-green-100 text-green-800',
+                red: 'bg-red-100 text-red-800',
+                purple: 'bg-purple-100 text-purple-800',
+                indigo: 'bg-indigo-100 text-indigo-800'
+            };
+            return colorMap[status.color] || 'bg-gray-100 text-gray-800';
+        }
+        return 'bg-gray-100 text-gray-800';
+    };
+
+    // Status stats computed property
+    const statusStats = computed(() => {
+        if (!props.tickets || props.tickets.length === 0) return [];
+
+        const statuses = [...new Map(props.tickets.map(t => [t.status.id, t.status])).values()];
+        const sortedStatuses = [...statuses].sort((a, b) => a.id - b.id);
+
+        return sortedStatuses.map(status => ({
+            ...status,
+            count: props.tickets.filter(t => t.status.id === status.id).length
+        }));
+    });
 </script>
 
 <template>
@@ -49,28 +72,19 @@
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-xl sm:rounded-xl">
                     <div class="p-6 sm:p-8">
-                        <!-- Header with stats -->
-                        <div class="grid grid-cols-1 gap-4 mb-8 md:grid-cols-4">
+                        <!-- Header with stats - now dynamic -->
+                        <div class="grid grid-cols-1 gap-4 mb-8 md:grid-cols-5">
                             <div class="p-4 border border-indigo-100 rounded-lg bg-indigo-50">
                                 <div class="text-sm font-medium text-indigo-600">Total Tickets</div>
                                 <div class="mt-1 text-2xl font-bold text-indigo-800">{{ tickets.length }}</div>
                             </div>
-                            <div class="p-4 border border-blue-100 rounded-lg bg-blue-50">
-                                <div class="text-sm font-medium text-blue-600">Open</div>
-                                <div class="mt-1 text-2xl font-bold text-blue-800">
-                                    {{ tickets.filter(t => t.status === 'open').length }}
+                            <div v-for="stat in statusStats" :key="stat.id" class="p-4 border rounded-lg"
+                                :class="`border-${stat.color}-100 bg-${stat.color}-50`">
+                                <div class="text-sm font-medium" :class="`text-${stat.color}-600`">
+                                    {{ stat.name }}
                                 </div>
-                            </div>
-                            <div class="p-4 border border-yellow-100 rounded-lg bg-yellow-50">
-                                <div class="text-sm font-medium text-yellow-600">Pending</div>
-                                <div class="mt-1 text-2xl font-bold text-yellow-800">
-                                    {{ tickets.filter(t => t.status === 'pending').length }}
-                                </div>
-                            </div>
-                            <div class="p-4 border border-green-100 rounded-lg bg-green-50">
-                                <div class="text-sm font-medium text-green-600">Solved</div>
-                                <div class="mt-1 text-2xl font-bold text-green-800">
-                                    {{ tickets.filter(t => t.status === 'solved').length }}
+                                <div class="mt-1 text-2xl font-bold" :class="`text-${stat.color}-800`">
+                                    {{ stat.count }}
                                 </div>
                             </div>
                         </div>
@@ -134,11 +148,10 @@
                                             <td class="px-6 py-4 whitespace-nowrap">
                                                 <span
                                                     class="inline-flex px-3 py-1 text-xs font-semibold leading-5 capitalize rounded-full">
-
-                                                    {{ ticket.support_topic.support_unit.department.name }} <br>
-                                                    {{ ticket.support_topic.support_unit.name }} <br>
-                                                    {{ ticket.support_topic.name }}
-
+                                                    {{ ticket.support_topic?.support_unit?.department?.name || 'N/A' }}
+                                                    <br>
+                                                    {{ ticket.support_topic?.support_unit?.name || 'N/A' }} <br>
+                                                    {{ ticket.support_topic?.name || 'N/A' }}
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
@@ -149,8 +162,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 whitespace-nowrap">
-                                                <span
-                                                    :class="statusColors[ticket.status] || 'bg-gray-100 text-gray-800'"
+                                                <span :class="getStatusColorClass(ticket.status)"
                                                     class="inline-flex px-3 py-1 text-xs font-semibold leading-5 capitalize rounded-full">
                                                     {{ ticket.status.name }}
                                                 </span>
@@ -202,11 +214,6 @@
                                 </table>
                             </div>
                         </div>
-
-                        <!-- Pagination would go here if needed -->
-                        <!-- <div class="flex items-center justify-between mt-6">
-                                ...
-                            </div> -->
                     </div>
                 </div>
             </div>
