@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Query\Builder;
 
 class Ticket extends Model
 {
@@ -28,6 +29,11 @@ class Ticket extends Model
         return $this->belongsTo(User::class, 'created_by');
     }
 
+    public function creator()
+    {
+        return $this->belongsTo(User::class, 'created_by');
+    }
+
     public function agents()
     {
         return $this->belongsToMany(User::class, 'ticket_agent_assignments');
@@ -46,5 +52,10 @@ class Ticket extends Model
     public function status()
     {
         return $this->belongsTo(TicketStatus::class);
+    }
+
+    public function scopeUnassigned($query)
+    {
+        return $query->whereDoesntHave('agents');
     }
 }
