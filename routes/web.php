@@ -15,7 +15,7 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
             'canRegister' => Route::has('register'),
             'appName' => config('app.name')
         ]);
-    });
+    })->name('home');
     require __DIR__ . '/auth.php';
 
     // This route is used to serve the frontend application after login
