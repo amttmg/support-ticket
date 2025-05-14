@@ -25,7 +25,36 @@ class TicketResource extends Resource
     {
         return $form
             ->schema([
-                //
+                Forms\Components\Section::make('Ticket Information')
+                    ->schema([
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+
+                        Forms\Components\Select::make('support_topic_id')
+                            ->relationship('supportTopic', 'name')
+                            ->required(),
+
+                        Forms\Components\Select::make('status_id')
+                            ->relationship('status', 'name')
+                            ->required(),
+
+                        Forms\Components\Select::make('priority')
+                            ->options([
+                                'low' => 'Low',
+                                'medium' => 'Medium',
+                                'high' => 'High',
+                            ])
+                            ->required(),
+                    ])->columns(2),
+
+                Forms\Components\Section::make('Description')
+                    ->schema([
+                        Forms\Components\RichEditor::make('description')
+                            ->columnSpanFull(),
+                    ]),
+
+
             ]);
     }
 

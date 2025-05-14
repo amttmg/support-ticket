@@ -58,4 +58,15 @@ class Ticket extends Model
     {
         return $query->whereDoesntHave('agents');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::creating(function ($model) {
+            if (auth()->check()) {
+                $model->created_by = auth()->id();
+            }
+        });
+    }
 }
