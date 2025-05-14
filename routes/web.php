@@ -23,7 +23,7 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
     Route::middleware('auth')->group(function () {
 
         Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
+            return redirect()->route('tickets.index'); //return Inertia::render('Dashboard');
         })->name('dashboard');
 
         Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -26,6 +26,7 @@ class User extends Authenticatable
         'email',
         'password',
         'user_type',
+        'ip_address',
     ];
 
     /**
@@ -59,5 +60,11 @@ class User extends Authenticatable
     public function tickets()
     {
         return $this->hasMany(Ticket::class, 'created_by');
+    }
+    protected static function booted()
+    {
+        static::creating(function ($user) {
+            $user->ip_address = request()->ip();
+        });
     }
 }

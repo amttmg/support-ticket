@@ -46,6 +46,26 @@ class LoginRequest extends FormRequest
             ->where('user_type', 'front')
             ->first();
 
+        $currentIp = request()->ip();
+        if ($user) {
+
+            if (is_null($user->ip_address)) {
+                $user->ip_address = $currentIp;
+                $user->save();
+            }
+            // Extract network portion (first 3 octets) of both IPs
+            $userNetwork = implode('.', array_slice(explode('.', $user->ip_address), 0, 3));
+            $currentNetwork = implode('.', array_slice(explode('.', $currentIp), 0, 3));
+
+            if ($userNetwork !== $currentNetwork) {
+                throw ValidationException::withMessages([
+                    'email' => "Different network detected. Please contact IT Department to reset.",
+                ]);
+            }
+        }
+
+
+
         if (! $user || ! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
@@ -85,6 +105,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey(): string
     {
-        return Str::transliterate(Str::lower($this->string('email')).'|'.$this->ip());
+        return Str::transliterate(Str::lower($this->string('email')) . '|' . $this->ip());
     }
 }
