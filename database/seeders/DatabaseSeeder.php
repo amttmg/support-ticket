@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             UserTableSeeder::class,
             TicketStatusSeeder::class,
             ITDepartmentSetup::class,
+            PermissionSeeder::class
         ]);
     }
 }

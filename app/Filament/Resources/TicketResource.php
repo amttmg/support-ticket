@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Constants\PermissionConstants;
 use App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Ticket;
@@ -128,6 +129,7 @@ class TicketResource extends Resource
                 Tables\Actions\ViewAction::make(),
 
                 Tables\Actions\Action::make('assignUsers')
+                    ->visible(fn() => auth()->user()->can(PermissionConstants::PERMISSION_ASSIGN_TO_OTHERS))
                     ->label('Assign')
                     ->icon('heroicon-o-user-plus')
                     ->modalHeading('Assign Users to Ticket')
@@ -167,6 +169,7 @@ class TicketResource extends Resource
                             ->send();
                     }),
                 Tables\Actions\Action::make('assignSelf')
+                    ->visible(fn() => auth()->user()->can(PermissionConstants::PERMISSION_ASSIGN_TO_ME))
                     ->label('Claim')
                     ->icon('heroicon-o-user-circle')
                     ->requiresConfirmation()
