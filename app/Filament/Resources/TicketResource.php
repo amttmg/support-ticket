@@ -25,7 +25,7 @@ class TicketResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
-    protected static ?string $navigationLabel = 'Support Tickets';
+    protected static ?string $navigationLabel = 'Unassign Tickets';
 
     protected static ?string $pluralLabel = 'Unassigned Tickets';
 
@@ -129,7 +129,7 @@ class TicketResource extends Resource
 
                 Tables\Actions\Action::make('assignUsers')
                     ->label('Assign')
-                    ->icon('heroicon-o-users')
+                    ->icon('heroicon-o-user-plus')
                     ->modalHeading('Assign Users to Ticket')
                     ->modalWidth('sm')
                     ->form([
@@ -168,7 +168,7 @@ class TicketResource extends Resource
                     }),
                 Tables\Actions\Action::make('assignSelf')
                     ->label('Claim')
-                    ->icon('heroicon-o-users')
+                    ->icon('heroicon-o-user-circle')
                     ->requiresConfirmation()
                     ->modalHeading('Claim Ticket')
                     ->modalDescription('Are you sure you want to assign yourself on this ticket?')
