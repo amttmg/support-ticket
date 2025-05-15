@@ -16,7 +16,7 @@ return [
     'team_model' => \App\Models\Team::class,
 
     'scope_to_tenant' => true,
-    
+
     'scope_roles_to_tenant' => true,
     'scope_premissions_to_tenant' => false,
 
@@ -82,7 +82,8 @@ return [
 
     'guard_names' => [
         'web' => 'web',
-        'api' => 'api',
+        // 'api' => 'api',
+        'admin' => 'admin',
     ],
 
     'toggleable_guard_names' => [
@@ -94,7 +95,7 @@ return [
         ],
     ],
 
-    'default_guard_name' => null,
+    'default_guard_name' => "admin",
 
     // if false guard option will not be show on screen. You should set a default_guard_name in this case
     'should_show_guard' => true,
@@ -140,8 +141,9 @@ return [
     'generator' => [
 
         'guard_names' => [
-            'web',
-            'api',
+            // 'web',
+            // 'api',
+            'admin',
         ],
 
         'permission_affixes' => [

@@ -136,7 +136,7 @@ class RoleResource extends Resource
 
     public static function getPermissions()
     {
-        $permissions = Permission::where('guard_name', 'web')->get();
+        $permissions = Permission::where('guard_name', 'admin')->get();
 
         // Group permissions by resource (e.g., "Department", "Designation")
         return $permissions

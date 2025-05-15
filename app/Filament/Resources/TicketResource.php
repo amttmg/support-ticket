@@ -81,15 +81,15 @@ class TicketResource extends Resource
                 Tables\Columns\TextColumn::make('supportTopic.name')
                     ->sortable(),
 
-                Tables\Columns\TextColumn::make('status.name')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Open' => 'info',
-                        'In Progress' => 'warning',
-                        'Resolved' => 'success',
-                        'Closed' => 'danger',
-                        default => 'gray',
-                    }),
+                // Tables\Columns\TextColumn::make('status.name')
+                //     ->badge()
+                //     ->color(fn(string $state): string => match ($state) {
+                //         'Open' => 'info',
+                //         'In Progress' => 'warning',
+                //         'Resolved' => 'success',
+                //         'Closed' => 'danger',
+                //         default => 'gray',
+                //     }),
 
                 Tables\Columns\TextColumn::make('priority')
                     ->badge()
