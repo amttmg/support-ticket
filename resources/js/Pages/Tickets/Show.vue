@@ -13,14 +13,14 @@
 
     <AuthenticatedLayout>
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+            <h2 class="text-xl font-semibold leading-tight text-gray-800">
                 Ticket Details
             </h2>
         </template>
 
         <div class="py-12">
-            <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-                <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
+            <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
+                <div class="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                     <div class="p-6 text-gray-900">
                         <div class="mb-6">
                             <h3 class="text-2xl font-bold">{{ ticket.title }}</h3>
@@ -29,26 +29,23 @@
                                             'bg-green-100 text-green-800': ticket.priority === 'low',
                                             'bg-yellow-100 text-yellow-800': ticket.priority === 'medium',
                                             'bg-red-100 text-red-800': ticket.priority === 'high',
-                                        }" class="px-3 py-1 text-sm font-semibold rounded-full capitalize">
+                                        }" class="px-3 py-1 text-sm font-semibold capitalize rounded-full">
                                     {{ ticket.priority }} priority
                                 </span>
-                                <span class="px-3 py-1 text-sm font-semibold rounded-full bg-blue-100 text-blue-800">
-                                    Open
-                                </span>
-                                <span class="text-sm text-gray-500">
-                                    Created {{ new Date(ticket.created_at).toLocaleDateString() }}
+                                <span class="px-3 py-1 text-sm font-semibold text-blue-800 bg-blue-100 rounded-full">
+                                    {{ ticket.status.name }}
                                 </span>
                             </div>
                         </div>
 
-                        <div class="mb-8 p-4 bg-gray-50 rounded-lg">
-                            <h4 class="font-medium text-lg mb-2">Description</h4>
+                        <div class="p-4 mb-8 rounded-lg bg-gray-50">
+                            <h4 class="mb-2 text-lg font-medium">Description</h4>
                             <p class="whitespace-pre-line">{{ ticket.description }}</p>
                         </div>
 
                         <div class="flex justify-end">
                             <Link :href="route('tickets.index')"
-                                class="inline-flex items-center px-4 py-2 bg-gray-800 border border-transparent rounded-md font-semibold text-xs text-white uppercase tracking-widest hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2 transition ease-in-out duration-150">
+                                class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-gray-800 border border-transparent rounded-md hover:bg-gray-700 focus:bg-gray-700 active:bg-gray-900 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-offset-2">
                             Back to Tickets
                             </Link>
                         </div>

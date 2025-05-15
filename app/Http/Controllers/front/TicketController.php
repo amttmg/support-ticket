@@ -16,15 +16,17 @@ class TicketController extends Controller
     // Display all tickets for the authenticated user
     public function index()
     {
+        $tickets = Ticket::with([
+            'supportTopic',
+            'supportTopic.supportUnit',
+            'supportTopic.supportUnit.department',
+            'status'
+        ])->where('created_by', auth()->id())
+            ->latest()
+            ->get();
+
         return Inertia::render('Tickets/Index', [
-            'tickets' => Ticket::with([
-                'supportTopic',
-                'supportTopic.supportUnit',
-                'supportTopic.supportUnit.department',
-                'status'
-            ])->where('created_by', auth()->id())
-                ->latest()
-                ->get()
+            'tickets' => $tickets,
         ]);
     }
 
@@ -54,12 +56,13 @@ class TicketController extends Controller
     // Show a single ticket
     public function show(Ticket $ticket)
     {
-        //$this->authorize('view', $ticket);
+        $ticket->load('status');
 
         return Inertia::render('Tickets/Show', [
             'ticket' => $ticket
         ]);
     }
+    
 
     // Get all departments
     public function getDepartments()
