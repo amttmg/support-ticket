@@ -12,7 +12,17 @@ class TicketKanbanBoard extends KanbanBoard
     protected static string $model = Ticket::class;
     protected static string $statusEnum = TicketStatus::class;
     protected static string $recordStatusAttribute = 'status_id';
-    protected static string $kanbanHeight = '1000px';
+
+    protected static ?string $navigationLabel = 'My Tickets';
+
+    protected static ?string $pluralLabel = 'My Tickets';
+
+    protected static ?string $navigationGroup = 'Support';
+
+    protected static ?string $breadcrumb = 'Tickets';
+
+    protected static ?string $title = 'My Tickets';
+
 
     protected function records(): Collection
     {
