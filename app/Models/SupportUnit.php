@@ -23,6 +23,6 @@ class SupportUnit extends Model
 
     public function agents()
     {
-        return $this->belongsToMany(User::class)->withTimestamps()->withTrashed();
+        return $this->belongsToMany(User::class); //->withTimestamps()->withTrashed();
     }
 }

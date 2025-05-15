@@ -74,4 +74,13 @@ class Ticket extends Model
             }
         });
     }
+
+    public function scopeForSupportUnitUser($query, $userId = null)
+    {
+        $userId = $userId ?? auth()->id();
+
+        return $query->whereHas('supportTopic.supportUnit.agents', function ($q) use ($userId) {
+            $q->where('users.id', $userId);
+        });
+    }
 }

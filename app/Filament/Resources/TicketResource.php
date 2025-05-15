@@ -72,7 +72,7 @@ class TicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Ticket::query()->unassigned()->with(['supportTopic', 'status', 'creator']))
+            ->query(Ticket::query()->forSupportUnitUser()->unassigned()->with(['supportTopic', 'status', 'creator']))
             ->columns([
 
                 Tables\Columns\TextColumn::make('title')
