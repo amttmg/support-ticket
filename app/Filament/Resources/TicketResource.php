@@ -5,9 +5,13 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Ticket;
+use App\Models\TicketAgentAssignment;
+use App\Models\User;
 use Dom\Text;
 use Filament\Forms;
+use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\TextColumn;
@@ -21,20 +25,31 @@ class TicketResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+    protected static ?string $navigationLabel = 'Support Tickets';
+
+    protected static ?string $pluralLabel = 'Unassigned Tickets';
+
+    protected static ?string $navigationGroup = 'Support';
+
+    protected static ?string $breadcrumb = 'Tickets';
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Ticket Information')
+                Forms\Components\Section::make('Ticket Details')
                     ->schema([
-                        Forms\Components\TextInput::make('title')
-                            ->required()
-                            ->maxLength(255),
-
                         Forms\Components\Select::make('support_topic_id')
                             ->relationship('supportTopic', 'name')
                             ->required(),
-
+                        Forms\Components\TextInput::make('title')
+                            ->required()
+                            ->maxLength(255),
+                        Forms\Components\RichEditor::make('description')
+                            ->columnSpanFull(),
+                    ]),
+                Forms\Components\Section::make('Ticket Information')
+                    ->schema([
                         Forms\Components\Select::make('status_id')
                             ->relationship('status', 'name')
                             ->required(),
@@ -48,11 +63,7 @@ class TicketResource extends Resource
                             ->required(),
                     ])->columns(2),
 
-                Forms\Components\Section::make('Description')
-                    ->schema([
-                        Forms\Components\RichEditor::make('description')
-                            ->columnSpanFull(),
-                    ]),
+
 
 
             ]);
@@ -61,10 +72,8 @@ class TicketResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(Ticket::query()->where('status_id', 1)->unassigned()->with(['supportTopic', 'status', 'creator']))
+            ->query(Ticket::query()->unassigned()->with(['supportTopic', 'status', 'creator']))
             ->columns([
-                Tables\Columns\TextColumn::make('id')
-                    ->sortable(),
 
                 Tables\Columns\TextColumn::make('title')
                     ->searchable(),
@@ -96,7 +105,7 @@ class TicketResource extends Resource
                     ->placeholder('Unknown'),
 
                 Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
+                    ->since()
                     ->sortable(),
             ])
             ->filters([
@@ -117,12 +126,71 @@ class TicketResource extends Resource
             ])
             ->actions([
                 Tables\Actions\ViewAction::make(),
-                // Tables\Actions\EditAction::make(),
+
+                Tables\Actions\Action::make('assignUsers')
+                    ->label('Assign')
+                    ->icon('heroicon-o-users')
+                    ->modalHeading('Assign Users to Ticket')
+                    ->modalWidth('sm')
+                    ->form([
+                        Select::make('user_ids')
+                            ->label('Assign to Users')
+                            ->options(User::query()->pluck('name', 'id'))
+                            ->multiple()
+                            ->searchable()
+                            ->required(),
+                    ])
+                    ->action(function (Ticket $record, array $data): void {
+                        $existingAssignments = $record->assignments()->pluck('user_id')->toArray();
+                        $newAssignments = array_diff($data['user_ids'], $existingAssignments);
+
+                        foreach ($newAssignments as $userId) {
+                            TicketAgentAssignment::create([
+                                'ticket_id' => $record->id,
+                                'user_id' => $userId,
+                                'role' => 'agent',
+                                'status' => 'assigned'
+                            ]);
+                        }
+
+                        // Update ticket status if not already assigned
+                        if ($record->assignments()->count() > 0 && $record->status->slug !== 'assigned') {
+                            $assignedStatus = \App\Models\TicketStatus::where('slug', 'assigned')->first();
+                            if ($assignedStatus) {
+                                $record->update(['status_id' => $assignedStatus->id]);
+                            }
+                        }
+
+                        Notification::make()
+                            ->title(count($newAssignments) . ' users assigned successfully')
+                            ->success()
+                            ->send();
+                    }),
+                Tables\Actions\Action::make('assignSelf')
+                    ->label('Claim')
+                    ->icon('heroicon-o-users')
+                    ->requiresConfirmation()
+                    ->modalHeading('Claim Ticket')
+                    ->modalDescription('Are you sure you want to assign yourself on this ticket?')
+                    ->modalWidth('sm')
+                    ->action(function (Ticket $record): void {
+                        TicketAgentAssignment::create([
+                            'ticket_id' => $record->id,
+                            'user_id' => auth()->user()->id,
+                            'role' => 'agent',
+                            'status' => 'assigned'
+                        ]);
+                        Notification::make()
+                            ->title('users assigned successfully')
+                            ->success()
+                            ->send();
+                    }),
+
             ])
             ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
+                // Tables\Actions\BulkActionGroup::make([
+                //     Tables\Actions\DeleteBulkAction::make(),
+                // ]),
             ]);
     }
 
@@ -138,7 +206,7 @@ class TicketResource extends Resource
         return [
             'index' => Pages\ListTickets::route('/'),
             'create' => Pages\CreateTicket::route('/create'),
-            'edit' => Pages\EditTicket::route('/{record}/edit'),
+            // 'edit' => Pages\EditTicket::route('/{record}/edit'),
         ];
     }
 }

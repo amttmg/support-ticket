@@ -59,6 +59,11 @@ class Ticket extends Model
         return $query->whereDoesntHave('agents');
     }
 
+    public function assignments()
+    {
+        return $this->hasMany(TicketAgentAssignment::class);
+    }
+
     protected static function boot()
     {
         parent::boot();
