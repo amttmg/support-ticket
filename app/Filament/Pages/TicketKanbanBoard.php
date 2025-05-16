@@ -2,8 +2,11 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Helpers\TicketForms;
+use App\Filament\Resources\TicketResource;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
+use Filament\Forms\Form;
 use Mokhosh\FilamentKanban\Pages\KanbanBoard;
 use Illuminate\Support\Collection;
 
@@ -32,5 +35,26 @@ class TicketKanbanBoard extends KanbanBoard
                 $query->where('users.id', auth()->id());
             })
             ->get();
+    }
+    protected function getEditModalFormSchema(null|int|string $recordId): array
+    {
+        // return [
+        //     \Filament\Forms\Components\TextInput::make('title')
+        //         ->required()
+        //         ->label('Title'),
+        //     \Filament\Forms\Components\Textarea::make('description')
+        //         ->required()
+        //         ->label('Description'),
+        //     \Filament\Forms\Components\Select::make('status_id')
+        //         ->relationship('status', 'name')
+        //         ->required()
+        //         ->label('Status'),
+        // ];
+
+        return TicketForms::basicSchema(true);
+    }
+    protected function getEditModalWidth(): string
+    {
+        return '5xl'; // or '7xl' for wider
     }
 }

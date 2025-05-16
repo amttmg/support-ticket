@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Constants\PermissionConstants;
+use App\Filament\Helpers\TicketForms;
 use App\Filament\Resources\TicketResource\Pages;
 use App\Filament\Resources\TicketResource\RelationManagers;
 use App\Models\Ticket;
@@ -36,38 +37,7 @@ class TicketResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form
-            ->schema([
-                Forms\Components\Section::make('Ticket Details')
-                    ->schema([
-                        Forms\Components\Select::make('support_topic_id')
-                            ->relationship('supportTopic', 'name')
-                            ->required(),
-                        Forms\Components\TextInput::make('title')
-                            ->required()
-                            ->maxLength(255),
-                        Forms\Components\RichEditor::make('description')
-                            ->columnSpanFull(),
-                    ]),
-                Forms\Components\Section::make('Ticket Information')
-                    ->schema([
-                        Forms\Components\Select::make('status_id')
-                            ->relationship('status', 'name')
-                            ->required(),
-
-                        Forms\Components\Select::make('priority')
-                            ->options([
-                                'low' => 'Low',
-                                'medium' => 'Medium',
-                                'high' => 'High',
-                            ])
-                            ->required(),
-                    ])->columns(2),
-
-
-
-
-            ]);
+        return $form->schema(TicketForms::basicSchema(true));
     }
 
     public static function table(Table $table): Table
@@ -81,16 +51,6 @@ class TicketResource extends Resource
 
                 Tables\Columns\TextColumn::make('supportTopic.name')
                     ->sortable(),
-
-                // Tables\Columns\TextColumn::make('status.name')
-                //     ->badge()
-                //     ->color(fn(string $state): string => match ($state) {
-                //         'Open' => 'info',
-                //         'In Progress' => 'warning',
-                //         'Resolved' => 'success',
-                //         'Closed' => 'danger',
-                //         default => 'gray',
-                //     }),
 
                 Tables\Columns\TextColumn::make('priority')
                     ->badge()
