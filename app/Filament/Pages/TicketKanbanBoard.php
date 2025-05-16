@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Constants\TicketStatusConstant;
 use App\Filament\Helpers\TicketForms;
 use App\Filament\Resources\TicketResource;
 use App\Models\Ticket;
@@ -56,5 +57,13 @@ class TicketKanbanBoard extends KanbanBoard
     protected function getEditModalWidth(): string
     {
         return '5xl'; // or '7xl' for wider
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) Ticket::query()
+            ->forSupportUnitUser()
+            ->where('status_id', TicketStatusConstant::OPEN)
+            ->count();
     }
 }

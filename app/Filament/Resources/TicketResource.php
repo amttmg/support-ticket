@@ -39,6 +39,13 @@ class TicketResource extends Resource
     {
         return $form->schema(TicketForms::basicSchema(true));
     }
+    public static function getNavigationBadge(): ?string
+    {
+        return (string) Ticket::query()
+            ->forSupportUnitUser()
+            ->unassigned()
+            ->count();
+    }
 
     public static function table(Table $table): Table
     {

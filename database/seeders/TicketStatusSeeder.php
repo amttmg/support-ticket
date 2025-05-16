@@ -12,12 +12,7 @@ class TicketStatusSeeder extends Seeder
      */
     public function run(): void
     {
-        $statuses = [
-            ['name' => 'Open', 'slug' => 'open'],
-            ['name' => 'In Progress', 'slug' => 'in-progress'],
-            ['name' => 'Resolved', 'slug' => 'resolved'],
-            ['name' => 'Closed', 'slug' => 'closed'],
-        ];
+        $statuses = \App\Constants\TicketStatusConstant::getStatuses();
 
         foreach ($statuses as $status) {
             \App\Models\TicketStatus::updateOrCreate(
