@@ -1,0 +1,2612 @@
+[
+    {
+        "code": "102",
+        "name": "Ramechhap",
+        "ip_range": "172.16.49.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:01",
+        "last_connected_at": "2025-05-16 12:14:01"
+    },
+    {
+        "code": "103",
+        "name": "Dhading",
+        "ip_range": "172.16.42.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:05",
+        "last_connected_at": "2025-05-16 12:14:05"
+    },
+    {
+        "code": "104",
+        "name": "Dhulikhel",
+        "ip_range": "172.16.25.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:05",
+        "last_connected_at": "2025-05-16 12:14:05"
+    },
+    {
+        "code": "105",
+        "name": "Gajuri",
+        "ip_range": "172.16.40.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "106",
+        "name": "Sindhuli",
+        "ip_range": "172.16.133.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "107",
+        "name": "Bhimphedi",
+        "ip_range": "172.19.130.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "108",
+        "name": "Khanikhola",
+        "ip_range": "172.16.43.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "110",
+        "name": "Thamel",
+        "ip_range": "172.16.12.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "111",
+        "name": "Thimi",
+        "ip_range": "172.16.32.129",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "112",
+        "name": "Lalitpur",
+        "ip_range": "172.16.21.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:09",
+        "last_connected_at": "2025-05-16 12:14:09"
+    },
+    {
+        "code": "113",
+        "name": "Putalisadak",
+        "ip_range": "172.16.16.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "114",
+        "name": "Pulchowk",
+        "ip_range": "172.16.20.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "115",
+        "name": "Maharajgunj",
+        "ip_range": "172.16.14.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "116",
+        "name": "Naxal",
+        "ip_range": "172.16.14.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "117",
+        "name": "Kirtipur",
+        "ip_range": "172.16.24.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "119",
+        "name": "Balaju",
+        "ip_range": "172.16.22.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "120",
+        "name": "Pharping",
+        "ip_range": "172.16.52.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "121",
+        "name": "Gaur",
+        "ip_range": "172.16.141.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:10",
+        "last_connected_at": "2025-05-16 12:14:10"
+    },
+    {
+        "code": "122",
+        "name": "Janakpur",
+        "ip_range": "172.16.134.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:14",
+        "last_connected_at": "2025-05-16 12:14:14"
+    },
+    {
+        "code": "123",
+        "name": "Simara",
+        "ip_range": "172.16.147.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:14",
+        "last_connected_at": "2025-05-16 12:14:14"
+    },
+    {
+        "code": "124",
+        "name": "Dhanusha Mahendranagar",
+        "ip_range": "172.16.139.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:15",
+        "last_connected_at": "2025-05-16 12:14:15"
+    },
+    {
+        "code": "125",
+        "name": "Birgunj",
+        "ip_range": "172.16.131.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:18",
+        "last_connected_at": "2025-05-16 12:14:18"
+    },
+    {
+        "code": "126",
+        "name": "Kalaiya",
+        "ip_range": "172.16.136.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:22",
+        "last_connected_at": "2025-05-16 12:14:22"
+    },
+    {
+        "code": "127",
+        "name": "Jaleshwor",
+        "ip_range": "172.16.142.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:30",
+        "last_connected_at": "2025-05-16 12:14:30"
+    },
+    {
+        "code": "128",
+        "name": "Lalbandi",
+        "ip_range": "172.16.137.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:34",
+        "last_connected_at": "2025-05-16 12:14:34"
+    },
+    {
+        "code": "129",
+        "name": "Nijgadh",
+        "ip_range": "172.16.140.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:38",
+        "last_connected_at": "2025-05-16 12:14:38"
+    },
+    {
+        "code": "130",
+        "name": "Hetauda",
+        "ip_range": "172.16.130.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:42",
+        "last_connected_at": "2025-05-16 12:14:42"
+    },
+    {
+        "code": "131",
+        "name": "Bharatpur",
+        "ip_range": "172.16.129.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:46",
+        "last_connected_at": "2025-05-16 12:14:46"
+    },
+    {
+        "code": "132",
+        "name": "Sanghutar",
+        "ip_range": "172.16.158.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:46",
+        "last_connected_at": "2025-05-16 12:14:46"
+    },
+    {
+        "code": "133",
+        "name": "Shreepur",
+        "ip_range": "172.16.135.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:50",
+        "last_connected_at": "2025-05-16 12:14:50"
+    },
+    {
+        "code": "134",
+        "name": "Gaushala",
+        "ip_range": "172.16.19.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:14:54",
+        "last_connected_at": "2025-05-16 12:14:54"
+    },
+    {
+        "code": "135",
+        "name": "Lubhu",
+        "ip_range": "172.16.51.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:02",
+        "last_connected_at": "2025-05-16 12:15:02"
+    },
+    {
+        "code": "136",
+        "name": "Bhotahity",
+        "ip_range": "172.16.11.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:02",
+        "last_connected_at": "2025-05-16 12:15:02"
+    },
+    {
+        "code": "137",
+        "name": "Suryabinayak",
+        "ip_range": "172.16.27.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:03",
+        "last_connected_at": "2025-05-16 12:15:03"
+    },
+    {
+        "code": "139",
+        "name": "Gunjbhawanipur",
+        "ip_range": "172.16.156.1",
+        "active": "1",
+        "connection": "0",
+        "refresh_at": "2025-05-16 12:16:09",
+        "last_connected_at": "2025-05-16 11:34:25"
+    },
+    {
+        "code": "142",
+        "name": "Baneshwor",
+        "ip_range": "172.16.17.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:14",
+        "last_connected_at": "2025-05-16 12:15:14"
+    },
+    {
+        "code": "143",
+        "name": "Thapathali",
+        "ip_range": "172.16.8.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:14",
+        "last_connected_at": "2025-05-16 12:15:14"
+    },
+    {
+        "code": "145",
+        "name": "Jadukoha",
+        "ip_range": "172.16.146.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:18",
+        "last_connected_at": "2025-05-16 12:15:18"
+    },
+    {
+        "code": "146",
+        "name": "Madi",
+        "ip_range": "172.19.134.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:18",
+        "last_connected_at": "2025-05-16 12:15:18"
+    },
+    {
+        "code": "147",
+        "name": "Jalbire",
+        "ip_range": "172.16.53.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:19",
+        "last_connected_at": "2025-05-16 12:15:19"
+    },
+    {
+        "code": "148",
+        "name": "Ratamata",
+        "ip_range": "172.16.48.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:22",
+        "last_connected_at": "2025-05-16 12:15:22"
+    },
+    {
+        "code": "149",
+        "name": "Kharanitar",
+        "ip_range": "172.16.50.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:22",
+        "last_connected_at": "2025-05-16 12:15:22"
+    },
+    {
+        "code": "150",
+        "name": "Parsadhap",
+        "ip_range": "172.16.144.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:26",
+        "last_connected_at": "2025-05-16 12:15:26"
+    },
+    {
+        "code": "151",
+        "name": "Balawabazar",
+        "ip_range": "172.19.128.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:30",
+        "last_connected_at": "2025-05-16 12:15:30"
+    },
+    {
+        "code": "152",
+        "name": "Pidarichowk",
+        "ip_range": "172.16.138.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:34",
+        "last_connected_at": "2025-05-16 12:15:34"
+    },
+    {
+        "code": "153",
+        "name": "Kapilakot",
+        "ip_range": "172.16.155.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:34",
+        "last_connected_at": "2025-05-16 12:15:34"
+    },
+    {
+        "code": "154",
+        "name": "Bhakundebesi",
+        "ip_range": "172.16.46.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:35",
+        "last_connected_at": "2025-05-16 12:15:35"
+    },
+    {
+        "code": "155",
+        "name": "Maitidevi",
+        "ip_range": "172.16.31.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:35",
+        "last_connected_at": "2025-05-16 12:15:35"
+    },
+    {
+        "code": "156",
+        "name": "Pipara",
+        "ip_range": "172.19.129.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:35",
+        "last_connected_at": "2025-05-16 12:15:35"
+    },
+    {
+        "code": "157",
+        "name": "Thosey",
+        "ip_range": "172.19.49.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:39",
+        "last_connected_at": "2025-05-16 12:15:39"
+    },
+    {
+        "code": "158",
+        "name": "Bardibas",
+        "ip_range": "172.16.132.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:39",
+        "last_connected_at": "2025-05-16 12:15:39"
+    },
+    {
+        "code": "161",
+        "name": "Charikot",
+        "ip_range": "172.16.30.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:39",
+        "last_connected_at": "2025-05-16 12:15:39"
+    },
+    {
+        "code": "162",
+        "name": "Narayanghat",
+        "ip_range": "172.16.128.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:43",
+        "last_connected_at": "2025-05-16 12:15:43"
+    },
+    {
+        "code": "163",
+        "name": "Bhiman",
+        "ip_range": "172.16.151.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:43",
+        "last_connected_at": "2025-05-16 12:15:43"
+    },
+    {
+        "code": "166",
+        "name": "Budhanilkantha",
+        "ip_range": "172.16.29.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:43",
+        "last_connected_at": "2025-05-16 12:15:43"
+    },
+    {
+        "code": "168",
+        "name": "Manthali",
+        "ip_range": "172.16.45.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:47",
+        "last_connected_at": "2025-05-16 12:15:47"
+    },
+    {
+        "code": "169",
+        "name": "tia",
+        "ip_range": "172.16.18.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:47",
+        "last_connected_at": "2025-05-16 12:15:47"
+    },
+    {
+        "code": "170",
+        "name": "Teku",
+        "ip_range": "172.16.10.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:47",
+        "last_connected_at": "2025-05-16 12:15:47"
+    },
+    {
+        "code": "171",
+        "name": "Garudabazar",
+        "ip_range": "172.16.143.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:51",
+        "last_connected_at": "2025-05-16 12:15:51"
+    },
+    {
+        "code": "172",
+        "name": "Pokhariya",
+        "ip_range": "172.19.133.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "173",
+        "name": "Sanothimi",
+        "ip_range": "172.16.28.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "175",
+        "name": "Kalanki",
+        "ip_range": "172.16.23.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "177",
+        "name": "Bidur",
+        "ip_range": "172.16.41.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "181",
+        "name": "Banepa",
+        "ip_range": "172.16.26.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "183",
+        "name": "Ratnanagar",
+        "ip_range": "172.16.148.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:55",
+        "last_connected_at": "2025-05-16 12:15:55"
+    },
+    {
+        "code": "184",
+        "name": "Barhathawa",
+        "ip_range": "172.16.149.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:15:59",
+        "last_connected_at": "2025-05-16 12:15:59"
+    },
+    {
+        "code": "186",
+        "name": "Balara",
+        "ip_range": "172.16.150.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:03",
+        "last_connected_at": "2025-05-16 12:16:03"
+    },
+    {
+        "code": "187",
+        "name": "Durbarmarga",
+        "ip_range": "172.16.56.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:03",
+        "last_connected_at": "2025-05-16 12:16:03"
+    },
+    {
+        "code": "188",
+        "name": "Boudha",
+        "ip_range": "172.19.10.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:03",
+        "last_connected_at": "2025-05-16 12:16:03"
+    },
+    {
+        "code": "189",
+        "name": "Maulapur",
+        "ip_range": "172.16.154.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:07",
+        "last_connected_at": "2025-05-16 12:16:07"
+    },
+    {
+        "code": "190",
+        "name": "Ishnath",
+        "ip_range": "172.16.152.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:08",
+        "last_connected_at": "2025-05-16 12:16:08"
+    },
+    {
+        "code": "191",
+        "name": "Suvarnapur",
+        "ip_range": "172.16.153.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:12",
+        "last_connected_at": "2025-05-16 12:16:12"
+    },
+    {
+        "code": "192",
+        "name": "Kalikasthan",
+        "ip_range": "172.16.157.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:16",
+        "last_connected_at": "2025-05-16 12:16:16"
+    },
+    {
+        "code": "193",
+        "name": "Koteshwor",
+        "ip_range": "172.19.11.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:16",
+        "last_connected_at": "2025-05-16 12:16:16"
+    },
+    {
+        "code": "194",
+        "name": "Tokha",
+        "ip_range": "172.19.12.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:16",
+        "last_connected_at": "2025-05-16 12:16:16"
+    },
+    {
+        "code": "195",
+        "name": "Malekhu",
+        "ip_range": "172.16.39.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:16",
+        "last_connected_at": "2025-05-16 12:16:16"
+    },
+    {
+        "code": "196",
+        "name": "Singhadurbarparisar",
+        "ip_range": "172.19.16.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:16:16",
+        "last_connected_at": "2025-05-16 12:16:16"
+    },
+    {
+        "code": "197",
+        "name": "Chandrapur",
+        "ip_range": "172.19.132.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:14",
+        "last_connected_at": "2025-05-16 12:06:14"
+    },
+    {
+        "code": "198",
+        "name": "Bhaisepati",
+        "ip_range": "172.19.19.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:14",
+        "last_connected_at": "2025-05-16 12:06:14"
+    },
+    {
+        "code": "199",
+        "name": "Swayambhu",
+        "ip_range": "172.19.20.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:18",
+        "last_connected_at": "2025-05-16 12:06:18"
+    },
+    {
+        "code": "201",
+        "name": "Dhankuta",
+        "ip_range": "172.16.188.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:22",
+        "last_connected_at": "2025-05-16 12:06:22"
+    },
+    {
+        "code": "202",
+        "name": "Sallari",
+        "ip_range": "172.16.47.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:26",
+        "last_connected_at": "2025-05-16 12:06:26"
+    },
+    {
+        "code": "203",
+        "name": "Chainpur",
+        "ip_range": "172.16.190.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:26",
+        "last_connected_at": "2025-05-16 12:06:26"
+    },
+    {
+        "code": "204",
+        "name": "Bhojpur",
+        "ip_range": "172.16.186.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:34",
+        "last_connected_at": "2025-05-16 12:06:34"
+    },
+    {
+        "code": "205",
+        "name": "Katari",
+        "ip_range": "172.16.182.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:34",
+        "last_connected_at": "2025-05-16 12:06:34"
+    },
+    {
+        "code": "206",
+        "name": "Diktel",
+        "ip_range": "172.16.187.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:42",
+        "last_connected_at": "2025-05-16 12:06:42"
+    },
+    {
+        "code": "207",
+        "name": "Okhaldhunga",
+        "ip_range": "172.16.193.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:42",
+        "last_connected_at": "2025-05-16 12:06:42"
+    },
+    {
+        "code": "208",
+        "name": "Khandbari",
+        "ip_range": "172.16.185.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:46",
+        "last_connected_at": "2025-05-16 12:06:46"
+    },
+    {
+        "code": "209",
+        "name": "Gaighat",
+        "ip_range": "172.16.181.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:50",
+        "last_connected_at": "2025-05-16 12:06:50"
+    },
+    {
+        "code": "210",
+        "name": "Phikkal",
+        "ip_range": "172.16.191.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:50",
+        "last_connected_at": "2025-05-16 12:06:50"
+    },
+    {
+        "code": "211",
+        "name": "Hile",
+        "ip_range": "172.16.189.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:31",
+        "last_connected_at": "2025-05-16 12:09:31"
+    },
+    {
+        "code": "212",
+        "name": "Biratnagar",
+        "ip_range": "172.16.166.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:06:58",
+        "last_connected_at": "2025-05-16 12:06:58"
+    },
+    {
+        "code": "213",
+        "name": "Siraha",
+        "ip_range": "172.16.183.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:02",
+        "last_connected_at": "2025-05-16 12:07:02"
+    },
+    {
+        "code": "214",
+        "name": "Damak",
+        "ip_range": "172.16.173.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:02",
+        "last_connected_at": "2025-05-16 12:07:02"
+    },
+    {
+        "code": "215",
+        "name": "Mirchaiya",
+        "ip_range": "172.16.184.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:02",
+        "last_connected_at": "2025-05-16 12:07:02"
+    },
+    {
+        "code": "216",
+        "name": "Dharan",
+        "ip_range": "172.16.165.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:06",
+        "last_connected_at": "2025-05-16 12:07:06"
+    },
+    {
+        "code": "217",
+        "name": "Shivagunj",
+        "ip_range": "172.16.195.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:10",
+        "last_connected_at": "2025-05-16 12:07:10"
+    },
+    {
+        "code": "218",
+        "name": "Rajbiraj",
+        "ip_range": "172.16.177.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:10",
+        "last_connected_at": "2025-05-16 12:07:10"
+    },
+    {
+        "code": "219",
+        "name": "Katahari",
+        "ip_range": "172.16.163.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:14",
+        "last_connected_at": "2025-05-16 12:07:14"
+    },
+    {
+        "code": "221",
+        "name": "Bhadrapur Malpot",
+        "ip_range": "172.19.5.145",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:14",
+        "last_connected_at": "2025-05-16 12:07:14"
+    },
+    {
+        "code": "222",
+        "name": "Inaruwa",
+        "ip_range": "172.16.175.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:22",
+        "last_connected_at": "2025-05-16 12:07:22"
+    },
+    {
+        "code": "223",
+        "name": "Hanumannagar",
+        "ip_range": "172.16.198.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:22",
+        "last_connected_at": "2025-05-16 12:07:22"
+    },
+    {
+        "code": "225",
+        "name": "Bargachhi",
+        "ip_range": "172.16.167.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:23",
+        "last_connected_at": "2025-05-16 12:07:23"
+    },
+    {
+        "code": "226",
+        "name": "Lahan",
+        "ip_range": "172.16.180.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:34",
+        "last_connected_at": "2025-05-16 12:07:34"
+    },
+    {
+        "code": "227",
+        "name": "Namchebazar",
+        "ip_range": "172.16.170.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:34",
+        "last_connected_at": "2025-05-16 12:07:34"
+    },
+    {
+        "code": "228",
+        "name": "Pashupatinagar",
+        "ip_range": "172.16.202.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:38",
+        "last_connected_at": "2025-05-16 12:07:38"
+    },
+    {
+        "code": "229",
+        "name": "Dingla",
+        "ip_range": "172.16.203.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:38",
+        "last_connected_at": "2025-05-16 12:07:38"
+    },
+    {
+        "code": "230",
+        "name": "Yasok",
+        "ip_range": "172.19.223.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:39",
+        "last_connected_at": "2025-05-16 12:07:39"
+    },
+    {
+        "code": "232",
+        "name": "Kathauna",
+        "ip_range": "172.16.196.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:39",
+        "last_connected_at": "2025-05-16 12:07:39"
+    },
+    {
+        "code": "233",
+        "name": "Aaiselukharka",
+        "ip_range": "172.16.214.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:39",
+        "last_connected_at": "2025-05-16 12:07:39"
+    },
+    {
+        "code": "234",
+        "name": "Duhabi",
+        "ip_range": "172.16.205.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:43",
+        "last_connected_at": "2025-05-16 12:07:43"
+    },
+    {
+        "code": "235",
+        "name": "Jeetpur",
+        "ip_range": "172.16.199.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:43",
+        "last_connected_at": "2025-05-16 12:07:43"
+    },
+    {
+        "code": "236",
+        "name": "Chakchaki",
+        "ip_range": "172.19.211.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:43",
+        "last_connected_at": "2025-05-16 12:07:43"
+    },
+    {
+        "code": "237",
+        "name": "Beltar",
+        "ip_range": "172.16.174.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:47",
+        "last_connected_at": "2025-05-16 12:07:47"
+    },
+    {
+        "code": "238",
+        "name": "Khotangbazar",
+        "ip_range": "172.16.197.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:47",
+        "last_connected_at": "2025-05-16 12:07:47"
+    },
+    {
+        "code": "239",
+        "name": "Sukhipur",
+        "ip_range": "172.16.176.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:47",
+        "last_connected_at": "2025-05-16 12:07:47"
+    },
+    {
+        "code": "240",
+        "name": "Bayarbann",
+        "ip_range": "172.16.212.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:51",
+        "last_connected_at": "2025-05-16 12:07:51"
+    },
+    {
+        "code": "243",
+        "name": "Belbari",
+        "ip_range": "172.16.178.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:55",
+        "last_connected_at": "2025-05-16 12:07:55"
+    },
+    {
+        "code": "244",
+        "name": "Jhapabazar",
+        "ip_range": "172.16.211.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:55",
+        "last_connected_at": "2025-05-16 12:07:55"
+    },
+    {
+        "code": "246",
+        "name": "Ilambazar",
+        "ip_range": "172.16.192.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:59",
+        "last_connected_at": "2025-05-16 12:07:59"
+    },
+    {
+        "code": "247",
+        "name": "Phidim",
+        "ip_range": "172.16.207.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:07:59",
+        "last_connected_at": "2025-05-16 12:07:59"
+    },
+    {
+        "code": "248",
+        "name": "Manebhanjyang",
+        "ip_range": "172.16.209.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:03",
+        "last_connected_at": "2025-05-16 12:08:03"
+    },
+    {
+        "code": "249",
+        "name": "Madhumalla",
+        "ip_range": "172.19.208.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:07",
+        "last_connected_at": "2025-05-16 12:08:07"
+    },
+    {
+        "code": "251",
+        "name": "Karsiyabazar",
+        "ip_range": "172.19.210.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:11",
+        "last_connected_at": "2025-05-16 12:08:11"
+    },
+    {
+        "code": "252",
+        "name": "Nechabihibare",
+        "ip_range": "172.16.248.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:19",
+        "last_connected_at": "2025-05-16 12:08:19"
+    },
+    {
+        "code": "253",
+        "name": "Baksila",
+        "ip_range": "172.16.162.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:23",
+        "last_connected_at": "2025-05-16 12:08:23"
+    },
+    {
+        "code": "255",
+        "name": "Itahari",
+        "ip_range": "172.16.164.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:31",
+        "last_connected_at": "2025-05-16 12:08:31"
+    },
+    {
+        "code": "256",
+        "name": "Pathari",
+        "ip_range": "172.16.194.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:31",
+        "last_connected_at": "2025-05-16 12:08:31"
+    },
+    {
+        "code": "259",
+        "name": "Sijuwabazar",
+        "ip_range": "172.16.204.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:35",
+        "last_connected_at": "2025-05-16 12:08:35"
+    },
+    {
+        "code": "260",
+        "name": "Urlabari",
+        "ip_range": "172.16.179.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:39",
+        "last_connected_at": "2025-05-16 12:08:39"
+    },
+    {
+        "code": "261",
+        "name": "Devkotachowk",
+        "ip_range": "172.16.168.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:43",
+        "last_connected_at": "2025-05-16 12:08:43"
+    },
+    {
+        "code": "262",
+        "name": "Birtamod",
+        "ip_range": "172.16.169.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:43",
+        "last_connected_at": "2025-05-16 12:08:43"
+    },
+    {
+        "code": "263",
+        "name": "Sukkhabandargaha Biratnagar",
+        "ip_range": "172.16.172.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:43",
+        "last_connected_at": "2025-05-16 12:08:43"
+    },
+    {
+        "code": "264",
+        "name": "Panbari",
+        "ip_range": "172.19.209.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:47",
+        "last_connected_at": "2025-05-16 12:08:47"
+    },
+    {
+        "code": "265",
+        "name": "Mahendrachowk",
+        "ip_range": "172.16.216.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:47",
+        "last_connected_at": "2025-05-16 12:08:47"
+    },
+    {
+        "code": "266",
+        "name": "Basantapur",
+        "ip_range": "172.16.215.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:47",
+        "last_connected_at": "2025-05-16 12:08:47"
+    },
+    {
+        "code": "267",
+        "name": "Hangpang",
+        "ip_range": "172.16.217.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:47",
+        "last_connected_at": "2025-05-16 12:08:47"
+    },
+    {
+        "code": "269",
+        "name": "Bayalbas",
+        "ip_range": "172.19.137.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:51",
+        "last_connected_at": "2025-05-16 12:08:51"
+    },
+    {
+        "code": "270",
+        "name": "Pachrukhi",
+        "ip_range": "172.19.164.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:51",
+        "last_connected_at": "2025-05-16 12:08:51"
+    },
+    {
+        "code": "271",
+        "name": "Dhulabari",
+        "ip_range": "172.19.203.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:59",
+        "last_connected_at": "2025-05-16 12:08:59"
+    },
+    {
+        "code": "272",
+        "name": "Golbazar",
+        "ip_range": "172.19.184.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:08:59",
+        "last_connected_at": "2025-05-16 12:08:59"
+    },
+    {
+        "code": "273",
+        "name": "Kolhabi",
+        "ip_range": "172.19.140.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:03",
+        "last_connected_at": "2025-05-16 12:09:03"
+    },
+    {
+        "code": "274",
+        "name": "Biratchowk",
+        "ip_range": "172.19.178.1",
+        "active": "1",
+        "connection": "0",
+        "refresh_at": "2025-05-16 12:16:13",
+        "last_connected_at": null
+    },
+    {
+        "code": "275",
+        "name": "Gauradaha",
+        "ip_range": "172.19.195.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:07",
+        "last_connected_at": "2025-05-16 12:09:07"
+    },
+    {
+        "code": "276",
+        "name": "Pokharibazar",
+        "ip_range": "172.16.213.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:07",
+        "last_connected_at": "2025-05-16 12:09:07"
+    },
+    {
+        "code": "277",
+        "name": "Surunga",
+        "ip_range": "172.19.212.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "278",
+        "name": "Bhutaha",
+        "ip_range": "172.19.175.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "301",
+        "name": "Gulmi",
+        "ip_range": "172.16.110.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "302",
+        "name": "Prithivichowk",
+        "ip_range": "172.16.97.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "303",
+        "name": "Palpa",
+        "ip_range": "172.16.102.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "304",
+        "name": "Besishahar",
+        "ip_range": "172.16.105.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:08",
+        "last_connected_at": "2025-05-16 12:09:08"
+    },
+    {
+        "code": "305",
+        "name": "Sandhikharka",
+        "ip_range": "172.16.111.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:12",
+        "last_connected_at": "2025-05-16 12:09:12"
+    },
+    {
+        "code": "306",
+        "name": "Gorkha",
+        "ip_range": "172.16.101.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:12",
+        "last_connected_at": "2025-05-16 12:09:12"
+    },
+    {
+        "code": "308",
+        "name": "Bhairahawa",
+        "ip_range": "172.16.99.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:16",
+        "last_connected_at": "2025-05-16 12:09:16"
+    },
+    {
+        "code": "309",
+        "name": "Triveni",
+        "ip_range": "172.16.225.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:16",
+        "last_connected_at": "2025-05-16 12:09:16"
+    },
+    {
+        "code": "310",
+        "name": "Parasi",
+        "ip_range": "172.16.112.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:16",
+        "last_connected_at": "2025-05-16 12:09:16"
+    },
+    {
+        "code": "311",
+        "name": "Taulihawa",
+        "ip_range": "172.16.114.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:17",
+        "last_connected_at": "2025-05-16 12:09:17"
+    },
+    {
+        "code": "312",
+        "name": "Butwal Khasauli",
+        "ip_range": "172.16.100.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:20",
+        "last_connected_at": "2025-05-16 12:09:20"
+    },
+    {
+        "code": "313",
+        "name": "Tangikot",
+        "ip_range": "172.19.104.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:20",
+        "last_connected_at": "2025-05-16 12:09:20"
+    },
+    {
+        "code": "314",
+        "name": "Aryabhanjyang",
+        "ip_range": "172.16.124.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:20",
+        "last_connected_at": "2025-05-16 12:09:20"
+    },
+    {
+        "code": "316",
+        "name": "Ridibazaar",
+        "ip_range": "172.16.63.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:24",
+        "last_connected_at": "2025-05-16 12:09:24"
+    },
+    {
+        "code": "317",
+        "name": "Chandrauta",
+        "ip_range": "172.19.105.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:28",
+        "last_connected_at": "2025-05-16 12:09:28"
+    },
+    {
+        "code": "319",
+        "name": "Aanbukhaireni",
+        "ip_range": "172.16.103.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:36",
+        "last_connected_at": "2025-05-16 12:09:36"
+    },
+    {
+        "code": "320",
+        "name": "Kawasoti",
+        "ip_range": "172.16.108.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:40",
+        "last_connected_at": "2025-05-16 12:09:40"
+    },
+    {
+        "code": "321",
+        "name": "Arughat",
+        "ip_range": "172.16.116.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:44",
+        "last_connected_at": "2025-05-16 12:09:44"
+    },
+    {
+        "code": "323",
+        "name": "Harthok",
+        "ip_range": "172.16.222.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:44",
+        "last_connected_at": "2025-05-16 12:09:44"
+    },
+    {
+        "code": "324",
+        "name": "Bhachhek",
+        "ip_range": "172.16.118.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:45",
+        "last_connected_at": "2025-05-16 12:09:45"
+    },
+    {
+        "code": "325",
+        "name": "Galyang Bazar",
+        "ip_range": "172.16.224.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:45",
+        "last_connected_at": "2025-05-16 12:09:45"
+    },
+    {
+        "code": "326",
+        "name": "Suryapura",
+        "ip_range": "172.16.226.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:49",
+        "last_connected_at": "2025-05-16 12:09:49"
+    },
+    {
+        "code": "327",
+        "name": "Arjunchaupari",
+        "ip_range": "172.16.218.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:53",
+        "last_connected_at": "2025-05-16 12:09:53"
+    },
+    {
+        "code": "328",
+        "name": "Purtighat",
+        "ip_range": "172.19.106.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:09:57",
+        "last_connected_at": "2025-05-16 12:09:57"
+    },
+    {
+        "code": "330",
+        "name": "Lunkhu Deurali",
+        "ip_range": "172.16.228.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:01",
+        "last_connected_at": "2025-05-16 12:10:01"
+    },
+    {
+        "code": "333",
+        "name": "Bardaghat",
+        "ip_range": "172.16.106.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:05",
+        "last_connected_at": "2025-05-16 12:10:05"
+    },
+    {
+        "code": "334",
+        "name": "Benibazar",
+        "ip_range": "172.16.107.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:09",
+        "last_connected_at": "2025-05-16 12:10:09"
+    },
+    {
+        "code": "335",
+        "name": "Gaidakot",
+        "ip_range": "172.16.126.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:09",
+        "last_connected_at": "2025-05-16 12:10:09"
+    },
+    {
+        "code": "336",
+        "name": "Rajmarg Chauraha",
+        "ip_range": "172.16.123.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:09",
+        "last_connected_at": "2025-05-16 12:10:09"
+    },
+    {
+        "code": "337",
+        "name": "Baglungbazar",
+        "ip_range": "172.16.104.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:13",
+        "last_connected_at": "2025-05-16 12:10:13"
+    },
+    {
+        "code": "338",
+        "name": "Thada",
+        "ip_range": "172.16.223.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:13",
+        "last_connected_at": "2025-05-16 12:10:13"
+    },
+    {
+        "code": "339",
+        "name": "Kotihawa",
+        "ip_range": "172.16.121.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:17",
+        "last_connected_at": "2025-05-16 12:10:17"
+    },
+    {
+        "code": "340",
+        "name": "Kusma",
+        "ip_range": "172.16.109.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:17",
+        "last_connected_at": "2025-05-16 12:10:17"
+    },
+    {
+        "code": "341",
+        "name": "Sunwal",
+        "ip_range": "172.16.113.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:25",
+        "last_connected_at": "2025-05-16 12:10:25"
+    },
+    {
+        "code": "343",
+        "name": "Mahendrapul",
+        "ip_range": "172.16.96.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:29",
+        "last_connected_at": "2025-05-16 12:10:29"
+    },
+    {
+        "code": "344",
+        "name": "Patichour",
+        "ip_range": "172.16.127.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:33",
+        "last_connected_at": "2025-05-16 12:10:33"
+    },
+    {
+        "code": "346",
+        "name": "Talchowk",
+        "ip_range": "172.16.120.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:33",
+        "last_connected_at": "2025-05-16 12:10:33"
+    },
+    {
+        "code": "347",
+        "name": "Syangjabazar",
+        "ip_range": "172.16.117.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:33",
+        "last_connected_at": "2025-05-16 12:10:33"
+    },
+    {
+        "code": "348",
+        "name": "Amarsinghchowk",
+        "ip_range": "172.16.98.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:33",
+        "last_connected_at": "2025-05-16 12:10:33"
+    },
+    {
+        "code": "349",
+        "name": "Sukkhabandargaha Bhairahawa",
+        "ip_range": "172.16.115.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:37",
+        "last_connected_at": "2025-05-16 12:10:37"
+    },
+    {
+        "code": "350",
+        "name": "Pardi",
+        "ip_range": "172.16.119.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:41",
+        "last_connected_at": "2025-05-16 12:10:41"
+    },
+    {
+        "code": "351",
+        "name": "Rampur",
+        "ip_range": "172.16.122.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:45",
+        "last_connected_at": "2025-05-16 12:10:45"
+    },
+    {
+        "code": "352",
+        "name": "Damauli",
+        "ip_range": "172.16.220.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:49",
+        "last_connected_at": "2025-05-16 12:10:49"
+    },
+    {
+        "code": "353",
+        "name": "Banganga",
+        "ip_range": "172.16.221.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:49",
+        "last_connected_at": "2025-05-16 12:10:49"
+    },
+    {
+        "code": "354",
+        "name": "Phalebas",
+        "ip_range": "172.16.227.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:49",
+        "last_connected_at": "2025-05-16 12:10:49"
+    },
+    {
+        "code": "355",
+        "name": "Lakeside",
+        "ip_range": "172.19.100.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:49",
+        "last_connected_at": "2025-05-16 12:10:49"
+    },
+    {
+        "code": "356",
+        "name": "manang",
+        "ip_range": "172.16.252.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:49",
+        "last_connected_at": "2025-05-16 12:10:49"
+    },
+    {
+        "code": "357",
+        "name": "Khairenitar",
+        "ip_range": "172.19.103.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:53",
+        "last_connected_at": "2025-05-16 12:10:53"
+    },
+    {
+        "code": "358",
+        "name": "Mustang",
+        "ip_range": "172.19.101.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:10:57",
+        "last_connected_at": "2025-05-16 12:10:57"
+    },
+    {
+        "code": "359",
+        "name": "Sherabazar",
+        "ip_range": "172.19.125.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:01",
+        "last_connected_at": "2025-05-16 12:11:01"
+    },
+    {
+        "code": "360",
+        "name": "Wamitaksar",
+        "ip_range": "172.19.110.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:05",
+        "last_connected_at": "2025-05-16 12:11:05"
+    },
+    {
+        "code": "361",
+        "name": "Waling",
+        "ip_range": "172.19.117.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:05",
+        "last_connected_at": "2025-05-16 12:11:05"
+    },
+    {
+        "code": "362",
+        "name": "Manigram",
+        "ip_range": "172.19.107.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:05",
+        "last_connected_at": "2025-05-16 12:11:05"
+    },
+    {
+        "code": "363",
+        "name": "Harichowk",
+        "ip_range": "172.19.96.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:06",
+        "last_connected_at": "2025-05-16 12:11:06"
+    },
+    {
+        "code": "401",
+        "name": "Dailekh",
+        "ip_range": "172.16.80.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:09",
+        "last_connected_at": "2025-05-16 12:11:09"
+    },
+    {
+        "code": "402",
+        "name": "Dadeldhura",
+        "ip_range": "172.16.87.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:13",
+        "last_connected_at": "2025-05-16 12:11:13"
+    },
+    {
+        "code": "403",
+        "name": "Jumla",
+        "ip_range": "172.16.75.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:13",
+        "last_connected_at": "2025-05-16 12:11:13"
+    },
+    {
+        "code": "404",
+        "name": "Bayalpata",
+        "ip_range": "172.16.235.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:17",
+        "last_connected_at": "2025-05-16 12:11:17"
+    },
+    {
+        "code": "405",
+        "name": "Baitadi",
+        "ip_range": "172.16.86.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:17",
+        "last_connected_at": "2025-05-16 12:11:17"
+    },
+    {
+        "code": "406",
+        "name": "Mugu",
+        "ip_range": "172.16.82.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:21",
+        "last_connected_at": "2025-05-16 12:11:21"
+    },
+    {
+        "code": "407",
+        "name": "Bajura",
+        "ip_range": "172.16.85.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:25",
+        "last_connected_at": "2025-05-16 12:11:25"
+    },
+    {
+        "code": "408",
+        "name": "Surkhet",
+        "ip_range": "172.16.73.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:25",
+        "last_connected_at": "2025-05-16 12:11:25"
+    },
+    {
+        "code": "409",
+        "name": "Darchula",
+        "ip_range": "172.16.83.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:26",
+        "last_connected_at": "2025-05-16 12:11:26"
+    },
+    {
+        "code": "410",
+        "name": "Doti",
+        "ip_range": "172.16.88.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:26",
+        "last_connected_at": "2025-05-16 12:11:26"
+    },
+    {
+        "code": "411",
+        "name": "Bajhang",
+        "ip_range": "172.16.84.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:30",
+        "last_connected_at": "2025-05-16 12:11:30"
+    },
+    {
+        "code": "412",
+        "name": "Manma",
+        "ip_range": "172.16.81.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:30",
+        "last_connected_at": "2025-05-16 12:11:30"
+    },
+    {
+        "code": "413",
+        "name": "Nepalgunj",
+        "ip_range": "172.16.66.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:34",
+        "last_connected_at": "2025-05-16 12:11:34"
+    },
+    {
+        "code": "414",
+        "name": "Gulariya",
+        "ip_range": "172.16.70.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:34",
+        "last_connected_at": "2025-05-16 12:11:34"
+    },
+    {
+        "code": "415",
+        "name": "Bhajani",
+        "ip_range": "172.16.91.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:34",
+        "last_connected_at": "2025-05-16 12:11:34"
+    },
+    {
+        "code": "416",
+        "name": "Tulsipur",
+        "ip_range": "172.16.74.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:38",
+        "last_connected_at": "2025-05-16 12:11:38"
+    },
+    {
+        "code": "417",
+        "name": "Dhangadhi",
+        "ip_range": "172.16.67.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:42",
+        "last_connected_at": "2025-05-16 12:11:42"
+    },
+    {
+        "code": "418",
+        "name": "Mahendranagar",
+        "ip_range": "172.16.68.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:46",
+        "last_connected_at": "2025-05-16 12:11:46"
+    },
+    {
+        "code": "419",
+        "name": "Simikot",
+        "ip_range": "172.16.78.1",
+        "active": "1",
+        "connection": "0",
+        "refresh_at": "2025-05-16 12:16:13",
+        "last_connected_at": null
+    },
+    {
+        "code": "420",
+        "name": "Satti",
+        "ip_range": "172.19.79.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:50",
+        "last_connected_at": "2025-05-16 12:11:50"
+    },
+    {
+        "code": "421",
+        "name": "Shivasarojsthal",
+        "ip_range": "172.16.62.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:54",
+        "last_connected_at": "2025-05-16 12:11:54"
+    },
+    {
+        "code": "422",
+        "name": "Chaumala",
+        "ip_range": "172.16.233.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:54",
+        "last_connected_at": "2025-05-16 12:11:54"
+    },
+    {
+        "code": "424",
+        "name": "Attariya",
+        "ip_range": "172.16.69.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:11:58",
+        "last_connected_at": "2025-05-16 12:11:58"
+    },
+    {
+        "code": "425",
+        "name": "Hasuliya",
+        "ip_range": "172.16.159.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:02",
+        "last_connected_at": "2025-05-16 12:12:02"
+    },
+    {
+        "code": "426",
+        "name": "Mangalsen",
+        "ip_range": "172.16.90.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:06",
+        "last_connected_at": "2025-05-16 12:12:06"
+    },
+    {
+        "code": "427",
+        "name": "Tribhuwanchowk",
+        "ip_range": "172.16.61.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:06",
+        "last_connected_at": "2025-05-16 12:12:06"
+    },
+    {
+        "code": "428",
+        "name": "Kohalpur",
+        "ip_range": "172.16.71.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:10",
+        "last_connected_at": "2025-05-16 12:12:10"
+    },
+    {
+        "code": "429",
+        "name": "Lamahi",
+        "ip_range": "172.16.72.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:10",
+        "last_connected_at": "2025-05-16 12:12:10"
+    },
+    {
+        "code": "430",
+        "name": "Dipayal",
+        "ip_range": "172.16.89.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:14",
+        "last_connected_at": "2025-05-16 12:12:14"
+    },
+    {
+        "code": "431",
+        "name": "Holari",
+        "ip_range": "172.16.94.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:14",
+        "last_connected_at": "2025-05-16 12:12:14"
+    },
+    {
+        "code": "433",
+        "name": "Chaurjahari",
+        "ip_range": "172.16.64.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:14",
+        "last_connected_at": "2025-05-16 12:12:14"
+    },
+    {
+        "code": "434",
+        "name": "Dullu",
+        "ip_range": "172.16.65.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:18",
+        "last_connected_at": "2025-05-16 12:12:18"
+    },
+    {
+        "code": "435",
+        "name": "Khajura",
+        "ip_range": "172.16.59.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:18",
+        "last_connected_at": "2025-05-16 12:12:18"
+    },
+    {
+        "code": "436",
+        "name": "Narayanpur",
+        "ip_range": "172.16.93.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:22",
+        "last_connected_at": "2025-05-16 12:12:22"
+    },
+    {
+        "code": "438",
+        "name": "Luham",
+        "ip_range": "172.16.230.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:22",
+        "last_connected_at": "2025-05-16 12:12:22"
+    },
+    {
+        "code": "439",
+        "name": "Belauri",
+        "ip_range": "172.16.76.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:26",
+        "last_connected_at": "2025-05-16 12:12:26"
+    },
+    {
+        "code": "441",
+        "name": "Kolti",
+        "ip_range": "172.16.231.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:30",
+        "last_connected_at": "2025-05-16 12:12:30"
+    },
+    {
+        "code": "442",
+        "name": "Bidhyapur",
+        "ip_range": "172.16.237.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:34",
+        "last_connected_at": "2025-05-16 12:12:34"
+    },
+    {
+        "code": "443",
+        "name": "Bijuwar",
+        "ip_range": "172.16.77.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:38",
+        "last_connected_at": "2025-05-16 12:12:38"
+    },
+    {
+        "code": "445",
+        "name": "Lamki",
+        "ip_range": "172.16.79.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:38",
+        "last_connected_at": "2025-05-16 12:12:38"
+    },
+    {
+        "code": "447",
+        "name": "Bhurigaun",
+        "ip_range": "172.16.92.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:38",
+        "last_connected_at": "2025-05-16 12:12:38"
+    },
+    {
+        "code": "448",
+        "name": "Mehelkuna",
+        "ip_range": "172.16.232.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:42",
+        "last_connected_at": "2025-05-16 12:12:42"
+    },
+    {
+        "code": "449",
+        "name": "Campusroad",
+        "ip_range": "172.19.53.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:42",
+        "last_connected_at": "2025-05-16 12:12:42"
+    },
+    {
+        "code": "450",
+        "name": "Masta",
+        "ip_range": "172.16.239.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:42",
+        "last_connected_at": "2025-05-16 12:12:42"
+    },
+    {
+        "code": "451",
+        "name": "Soru",
+        "ip_range": "172.16.160.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:42",
+        "last_connected_at": "2025-05-16 12:12:42"
+    },
+    {
+        "code": "452",
+        "name": "Mudkechula",
+        "ip_range": "172.16.161.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:42",
+        "last_connected_at": "2025-05-16 12:12:42"
+    },
+    {
+        "code": "454",
+        "name": "Dolpobuddha",
+        "ip_range": "172.16.57.33",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:43",
+        "last_connected_at": "2025-05-16 12:12:43"
+    },
+    {
+        "code": "455",
+        "name": "Mugum Karmarong",
+        "ip_range": "172.16.57.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:43",
+        "last_connected_at": "2025-05-16 12:12:43"
+    },
+    {
+        "code": "456",
+        "name": "Bansgadhi",
+        "ip_range": "172.19.54.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:47",
+        "last_connected_at": "2025-05-16 12:12:47"
+    },
+    {
+        "code": "457",
+        "name": "Ghorahi",
+        "ip_range": "172.19.55.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:51",
+        "last_connected_at": "2025-05-16 12:12:51"
+    },
+    {
+        "code": "458",
+        "name": "Dunai",
+        "ip_range": "172.16.200.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:12:59",
+        "last_connected_at": "2025-05-16 12:12:59"
+    },
+    {
+        "code": "459",
+        "name": "Jajarkot",
+        "ip_range": "172.19.51.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:03",
+        "last_connected_at": "2025-05-16 12:13:03"
+    },
+    {
+        "code": "460",
+        "name": "Rukumkot",
+        "ip_range": "172.19.50.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:03",
+        "last_connected_at": "2025-05-16 12:13:03"
+    },
+    {
+        "code": "462",
+        "name": "Chhinchu",
+        "ip_range": "172.19.72.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:03",
+        "last_connected_at": "2025-05-16 12:13:03"
+    },
+    {
+        "code": "463",
+        "name": "Raskot",
+        "ip_range": "172.19.90.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:03",
+        "last_connected_at": "2025-05-16 12:13:03"
+    },
+    {
+        "code": "464",
+        "name": "Rakam Karnali",
+        "ip_range": "172.19.81.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:07",
+        "last_connected_at": "2025-05-16 12:13:07"
+    },
+    {
+        "code": "465",
+        "name": "Patan",
+        "ip_range": "172.19.85.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:11",
+        "last_connected_at": "2025-05-16 12:13:11"
+    },
+    {
+        "code": "466",
+        "name": "Gokuleshwor",
+        "ip_range": "172.19.83.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:15",
+        "last_connected_at": "2025-05-16 12:13:15"
+    },
+    {
+        "code": "467",
+        "name": "Nalgad",
+        "ip_range": "172.19.59.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:15",
+        "last_connected_at": "2025-05-16 12:13:15"
+    },
+    {
+        "code": "468",
+        "name": "Mainapokhar",
+        "ip_range": "172.19.71.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:19",
+        "last_connected_at": "2025-05-16 12:13:19"
+    },
+    {
+        "code": "501",
+        "name": "Chautara",
+        "ip_range": "172.19.52.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:23",
+        "last_connected_at": "2025-05-16 12:13:23"
+    },
+    {
+        "code": "502",
+        "name": "Taplejung",
+        "ip_range": "172.19.205.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:31",
+        "last_connected_at": "2025-05-16 12:13:31"
+    },
+    {
+        "code": "503",
+        "name": "Rolpa",
+        "ip_range": "172.19.75.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:35",
+        "last_connected_at": "2025-05-16 12:13:35"
+    },
+    {
+        "code": "504",
+        "name": "Pyuthan",
+        "ip_range": "172.19.68.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:35",
+        "last_connected_at": "2025-05-16 12:13:35"
+    },
+    {
+        "code": "505",
+        "name": "Rasuwa",
+        "ip_range": "172.19.158.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:39",
+        "last_connected_at": "2025-05-16 12:13:39"
+    },
+    {
+        "code": "506",
+        "name": "Chame",
+        "ip_range": "172.19.126.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:39",
+        "last_connected_at": "2025-05-16 12:13:39"
+    },
+    {
+        "code": "507",
+        "name": "Musikot",
+        "ip_range": "172.19.204.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:43",
+        "last_connected_at": "2025-05-16 12:13:43"
+    },
+    {
+        "code": "508",
+        "name": "Tehrathum",
+        "ip_range": "172.19.202.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:43",
+        "last_connected_at": "2025-05-16 12:13:43"
+    },
+    {
+        "code": "509",
+        "name": "Malangawa",
+        "ip_range": "172.19.141.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:47",
+        "last_connected_at": "2025-05-16 12:13:47"
+    },
+    {
+        "code": "510",
+        "name": "Salyan",
+        "ip_range": "172.19.80.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:47",
+        "last_connected_at": "2025-05-16 12:13:47"
+    },
+    {
+        "code": "511",
+        "name": "Balambu",
+        "ip_range": "172.19.22.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:51",
+        "last_connected_at": "2025-05-16 12:13:51"
+    },
+    {
+        "code": "512",
+        "name": "Thali",
+        "ip_range": "172.19.26.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:51",
+        "last_connected_at": "2025-05-16 12:13:51"
+    },
+    {
+        "code": "513",
+        "name": "Thaiba",
+        "ip_range": "172.19.25.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:51",
+        "last_connected_at": "2025-05-16 12:13:51"
+    },
+    {
+        "code": "514",
+        "name": "Chapagau",
+        "ip_range": "172.19.23.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:52",
+        "last_connected_at": "2025-05-16 12:13:52"
+    },
+    {
+        "code": "515",
+        "name": "Kamalbinayak",
+        "ip_range": "172.19.24.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:52",
+        "last_connected_at": "2025-05-16 12:13:52"
+    },
+    {
+        "code": "516",
+        "name": "Birendranagar",
+        "ip_range": "172.19.74.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "517",
+        "name": "Netrawati",
+        "ip_range": "172.19.42.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "520",
+        "name": "Rawabesi",
+        "ip_range": "172.19.187.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "521",
+        "name": "Lazimpat",
+        "ip_range": "172.19.14.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "522",
+        "name": "Sukedhara",
+        "ip_range": "172.19.29.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "523",
+        "name": "Gongabu",
+        "ip_range": "172.19.21.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "524",
+        "name": "Golfutar",
+        "ip_range": "172.19.13.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "525",
+        "name": "Mangalbazar",
+        "ip_range": "172.19.28.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:56",
+        "last_connected_at": "2025-05-16 12:13:56"
+    },
+    {
+        "code": "526",
+        "name": "Gwarko",
+        "ip_range": "172.19.27.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    },
+    {
+        "code": "527",
+        "name": "Nayathimi",
+        "ip_range": "172.19.32.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    },
+    {
+        "code": "528",
+        "name": "Sanopokhara",
+        "ip_range": "172.19.135.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    },
+    {
+        "code": "529",
+        "name": "Parsabazar",
+        "ip_range": "172.19.148.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    },
+    {
+        "code": "530",
+        "name": "Panchkhal",
+        "ip_range": "172.16.208.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    },
+    {
+        "code": "2211",
+        "name": "Bhadrapur",
+        "ip_range": "172.16.171.1",
+        "active": "1",
+        "connection": "1",
+        "refresh_at": "2025-05-16 12:13:57",
+        "last_connected_at": "2025-05-16 12:13:57"
+    }
+]
