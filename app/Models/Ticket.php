@@ -83,4 +83,13 @@ class Ticket extends Model
             $q->where('users.id', $userId);
         });
     }
+
+    public function scopeMyTickets($query, $userId = null)
+    {
+        $userId = $userId ?? auth()->id();
+
+        return $query->whereHas('agents', function ($q) use ($userId) {
+            $q->where('users.id', $userId);
+        });
+    }
 }

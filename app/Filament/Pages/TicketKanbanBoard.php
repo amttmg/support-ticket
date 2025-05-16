@@ -62,7 +62,7 @@ class TicketKanbanBoard extends KanbanBoard
     public static function getNavigationBadge(): ?string
     {
         return (string) Ticket::query()
-            ->forSupportUnitUser()
+            ->myTickets()
             ->where('status_id', TicketStatusConstant::OPEN)
             ->count();
     }
