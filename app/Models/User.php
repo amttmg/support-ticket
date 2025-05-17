@@ -16,6 +16,8 @@ class User extends Authenticatable
     /** @use HasFactory<\Database\Factories\UserFactory> */
     use HasFactory, Notifiable, HasRoles, HasSuperAdmin;
 
+    protected $appends = ['branch'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -66,5 +68,12 @@ class User extends Authenticatable
         static::creating(function ($user) {
             $user->ip_address = request()->ip();
         });
+    }
+
+    public function getBranchAttribute()
+    {
+        $ipAddress = $this->ip_address;
+        $networkPart = implode('.', array_slice(explode('.', $ipAddress), 0, 3));
+        return Branch::where('ip_range', 'like', $networkPart . '.%')->first();
     }
 }

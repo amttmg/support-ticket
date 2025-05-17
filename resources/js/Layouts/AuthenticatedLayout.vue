@@ -26,6 +26,11 @@
                         </Link>
                         <span class="ml-2 text-xl font-bold text-gray-900">{{ appName }}</span>
                     </div>
+                    <div v-if="$page.props.auth.user.branch"
+                        class="flex items-center px-4 py-1 mr-6 space-x-2 rounded-lg shadow-sm bg-indigo-50">
+                        <span class="font-semibold text-indigo-700">{{ $page.props.auth.user.branch.name }} <span
+                                class="font-bold">({{ $page.props.auth.user.branch.code }})</span></span>
+                    </div>
 
                     <!-- Navigation for authenticated users -->
                     <nav class="flex items-center space-x-8">

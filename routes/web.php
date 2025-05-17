@@ -35,6 +35,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::get('/departments/{departmentId}/units', [TicketController::class, 'getUnits']);
         Route::get('/units/{unitId}/topics', [TicketController::class, 'getTopics']);
         Route::get('/ticket-statuses', [TicketController::class, 'getStatuses']);
-        Route::get('/abc')->name('knowledge-base');
+        // Route::get('/abc', function () {
+        //     dd(auth()->user()->branch);
+        // })->name('knowledge-base');
     });
 });

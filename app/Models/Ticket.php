@@ -16,7 +16,9 @@ class Ticket extends Model
         'title',
         'description',
         'status_id',
-        'priority'
+        'priority',
+        'created_from_ip_address',
+        'branch_id',
     ];
 
     public function supportTopic()
@@ -70,7 +72,10 @@ class Ticket extends Model
 
         static::creating(function ($model) {
             if (auth()->check()) {
-                $model->created_by = auth()->id();
+                $currentUser = auth()->user();
+                $model->created_by = $currentUser->id;
+                $model->created_from_ip_address = request()->ip();
+                $model->branch_id = $currentUser->branch->id ?? null;
             }
         });
     }
