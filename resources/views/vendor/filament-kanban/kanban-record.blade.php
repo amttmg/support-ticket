@@ -20,17 +20,37 @@
         </span>
     </div>
 
+    <!-- Branch Name -->
+    @if ($record->branch)
+        <div class="flex items-center mt-1">
+
+            <span class="text-xs text-gray-500 dark:text-gray-400 font-mono truncate max-w-[180px]">
+                {{ $record->branch->formatted_name }}
+            </span>
+        </div>
+    @endif
+
     <!-- Ticket Metadata -->
-
-
-    <!-- Assignee and Due Date -->
     <div class="flex items-center justify-between mt-2 text-xs">
         <!-- Assignee Avatar -->
-        @if ($record->assignee)
-            <div class="flex items-center">
-                <img class="w-5 h-5 mr-1 rounded-full" src="{{ $record->assignee->avatar_url }}"
-                    alt="{{ $record->assignee->name }}">
-                <span class="text-gray-500 dark:text-gray-400">{{ $record->assignee->initials }}</span>
+        @if ($record->agents && $record->agents->count())
+            <div class="flex items-center -space-x-2">
+                @foreach ($record->agents as $agent)
+                    <div class="relative group">
+                        <span
+                            class="flex items-center justify-center w-6 h-6 text-xs font-bold text-gray-700 uppercase transition-all duration-150 bg-gray-200 rounded-full dark:bg-gray-600 dark:text-gray-200 hover:z-10 hover:ring-2 hover:ring-white dark:hover:ring-gray-700"
+                            title="{{ $agent->name }}">
+                            {{ Str::substr($agent->name, 0, 1) }}
+                        </span>
+                        <div
+                            class="absolute px-2 py-1 mb-1 text-xs font-medium text-white transition-opacity duration-200 transform -translate-x-1/2 bg-gray-800 rounded opacity-0 pointer-events-none bottom-full left-1/2 whitespace-nowrap group-hover:opacity-100">
+                            {{ $agent->name }}
+                            <div
+                                class="absolute w-2 h-2 -mt-1 rotate-45 -translate-x-1/2 bg-gray-800 top-full left-1/2">
+                            </div>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         @endif
 
