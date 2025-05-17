@@ -53,6 +53,11 @@ class TicketForms
                     Section::make('Ticket Properties')
                         ->columnSpan(1)
                         ->schema([
+                            Select::make('branch_id')
+                                ->relationship('branch', 'name')
+                                ->required()
+                                ->disabled()
+                                ->columnSpanFull(),
                             TextInput::make('created_at')
                                 ->label('Created')
                                 ->disabled()

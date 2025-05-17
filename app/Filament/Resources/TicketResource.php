@@ -60,6 +60,7 @@ class TicketResource extends Resource
                     ->sortable(),
 
                 Tables\Columns\TextColumn::make('priority')
+                    ->sortable()
                     ->badge()
                     ->color(fn(string $state): string => match ($state) {
                         'low' => 'gray',
@@ -68,9 +69,11 @@ class TicketResource extends Resource
                         default => 'gray',
                     }),
 
-                Tables\Columns\TextColumn::make('creator.name')
-                    ->label('Created By')
-                    ->placeholder('Unknown'),
+                Tables\Columns\TextColumn::make('branch.formatted_name')
+                    ->label('Branch')
+                    ->searchable('name')
+                    ->placeholder('N/A'),
+
 
                 Tables\Columns\TextColumn::make('created_at')
                     ->since()

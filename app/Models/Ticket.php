@@ -66,6 +66,11 @@ class Ticket extends Model
         return $this->hasMany(TicketAgentAssignment::class);
     }
 
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
+
     protected static function boot()
     {
         parent::boot();

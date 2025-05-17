@@ -12,4 +12,9 @@ class Branch extends Model
         'ip_range',
         'active',
     ];
+
+    public function getFormattedNameAttribute()
+    {
+        return "{$this->name} ({$this->code})";
+    }
 }
