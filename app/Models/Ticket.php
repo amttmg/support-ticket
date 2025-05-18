@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Coolsam\NestedComments\Concerns\HasComments;
+use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
 
 class Ticket extends Model
 {
-    use SoftDeletes;
+    use SoftDeletes, HasComments, HasReactions;
 
     protected $fillable = [
         'support_topic_id',
