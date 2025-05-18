@@ -1,14 +1,14 @@
 <x-filament-panels::form wire:submit.prevent="editModalFormSubmitted">
     <x-filament::modal id="kanban--edit-record-modal" :slideOver="$this->getEditModalSlideOver()" :width="$this->getEditModalWidth()">
-        <x-slot name="header">
+        {{-- <x-slot name="header">
             <x-filament::modal.heading>
-                {{ $this->getEditModalTitle() }}
+                Ticket Details
             </x-filament::modal.heading>
-        </x-slot>
+        </x-slot> --}}
 
-       
-            {{ $this->infolist }}
-       
+
+        {{ $this->infolist }}
+
 
         <x-slot name="footer">
             <x-filament::button color="gray" x-on:click="isOpen = false">

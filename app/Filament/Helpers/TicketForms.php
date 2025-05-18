@@ -126,6 +126,7 @@ class TicketForms
                                 ->prose() // Adds nice typography for HTML content
                                 ->extraAttributes(['class' => 'max-w-none']), // Removes max-width constraint
 
+                            \Coolsam\NestedComments\Filament\Infolists\CommentsEntry::make('comments'),
                             // Add more details if needed
                         ]),
 
@@ -200,7 +201,9 @@ class TicketForms
                                 ->contained(false), // Removes container padding for tighter layout
                         ])
                         ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
-                        ->collapsible(),
+                    //->collapsible(),
+
+
                 ]),
         ];
     }
