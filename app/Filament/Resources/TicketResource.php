@@ -47,6 +47,12 @@ class TicketResource extends Resource
             ->count();
     }
 
+    public static function infolist(\Filament\Infolists\Infolist $infolist): \Filament\Infolists\Infolist
+    {
+        return $infolist
+            ->schema(TicketForms::basicInfoListSchema());
+    }
+
     public static function table(Table $table): Table
     {
         return $table
