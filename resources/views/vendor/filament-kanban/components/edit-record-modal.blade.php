@@ -6,15 +6,13 @@
             </x-filament::modal.heading>
         </x-slot>
 
-        {{ $this->form }}
+       
+            {{ $this->infolist }}
+       
 
         <x-slot name="footer">
-            <x-filament::button type="submit">
-                {{$this->getEditModalSaveButtonLabel()}}
-            </x-filament::button>
-
             <x-filament::button color="gray" x-on:click="isOpen = false">
-                {{$this->getEditModalCancelButtonLabel()}}
+                Close
             </x-filament::button>
         </x-slot>
     </x-filament::modal>

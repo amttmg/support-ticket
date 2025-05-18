@@ -10,6 +10,8 @@ use App\Models\TicketStatus;
 use Filament\Forms\Form;
 use Mokhosh\FilamentKanban\Pages\KanbanBoard;
 use Illuminate\Support\Collection;
+use Filament\Infolists;
+use Filament\Infolists\Infolist;
 
 class TicketKanbanBoard extends KanbanBoard
 {
@@ -37,6 +39,32 @@ class TicketKanbanBoard extends KanbanBoard
             })
             ->get();
     }
+
+    public function infolist(Infolist $infolist): Infolist
+    {
+        $ticket = Ticket::find($this->editModalRecordId);
+
+        if (! $ticket) {
+            return $infolist
+                ->make()
+                ->state([
+                    'title' => 'Not Found',
+                    'description' => 'The requested ticket could not be found.',
+                ])
+                ->schema([
+                    Infolists\Components\TextEntry::make('title')
+                        ->label('Error')
+                        ->color('danger'),
+                    Infolists\Components\TextEntry::make('description'),
+                ]);
+        }
+
+        return $infolist
+            ->make()
+            ->record($ticket)
+            ->schema(TicketForms::basicInfoListSchema());
+    }
+
     protected function getEditModalFormSchema(null|int|string $recordId): array
     {
         // return [
