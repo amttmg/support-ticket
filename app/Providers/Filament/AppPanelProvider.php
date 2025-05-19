@@ -60,7 +60,7 @@ class AppPanelProvider extends PanelProvider
             ])
             ->spa()
             ->authGuard('admin')
-
+            ->databaseNotifications()
             ->plugins([FilamentSpatieRolesPermissionsPlugin::make()]);
     }
 }
