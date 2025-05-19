@@ -63,6 +63,11 @@ class Ticket extends Model
         return $query->whereDoesntHave('agents');
     }
 
+    public function scopeAssigned($query)
+    {
+        return $query->whereHas('agents');
+    }
+
     public function assignments()
     {
         return $this->hasMany(TicketAgentAssignment::class);

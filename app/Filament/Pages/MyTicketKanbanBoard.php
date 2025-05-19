@@ -13,7 +13,7 @@ use Illuminate\Support\Collection;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
 
-class TicketKanbanBoard extends KanbanBoard
+class MyTicketKanbanBoard extends KanbanBoard
 {
     protected static string $model = Ticket::class;
     protected static string $statusEnum = TicketStatus::class;
@@ -28,6 +28,9 @@ class TicketKanbanBoard extends KanbanBoard
     protected static ?string $breadcrumb = 'Tickets';
 
     protected static ?string $title = 'My Tickets';
+
+    protected static ?string $navigationIcon = 'heroicon-o-user-circle';
+
 
 
     protected function records(): Collection
@@ -63,24 +66,6 @@ class TicketKanbanBoard extends KanbanBoard
             ->make()
             ->record($ticket)
             ->schema(TicketForms::basicInfoListSchema());
-    }
-
-    protected function getEditModalFormSchema(null|int|string $recordId): array
-    {
-        // return [
-        //     \Filament\Forms\Components\TextInput::make('title')
-        //         ->required()
-        //         ->label('Title'),
-        //     \Filament\Forms\Components\Textarea::make('description')
-        //         ->required()
-        //         ->label('Description'),
-        //     \Filament\Forms\Components\Select::make('status_id')
-        //         ->relationship('status', 'name')
-        //         ->required()
-        //         ->label('Status'),
-        // ];
-
-        return TicketForms::basicSchema(true);
     }
     protected function getEditModalWidth(): string
     {
