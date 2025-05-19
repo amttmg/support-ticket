@@ -170,7 +170,7 @@ class TicketResource extends Resource
                 // Tables\Actions\BulkActionGroup::make([
                 //     Tables\Actions\DeleteBulkAction::make(),
                 // ]),
-            ]);
+            ])->poll('10s');
     }
 
     public static function getRelations(): array
