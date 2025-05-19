@@ -9,6 +9,7 @@
     import PrimaryButton from '@/Components/PrimaryButton.vue';
     import TextInput from '@/Components/TextInput.vue';
     import TextArea from '@/Components/TextArea.vue';
+    import SelectInput from '@/Components/SelectInput.vue';
 
     // Reactive state
     const selectedDepartment = ref(null);
@@ -17,6 +18,7 @@
     const departments = ref([]);
     const units = ref([]);
     const topics = ref([]);
+    const searchQuery = ref('');
 
     // Form handling
     const form = useForm({
@@ -44,9 +46,11 @@
         return unit ? unit.name : '';
     });
 
-    const selectedTopicName = computed(() => {
-        const topic = topics.value.find(t => t.id === selectedTopic.value);
-        return topic ? topic.name : '';
+    const filteredTopics = computed(() => {
+        if (!searchQuery.value) return topics.value;
+        return topics.value.filter(topic =>
+            topic.name.toLowerCase().includes(searchQuery.value.toLowerCase())
+        );
     });
 
     // Fetch departments on mount
@@ -86,12 +90,6 @@
         }
     };
 
-    // Topic selected
-    const selectTopic = (topicId) => {
-        selectedTopic.value = topicId;
-        form.support_topic_id = topicId;
-    };
-
     // Navigation functions
     const goBackToDepartment = () => {
         selectedDepartment.value = null;
@@ -104,15 +102,8 @@
         selectedTopic.value = null;
     };
 
-    const goBackToTopics = () => {
-        selectedTopic.value = null;
-    };
-
     const submit = () => {
-        form.department = selectedDepartment.value;
-        form.unit = selectedUnit.value;
-        form.topic = selectedTopic.value;
-
+        form.support_topic_id = selectedTopic.value;
         form.post(route('tickets.store'), {
             preserveScroll: true,
             onSuccess: () => {
@@ -160,20 +151,11 @@
                                 </div>
                                 <div class="w-16 h-1 mx-2 bg-blue-200"></div>
 
-                                <!-- Step 3: Topic -->
+                                <!-- Step 3: Form (now combined with topic selection) -->
                                 <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
-                                        selectedUnit && !selectedTopic ? 'bg-blue-600 text-white' : 
-                                        selectedTopic ? 'bg-blue-100 text-blue-800' : 'bg-gray-100 text-gray-400'
+                                        selectedUnit ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'
                                     } font-semibold`">
                                     3
-                                </div>
-                                <div class="w-16 h-1 mx-2 bg-blue-200"></div>
-
-                                <!-- Step 4: Form -->
-                                <div :class="`flex items-center justify-center w-10 h-10 rounded-full ${
-                                        selectedTopic ? 'bg-blue-600 text-white' : 'bg-gray-100 text-gray-400'
-                                    } font-semibold`">
-                                    4
                                 </div>
                             </div>
                         </div>
@@ -185,9 +167,6 @@
                             <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
                                 <div v-for="dept in departments" :key="dept.id" @click="selectDepartment(dept.id)"
                                     class="block p-8 transition duration-200 border-2 border-blue-200 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
-                                    <!-- <div class="text-4xl text-center">
-                                        💻
-                                    </div> -->
                                     <h3 class="mt-4 text-xl font-semibold text-center text-blue-800">{{ dept.name }}
                                     </h3>
                                     <p class="mt-2 text-sm text-center text-gray-600">Click to select this department
@@ -225,8 +204,8 @@
                             </div>
                         </div>
 
-                        <!-- Step 3: Select Topic -->
-                        <div v-else-if="!selectedTopic" class="space-y-6">
+                        <!-- Step 3: Ticket Form (now includes topic selection) -->
+                        <div v-else class="space-y-6">
                             <div class="flex items-center justify-between">
                                 <button @click="goBackToUnits"
                                     class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
@@ -249,48 +228,26 @@
                                 </div>
                             </div>
 
-                            <h2 class="text-xl font-semibold text-center text-gray-800">What's the specific issue?</h2>
-                            <div class="grid grid-cols-1 gap-6 sm:grid-cols-3">
-                                <div v-for="topic in topics" :key="topic.id" @click="selectTopic(topic.id)"
-                                    class="block p-8 transition duration-200 border-2 border-blue-100 shadow-sm cursor-pointer rounded-xl bg-gradient-to-br from-blue-50 to-white hover:border-blue-300 hover:shadow-md">
-                                    <h3 class="text-xl font-semibold text-center text-blue-800">{{ topic.name }}</h3>
-                                    <p class="mt-2 text-sm text-center text-gray-600">Click to select this topic</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Step 4: Ticket Form -->
-                        <div v-else class="space-y-6">
-                            <div class="flex items-center justify-between">
-                                <button @click="goBackToTopics"
-                                    class="flex items-center text-sm font-medium text-blue-600 hover:text-blue-800">
-                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1" viewBox="0 0 20 20"
-                                        fill="currentColor">
-                                        <path fill-rule="evenodd"
-                                            d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z"
-                                            clip-rule="evenodd" />
-                                    </svg>
-                                    Back to topics
-                                </button>
-                                <div class="space-x-2">
-                                    <span class="px-3 py-1 text-sm font-medium text-blue-800 bg-blue-100 rounded-full">
-                                        {{ selectedDepartmentName }}
-                                    </span>
-                                    <span
-                                        class="px-3 py-1 text-sm font-medium text-purple-800 bg-purple-100 rounded-full">
-                                        {{ selectedUnitName }}
-                                    </span>
-                                    <span
-                                        class="px-3 py-1 text-sm font-medium text-green-800 bg-green-100 rounded-full">
-                                        {{ selectedTopicName }}
-                                    </span>
-                                </div>
-                            </div>
-
                             <h2 class="text-xl font-semibold text-center text-gray-800">Tell us more about your issue
                             </h2>
 
                             <div class="space-y-6">
+                                <!-- Topic Selection Dropdown with Search -->
+                                <div>
+                                    <InputLabel for="topic" value="Select Topic" />
+                                    <div class="relative mt-1">
+                                        <!-- <TextInput v-model="searchQuery" type="text" class="block w-full"
+                                            placeholder="Search topics..." /> -->
+                                        <select v-model="selectedTopic"
+                                            class="block w-full px-3 py-2 mt-2 border border-gray-300 rounded-md shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm">
+                                            <option value="">Select a topic</option>
+                                            <option v-for="topic in filteredTopics" :key="topic.id" :value="topic.id">
+                                                {{ topic.name }}
+                                            </option>
+                                        </select>
+                                    </div>
+                                </div>
+
                                 <div>
                                     <InputLabel for="title" value="Title" />
                                     <TextInput v-model="form.title" id="title" type="text" class="block w-full mt-1"
@@ -321,7 +278,7 @@
                                 </div>
 
                                 <div class="pt-4">
-                                    <PrimaryButton @click="submit" :disabled="form.processing"
+                                    <PrimaryButton @click="submit" :disabled="form.processing || !selectedTopic"
                                         class="w-full px-6 py-3 text-base font-medium text-white bg-blue-600 rounded-lg shadow-sm hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
                                         <span v-if="!form.processing">Submit Ticket</span>
                                         <span v-else class="flex items-center justify-center">
