@@ -79,7 +79,7 @@
                                 <div class="mt-1 text-2xl font-bold text-indigo-800">{{ tickets.length }}</div>
                             </div>
                             <div v-for="stat in statusStats" :key="stat.id" class="p-4 border rounded-lg"
-                                :class="`border-${stat.color}-100 bg-${stat.color}-50`">
+                                :class="`border-${stat.color}-100 bg-${stat.color}-200`">
                                 <div class="text-sm font-medium" :class="`text-${stat.color}-600`">
                                     {{ stat.name }}
                                 </div>
@@ -168,7 +168,7 @@
                                                 </span>
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
-                                                {{ new Date(ticket.updated_at).toLocaleString() }}
+                                                {{ ticket.formatted_updated_at }}
                                             </td>
                                             <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <div class="flex justify-end space-x-3">

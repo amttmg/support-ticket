@@ -23,6 +23,10 @@ class Ticket extends Model
         'branch_id',
     ];
 
+    protected $appends = [
+        'formatted_updated_at',
+    ];
+
     public function supportTopic()
     {
         return $this->belongsTo(SupportTopic::class);
@@ -76,6 +80,15 @@ class Ticket extends Model
     public function branch()
     {
         return $this->belongsTo(Branch::class);
+    }
+
+    public function getFormattedUpdatedAtAttribute()
+    {
+        if (is_null($this->updated_at)) {
+            return null;
+        }
+
+        return \Carbon\Carbon::parse($this->updated_at)->diffForHumans();
     }
 
     protected static function boot()
