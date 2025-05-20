@@ -14,19 +14,44 @@ use Inertia\Inertia;
 class TicketController extends Controller
 {
     // Display all tickets for the authenticated user
-    public function index()
+    public function index(Request $request)
     {
-        $tickets = Ticket::with([
+        $query = Ticket::with([
             'supportTopic',
             'supportTopic.supportUnit',
             'supportTopic.supportUnit.department',
             'status'
-        ])->where('created_by', auth()->id())
-            ->latest()
+        ])
+            ->where('created_by', auth()->id())
+
+            ->latest();
+
+        $total_tickets = $query->count();
+
+        // Filter tickets based on the status if provided
+        $tickets = $query
+            ->when($request->status, function ($query, $status) {
+                $query->where('status_id', $status);
+            })
             ->get();
+
+        // Get all statuses with counts for the current user's tickets
+        $statuses = TicketStatus::withCount(['tickets' => function ($query) {
+            $query->where('created_by', auth()->id());
+        }])
+            ->orderBy('order')
+            ->get()
+            ->map(function ($status) {
+                // Ensure color is always set
+                $status->color = $status->color ?? 'gray';
+                return $status;
+            });
 
         return Inertia::render('Tickets/Index', [
             'tickets' => $tickets,
+            'statuses' => $statuses,
+            'filters' => $request->only(['status']),
+            'total_tickets' => $total_tickets,
         ]);
     }
 
@@ -62,7 +87,7 @@ class TicketController extends Controller
             'ticket' => $ticket
         ]);
     }
-    
+
 
     // Get all departments
     public function getDepartments()

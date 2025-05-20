@@ -1,10 +1,25 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
-    import { Head, Link } from '@inertiajs/vue3';
+    import { Head, Link, router } from '@inertiajs/vue3';
     import { computed } from 'vue';
 
     const props = defineProps({
-        tickets: Array,
+        tickets: {
+            type: Array,
+            default: () => []
+        },
+        statuses: {
+            type: Array,
+            default: () => []
+        },
+        filters: {
+            type: Object,
+            default: () => ({})
+        },
+        total_tickets: {
+            type: Number,
+            default: 0
+        }
     });
 
     // Priority colors
@@ -17,33 +32,60 @@
 
     // Dynamic status color class generator
     const getStatusColorClass = (status) => {
-        if (status.color) {
-            const colorMap = {
-                gray: 'bg-gray-100 text-gray-800',
-                blue: 'bg-blue-100 text-blue-800',
-                yellow: 'bg-yellow-100 text-yellow-800',
-                green: 'bg-green-100 text-green-800',
-                red: 'bg-red-100 text-red-800',
-                purple: 'bg-purple-100 text-purple-800',
-                indigo: 'bg-indigo-100 text-indigo-800'
-            };
-            return colorMap[status.color] || 'bg-gray-100 text-gray-800';
-        }
-        return 'bg-gray-100 text-gray-800';
+        const color = status?.color || 'gray';
+        const colorMap = {
+            gray: 'bg-gray-100 text-gray-800',
+            blue: 'bg-blue-100 text-blue-800',
+            yellow: 'bg-yellow-100 text-yellow-800',
+            green: 'bg-green-100 text-green-800',
+            red: 'bg-red-100 text-red-800',
+            purple: 'bg-purple-100 text-purple-800',
+            indigo: 'bg-indigo-100 text-indigo-800'
+        };
+        return colorMap[color] || 'bg-gray-100 text-gray-800';
     };
 
-    // Status stats computed property
-    const statusStats = computed(() => {
-        if (!props.tickets || props.tickets.length === 0) return [];
+    // Filter by status
+    const filterByStatus = (statusId) => {
+        router.get(route('tickets.index'), { status: statusId }, {
+            preserveState: true,
+            replace: true,
+        });
+    };
 
-        const statuses = [...new Map(props.tickets.map(t => [t.status.id, t.status])).values()];
-        const sortedStatuses = [...statuses].sort((a, b) => a.id - b.id);
+    // Clear all filters
+    const clearFilters = () => {
+        router.get(route('tickets.index'), {}, {
+            preserveState: true,
+            replace: true,
+        });
+    };
 
-        return sortedStatuses.map(status => ({
-            ...status,
-            count: props.tickets.filter(t => t.status.id === status.id).length
-        }));
+    // Safe way to find active status name
+    const activeStatusName = computed(() => {
+        if (!props.filters?.status) return null;
+        const foundStatus = props.statuses.find(s => s.id == props.filters.status);
+        return foundStatus?.name || null;
     });
+
+    // Filtered tickets
+    const filteredTickets = computed(() => {
+        if (!props.filters?.status) {
+            return props.tickets;
+        }
+        return props.tickets.filter(ticket => ticket.status?.id == props.filters.status);
+    });
+
+    // Status color class for cards
+    const getStatusCardColor = (status) => {
+        const color = status?.color || 'gray';
+        return {
+            border: `border-${color}-200`,
+            bg: `bg-${color}-50`,
+            text: `text-${color}-600`,
+            hover: `hover:border-${color}-400`
+        };
+    };
 </script>
 
 <template>
@@ -72,21 +114,46 @@
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
                 <div class="overflow-hidden bg-white shadow-xl sm:rounded-xl">
                     <div class="p-6 sm:p-8">
-                        <!-- Header with stats - now dynamic -->
+                        <!-- Status cards section -->
                         <div class="grid grid-cols-1 gap-4 mb-8 md:grid-cols-5">
-                            <div class="p-4 border border-indigo-100 rounded-lg bg-indigo-50">
+                            <div @click="clearFilters"
+                                class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer hover:border-indigo-300"
+                                :class="[
+                                    'border-indigo-100 bg-indigo-50',
+                                    { 'border-indigo-500 ring-1 ring-indigo-200': !filters?.status }
+                                ]">
                                 <div class="text-sm font-medium text-indigo-600">Total Tickets</div>
-                                <div class="mt-1 text-2xl font-bold text-indigo-800">{{ tickets.length }}</div>
-                            </div>
-                            <div v-for="stat in statusStats" :key="stat.id" class="p-4 border rounded-lg"
-                                :class="`border-${stat.color}-100 bg-${stat.color}-200`">
-                                <div class="text-sm font-medium" :class="`text-${stat.color}-600`">
-                                    {{ stat.name }}
-                                </div>
-                                <div class="mt-1 text-2xl font-bold" :class="`text-${stat.color}-800`">
-                                    {{ stat.count }}
+                                <div class="mt-1 text-2xl font-bold text-indigo-800">
+                                    {{ total_tickets }}
                                 </div>
                             </div>
+                            <div v-for="status in statuses" :key="status.id" @click="filterByStatus(status.id)"
+                                class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer" :class="[
+                                    getStatusCardColor(status).border,
+                                    getStatusCardColor(status).bg,
+                                    { 'border-indigo-500 ring-1 ring-indigo-200': filters?.status == status.id },
+                                    getStatusCardColor(status).hover
+                                ]">
+                                <div class="text-sm font-medium" :class="getStatusCardColor(status).text">
+                                    {{ status.name }}
+                                </div>
+                                <div class="mt-1 text-2xl font-bold" :class="getStatusCardColor(status).text">
+                                    {{ status.tickets_count || 0 }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Active filter indicator -->
+                        <div v-if="filters?.status && activeStatusName" class="flex items-center mb-4">
+                            <span class="text-sm text-gray-600">
+                                Showing tickets with status:
+                                <span class="font-semibold">
+                                    {{ activeStatusName }}
+                                </span>
+                            </span>
+                            <button @click="clearFilters" class="ml-2 text-sm text-indigo-600 hover:text-indigo-800">
+                                (Clear filter)
+                            </button>
                         </div>
 
                         <!-- Tickets Table -->
@@ -121,7 +188,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-100">
-                                        <tr v-for="ticket in tickets" :key="ticket.id"
+                                        <tr v-for="ticket in filteredTickets" :key="ticket.id"
                                             class="transition-colors duration-150 hover:bg-gray-50">
                                             <td class="px-6 py-4">
                                                 <div class="flex items-center">
@@ -161,7 +228,7 @@
                                                     {{ ticket.priority }}
                                                 </span>
                                             </td>
-                                            <td class="px-6 py-4 whitespace-nowrap">
+                                            <td class="py-4 px-6- whitespace-nowrap">
                                                 <span :class="getStatusColorClass(ticket.status)"
                                                     class="inline-flex px-3 py-1 text-xs font-semibold leading-5 capitalize rounded-full">
                                                     {{ ticket.status.name }}
@@ -187,8 +254,8 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr v-if="tickets.length === 0">
-                                            <td colspan="5" class="px-6 py-12 text-center">
+                                        <tr v-if="filteredTickets.length === 0">
+                                            <td colspan="6" class="px-6 py-12 text-center">
                                                 <div class="flex flex-col items-center justify-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
                                                         class="w-16 h-16 text-gray-300" fill="none" viewBox="0 0 24 24"
@@ -201,12 +268,12 @@
                                                     </h3>
                                                     <p class="mt-1 text-sm text-gray-500">Get started by creating a new
                                                         support ticket</p>
-                                                    <div class="mt-6">
+                                                    <!-- <div class="mt-6">
                                                         <Link :href="route('tickets.create')"
                                                             class="inline-flex items-center px-4 py-2 text-xs font-semibold tracking-widest text-white uppercase transition duration-150 ease-in-out bg-indigo-600 border border-transparent rounded-md hover:bg-indigo-700 focus:bg-indigo-700 active:bg-indigo-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2">
                                                         Create New Ticket
                                                         </Link>
-                                                    </div>
+                                                    </div> -->
                                                 </div>
                                             </td>
                                         </tr>

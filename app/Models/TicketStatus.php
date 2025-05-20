@@ -8,7 +8,7 @@ class TicketStatus extends Model
 {
     public static function statuses()
     {
-       
+
         return TicketStatus::all()->map(function ($status) {
             return [
                 'id' => $status->id,
@@ -19,5 +19,9 @@ class TicketStatus extends Model
                 'order' => $status->order,
             ];
         });
+    }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class, 'status_id');
     }
 }
