@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\front\TicketCommentController;
 use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -35,6 +36,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::get('/departments/{departmentId}/units', [TicketController::class, 'getUnits']);
         Route::get('/units/{unitId}/topics', [TicketController::class, 'getTopics']);
         Route::get('/ticket-statuses', [TicketController::class, 'getStatuses']);
+
+        Route::post('tickets/{ticket}/comments', [TicketCommentController::class, 'storeComment'])->name('tickets.comments.store');
         // Route::get('/abc', function () {
         //     dd(auth()->user()->branch);
         // })->name('knowledge-base');

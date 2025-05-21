@@ -3,7 +3,7 @@
     import { Head, Link, useForm } from '@inertiajs/vue3';
     import Comment from '@/Components/Comment.vue';
 
-    defineProps({
+    const props = defineProps({
         ticket: Object,
         comments: Object,
     });
@@ -95,14 +95,16 @@
                                 <div class="space-y-4">
                                     <div>
                                         <h4 class="text-sm font-medium text-gray-500">Created</h4>
-                                        <span class="inline-block px-3 py-1 mt-1 text-sm font-semibold text-purple-800 bg-purple-100 rounded-full">
+                                        <span
+                                            class="inline-block px-3 py-1 mt-1 text-sm font-semibold text-purple-800 bg-purple-100 rounded-full">
                                             {{ $filters.timeAgo(ticket.created_at) }}
                                         </span>
                                     </div>
 
                                     <div>
                                         <h4 class="text-sm font-medium text-gray-500">Last Updated</h4>
-                                        <span class="inline-block px-3 py-1 mt-1 text-sm font-semibold text-orange-800 bg-orange-100 rounded-full">
+                                        <span
+                                            class="inline-block px-3 py-1 mt-1 text-sm font-semibold text-orange-800 bg-orange-100 rounded-full">
                                             {{ $filters.timeAgo(ticket.updated_at) }}
                                         </span>
                                     </div>
