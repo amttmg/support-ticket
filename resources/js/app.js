@@ -8,6 +8,11 @@ import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
 
+// resources/js/app.js
+import { formatDistanceToNow } from 'date-fns';
+
+
+
 createInertiaApp({
     title: (title) => `${title} - ${appName}`,
     resolve: (name) =>
@@ -16,12 +21,20 @@ createInertiaApp({
             import.meta.glob('./Pages/**/*.vue'),
         ),
     setup({ el, App, props, plugin }) {
-        return createApp({ render: () => h(App, props) })
+        const app = createApp({ render: () => h(App, props) })
             .use(plugin)
-            .use(ZiggyVue)
-            .mount(el);
+            .use(ZiggyVue);
+
+        // Add global filters
+        app.config.globalProperties.$filters = {
+            timeAgo(dateString) {
+                return formatDistanceToNow(new Date(dateString), { addSuffix: true });
+            }
+        };
+
+        return app.mount(el);
     },
     progress: {
-        color: '#4B5563',
+        color: '#6366f1',
     },
 });

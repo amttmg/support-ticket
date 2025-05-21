@@ -81,10 +81,16 @@ class TicketController extends Controller
     // Show a single ticket
     public function show(Ticket $ticket)
     {
-        $ticket->load('status');
+        $ticket->load(['status', 'comments', 'creator', 'agents']);
 
-        return Inertia::render('Tickets/Show', [
-            'ticket' => $ticket
+        $comments = $ticket->comments()
+            ->with(['user', 'children.user', 'children.children'])
+            ->whereNull('parent_id')
+            ->get();
+
+        return inertia('Tickets/Show', [
+            'ticket' => $ticket,
+            'comments' => $comments,
         ]);
     }
 
