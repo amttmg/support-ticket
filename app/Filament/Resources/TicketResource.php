@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources;
 
+use App\Constants\GeneralSetup;
 use App\Constants\PermissionConstants;
 use App\Filament\Helpers\TicketForms;
 use App\Filament\Resources\TicketResource\Pages;
@@ -45,6 +46,10 @@ class TicketResource extends Resource
             ->forSupportUnitUser()
             ->unassigned()
             ->count();
+    }
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return GeneralSetup::NAVIGATION_COUNT_COLOR;
     }
 
     public static function infolist(\Filament\Infolists\Infolist $infolist): \Filament\Infolists\Infolist

@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Constants\GeneralSetup;
 use App\Constants\TicketStatusConstant;
 use App\Filament\Helpers\TicketForms;
 use App\Filament\Resources\TicketResource;
@@ -78,5 +79,9 @@ class MyTicketKanbanBoard extends KanbanBoard
             ->myTickets()
             ->where('status_id', TicketStatusConstant::OPEN)
             ->count();
+    }
+    public static function getNavigationBadgeColor(): ?string
+    {
+        return GeneralSetup::NAVIGATION_COUNT_COLOR;
     }
 }
