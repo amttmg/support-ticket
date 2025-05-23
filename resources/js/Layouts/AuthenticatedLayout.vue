@@ -1,5 +1,5 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
     import ApplicationLogo from '@/Components/ApplicationLogo.vue';
     import Dropdown from '@/Components/Dropdown.vue';
     import DropdownLink from '@/Components/DropdownLink.vue';
@@ -8,7 +8,29 @@
     import { Link, usePage } from '@inertiajs/vue3';
 
     const showingNavigationDropdown = ref(false);
-    const appName = "Support Center"; // Replace with your app name or use a prop if needed
+    const showingNotificationsDropdown = ref(false);
+    const appName = "Support Center";
+
+    // Sample notifications data - replace with your actual data source
+    const notifications = ref([
+        { id: 1, message: 'New ticket assigned to you', time: '2 hours ago', read: false },
+        { id: 2, message: 'Your ticket #1234 was resolved', time: '1 day ago', read: true },
+        { id: 3, message: 'System maintenance scheduled', time: '3 days ago', read: true },
+    ]);
+
+    // Count of unread notifications
+    const unreadCount = computed(() => {
+        return notifications.value.filter(n => !n.read).length;
+    });
+
+    // Mark notifications as read when dropdown is shown
+    const toggleNotifications = () => {
+        showingNotificationsDropdown.value = !showingNotificationsDropdown.value;
+        if (showingNotificationsDropdown.value) {
+            // Mark all as read when dropdown is opened
+            notifications.value = notifications.value.map(n => ({ ...n, read: true }));
+        }
+    };
 </script>
 
 <template>
@@ -36,15 +58,57 @@
                     <nav class="flex items-center space-x-8">
                         <!-- Main Navigation Links -->
                         <div class="hidden sm:flex sm:space-x-8">
-                            <!-- <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                Dashboard
-                            </NavLink> -->
                             <NavLink :href="route('tickets.index')" :active="route().current('tickets.index')">
                                 Dashboard
                             </NavLink>
                             <NavLink :href="route('tickets.create')" :active="route().current('tickets.create')">
                                 Create Ticket
                             </NavLink>
+                        </div>
+
+                        <!-- Notifications Dropdown -->
+                        <div class="relative ml-3">
+                            <button @click="toggleNotifications"
+                                class="relative p-1 text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                                <span class="sr-only">View notifications</span>
+                                <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                                </svg>
+                                <span v-if="unreadCount > 0"
+                                    class="absolute top-0 right-0 inline-flex items-center justify-center w-5 h-5 text-xs font-bold text-white transform translate-x-1/2 -translate-y-1/2 bg-red-500 rounded-full">
+                                    {{ unreadCount }}
+                                </span>
+                            </button>
+
+                            <!-- Notifications dropdown panel -->
+                            <div v-show="showingNotificationsDropdown"
+                                class="absolute right-0 z-10 w-64 mt-2 origin-top-right bg-white rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                                role="menu" aria-orientation="vertical" aria-labelledby="menu-button" tabindex="-1">
+                                <div class="py-1">
+                                    <div class="px-4 py-2 text-sm font-medium text-gray-700 border-b border-gray-100">
+                                        Notifications
+                                    </div>
+                                    <div class="overflow-y-auto max-h-64">
+                                        <template v-if="notifications.length > 0">
+                                            <a v-for="notification in notifications" :key="notification.id" href="#"
+                                                class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                                :class="{ 'bg-gray-50': !notification.read }">
+                                                <div class="flex justify-between">
+                                                    <span>{{ notification.message }}</span>
+                                                </div>
+                                                <div class="text-xs text-gray-500">{{ notification.time }}</div>
+                                            </a>
+                                        </template>
+                                        <div v-else class="px-4 py-2 text-sm text-gray-500">
+                                            No new notifications
+                                        </div>
+                                    </div>
+                                    <div class="px-4 py-2 text-sm font-medium text-indigo-600 border-t border-gray-100">
+                                        <a href="#">View all notifications</a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <!-- User Dropdown -->
@@ -82,14 +146,14 @@
                                 class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none">
                                 <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{
-                                                hidden: showingNavigationDropdown,
-                                                'inline-flex': !showingNavigationDropdown,
-                                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    hidden: showingNavigationDropdown,
+                                                    'inline-flex': !showingNavigationDropdown,
+                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16" />
                                     <path :class="{
-                                                hidden: !showingNavigationDropdown,
-                                                'inline-flex': showingNavigationDropdown,
-                                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    hidden: !showingNavigationDropdown,
+                                                    'inline-flex': showingNavigationDropdown,
+                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>
