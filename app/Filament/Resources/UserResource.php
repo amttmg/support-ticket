@@ -72,7 +72,7 @@ class UserResource extends Resource
     public static function table(Table $table): Table
     {
         return $table
-            ->query(User::query()->where('user_type', 'back'))
+            //->query(User::query()->where('user_type', 'back'))
             ->columns([
                 TextColumn::make('name')->sortable()->searchable(),
                 TextColumn::make('email')->sortable()->searchable(),
@@ -80,7 +80,12 @@ class UserResource extends Resource
                 TextColumn::make('created_at')->dateTime()->sortable(),
             ])
             ->filters([
-                //
+                Tables\Filters\SelectFilter::make('user_type')
+                    ->options([
+                        'back' => 'Backend',
+                        'front' => 'Frontend',
+                    ])
+                    ->label('User Type')
             ])
             ->actions([
                 Tables\Actions\EditAction::make(),
@@ -98,6 +103,7 @@ class UserResource extends Resource
             //
         ];
     }
+
 
     public static function getPages(): array
     {
