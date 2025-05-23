@@ -176,6 +176,10 @@
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                 Last Updated
                                             </th>
+                                            <th scope="col"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                                Creator
+                                            </th>
                                             <th scope="col" class="relative px-6 py-3">
                                                 <span class="sr-only">Actions</span>
                                             </th>
@@ -230,6 +234,9 @@
                                             </td>
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {{ ticket.formatted_updated_at }}
+                                            </td>
+                                            <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
+                                                {{ ticket.creator.name }}
                                             </td>
                                             <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
                                                 <div class="flex justify-end space-x-3">

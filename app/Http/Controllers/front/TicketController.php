@@ -20,7 +20,8 @@ class TicketController extends Controller
             'supportTopic',
             'supportTopic.supportUnit',
             'supportTopic.supportUnit.department',
-            'status'
+            'status',
+            'creator'
         ])->latest();
         $tickets = $query->get();
 
