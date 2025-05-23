@@ -49,7 +49,13 @@ class UserResource extends Resource
                     ->hiddenOn('edit'),
                 Forms\Components\CheckboxList::make('roles')
                     ->relationship('roles', 'name')
-                    ->options(Role::all()->pluck('name', 'id')->toArray())
+                    ->options(function (Forms\Get $get) {
+                        $userType = $get('user_type'); // assuming you have a user_type field
+                        $guard = $userType == 'back' ? 'admin' : 'web';
+                        return Role::where('guard_name', $guard)
+                            ->pluck('name', 'id')
+                            ->toArray();
+                    })
                     ->label('Roles'),
                 // Department Checkbox List
                 // New line using a Section
@@ -65,7 +71,12 @@ class UserResource extends Resource
                             ->bulkToggleable()
 
                     ])
-                    ->collapsible(), // Optional: Allows collapsing
+                    ->collapsible()
+                    ->hidden(function (Forms\Get $get) {
+                        $userType = $get('user_type'); // assuming you have a user_type field
+
+                        return $userType == 'front';
+                    }), // Optional: Allows collapsing
             ]);
     }
 

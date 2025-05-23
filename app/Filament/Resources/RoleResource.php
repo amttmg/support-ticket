@@ -101,7 +101,8 @@ class RoleResource extends Resource
                                     ->options(config('filament-spatie-roles-permissions.guard_names'))
                                     ->default(config('filament-spatie-roles-permissions.default_guard_name'))
                                     ->visible(fn() => config('filament-spatie-roles-permissions.should_show_guard', true))
-                                    ->required(),
+                                    ->required()
+                                    ->live(),
 
 
                                 Select::make(config('permission.column_names.team_foreign_key', 'team_id'))
@@ -117,29 +118,40 @@ class RoleResource extends Resource
 
                     ]),
                 Section::make('Permissions')
-                    ->schema(array_map(function ($resource, $permissions) {
-                        return Section::make($resource)
-                            ->schema([
-                                CheckboxList::make("permissions")
-                                    ->relationship(
-                                        name: 'permissions',
-                                        modifyQueryUsing: fn(Builder $query) => $query->orderBy('name'),
-                                    )
-                                    ->options($permissions)
+                    ->schema(function ($get) { // Use closure to access form state
+                        $guardName = $get('guard_name') ?? config('filament-spatie-roles-permissions.default_guard_name');
+                        $permissions = self::getPermissions($guardName);
 
-                                    ->label("{$resource} Permissions")
-                                    ->columns(3),
-                            ]);
-                    }, array_keys(self::getPermissions()), self::getPermissions())),
+                        return array_map(function ($resource, $permissions) {
+                            return Section::make($resource)
+                                ->schema([
+                                    CheckboxList::make("permissions")
+                                        ->relationship(
+                                            name: 'permissions',
+                                            modifyQueryUsing: fn(Builder $query) => $query->orderBy('name'),
+                                        )
+                                        ->options($permissions)
+                                        ->label("{$resource} Permissions")
+                                        ->columns(3),
+                                ]);
+                        }, array_keys($permissions), $permissions);
+                    }),
             ]);
     }
 
-    public static function getPermissions()
+    public static function getPermissions(?string $guardName = null)
     {
-        $permissions = Permission::where('guard_name', 'admin')->get();
+        $query = Permission::query();
+
+        if ($guardName) {
+            $query->where('guard_name', $guardName);
+        } else {
+            $query->where('guard_name', 'admin'); // default guard
+        }
 
         // Group permissions by resource (e.g., "Department", "Designation")
-        return $permissions
+        return $query
+            ->get()
             ->groupBy(function ($permission) {
                 // Extract resource name from permission (e.g., "Department" from "view-any Department")
                 return preg_replace('/^(.*? )/', '', $permission->name);
