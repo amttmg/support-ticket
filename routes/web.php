@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\front\NotificationController;
 use App\Http\Controllers\front\TicketCommentController;
 use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
@@ -42,5 +43,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         // Route::get('/abc', function () {
         //     dd(auth()->user()->branch);
         // })->name('knowledge-base');
+
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     });
 });
