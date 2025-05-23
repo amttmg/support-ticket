@@ -143,7 +143,6 @@ class TicketResource extends Resource
                             ->sendToDatabase(User::whereIn('id', $newAssignments)->get());
 
                         //Notification to ticket creator
-
                         if ($record->creator && count($newAssignments) === 1) {
                             $assignedUser = User::find($newAssignments[0]);
                             Notification::make()
@@ -157,7 +156,7 @@ class TicketResource extends Resource
                                 ->success()
                                 ->sendToDatabase($record->creator);
                         }
-                        
+
 
                         Notification::make()
                             ->title(count($newAssignments) . ' users assigned successfully')
@@ -179,6 +178,17 @@ class TicketResource extends Resource
                             'role' => 'agent',
                             'status' => 'assigned'
                         ]);
+
+
+                        //Notification to ticket creator
+
+                        $assignedUser = User::find(auth()->user()->id);
+                        Notification::make()
+                            ->title('Your ticket #' . $record->id . ' has been assigned to ' . ($assignedUser ? $assignedUser->name : 'a user'))
+                            ->success()
+                            ->sendToDatabase($record->creator);
+
+
                         Notification::make()
                             ->title('users assigned successfully')
                             ->success()
