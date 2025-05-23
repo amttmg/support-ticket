@@ -136,13 +136,28 @@ class TicketResource extends Resource
                             ]);
                         }
 
-                        // Update ticket status if not already assigned
-                        if ($record->assignments()->count() > 0 && $record->status->slug !== 'assigned') {
-                            $assignedStatus = \App\Models\TicketStatus::where('slug', 'assigned')->first();
-                            if ($assignedStatus) {
-                                $record->update(['status_id' => $assignedStatus->id]);
-                            }
+                        //Notification to back assigned users
+                        Notification::make()
+                            ->title('You have been assigned a new ticket  ' . '#' . $record->id . ': ' . $record->title . ' by ' . auth()->user()->name)
+                            ->success()
+                            ->sendToDatabase(User::whereIn('id', $newAssignments)->get());
+
+                        //Notification to ticket creator
+
+                        if ($record->creator && count($newAssignments) === 1) {
+                            $assignedUser = User::find($newAssignments[0]);
+                            Notification::make()
+                                ->title('Your ticket #' . $record->id . ' has been assigned to ' . ($assignedUser ? $assignedUser->name : 'a user'))
+                                ->success()
+                                ->sendToDatabase($record->creator);
+                        } elseif ($record->creator && count($newAssignments) > 1) {
+                            $assignedUsers = User::whereIn('id', $newAssignments)->pluck('name')->toArray();
+                            Notification::make()
+                                ->title('Your ticket #' . $record->id . ' has been assigned to: ' . implode(', ', $assignedUsers))
+                                ->success()
+                                ->sendToDatabase($record->creator);
                         }
+                        
 
                         Notification::make()
                             ->title(count($newAssignments) . ' users assigned successfully')
