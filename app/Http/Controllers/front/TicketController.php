@@ -16,7 +16,7 @@ class TicketController extends Controller
     // Display all tickets for the authenticated user
     public function index(Request $request)
     {
-        $query = auth()->user()->branch->tickets()->with([
+        $query = auth()->user()->tickets()->with([
             'supportTopic',
             'supportTopic.supportUnit',
             'supportTopic.supportUnit.department',
@@ -66,6 +66,37 @@ class TicketController extends Controller
 
         return redirect()->route('tickets.index')
             ->with('success', 'Ticket created successfully!');
+    }
+
+    public function branchTickets(Request $request)
+    {
+        $query = auth()->user()->branch->tickets()->with([
+            'supportTopic',
+            'supportTopic.supportUnit',
+            'supportTopic.supportUnit.department',
+            'status',
+            'creator'
+        ])->latest();
+        $tickets = $query->get();
+
+        $statuses = TicketStatus::orderBy('order')->get()
+            ->map(function ($status) use ($tickets) {
+                $status->tickets_count = $tickets->where('status_id', $status->id)->count();
+                $status->color = $status->color ?? 'gray';
+                return $status;
+            });
+
+        $filteredTickets = $request->status
+            ? $query->where('status_id', $request->status)->get()
+            : $tickets;
+
+
+        return Inertia::render('Tickets/BranchTickets', [
+            'tickets' => $filteredTickets,
+            'statuses' => $statuses,
+            'filters' => $request->only(['status']),
+            'total_tickets' => $tickets->count(),
+        ]);
     }
 
     // Show a single ticket

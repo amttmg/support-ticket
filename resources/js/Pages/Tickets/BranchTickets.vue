@@ -1,8 +1,8 @@
 <script setup>
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link, router } from '@inertiajs/vue3';
-    import TicketTabs from '@/Components/TicketTabs.vue';
     import { computed } from 'vue';
+    import TicketTabs from '@/Components/TicketTabs.vue';
 
     const props = defineProps({
         tickets: {
@@ -48,7 +48,7 @@
 
     // Filter by status
     const filterByStatus = (statusId) => {
-        router.get(route('tickets.index'), { status: statusId }, {
+        router.get(route('tickets.branch-tickets'), { status: statusId }, {
             preserveState: true,
             replace: true,
         });
@@ -56,7 +56,7 @@
 
     // Clear all filters
     const clearFilters = () => {
-        router.get(route('tickets.index'), {}, {
+        router.get(route('tickets.branch-tickets'), {}, {
             preserveState: true,
             replace: true,
         });
@@ -106,9 +106,8 @@
         </template>
 
         <div class="py-8">
-
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <TicketTabs active="my-tickets"></TicketTabs>
+                <TicketTabs active="branch-tickets"></TicketTabs>
                 <div class="overflow-hidden bg-white shadow-xl sm:rounded-xl">
                     <div class="p-6 sm:p-8">
                         <!-- Status cards section -->
