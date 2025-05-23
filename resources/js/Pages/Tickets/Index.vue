@@ -68,13 +68,7 @@
         return foundStatus?.name || null;
     });
 
-    // Filtered tickets
-    const filteredTickets = computed(() => {
-        if (!props.filters?.status) {
-            return props.tickets;
-        }
-        return props.tickets.filter(ticket => ticket.status?.id == props.filters.status);
-    });
+
 
     // Status color class for cards
     const getStatusCardColor = (status) => {
@@ -188,7 +182,7 @@
                                         </tr>
                                     </thead>
                                     <tbody class="bg-white divide-y divide-gray-100">
-                                        <tr v-for="ticket in filteredTickets" :key="ticket.id"
+                                        <tr v-for="ticket in tickets" :key="ticket.id"
                                             class="transition-colors duration-150 hover:bg-gray-50">
                                             <td class="px-6 py-4">
                                                 <div class="flex items-center">
@@ -254,7 +248,7 @@
                                                 </div>
                                             </td>
                                         </tr>
-                                        <tr v-if="filteredTickets.length === 0">
+                                        <tr v-if="tickets.length === 0">
                                             <td colspan="6" class="px-6 py-12 text-center">
                                                 <div class="flex flex-col items-center justify-center">
                                                     <svg xmlns="http://www.w3.org/2000/svg"
