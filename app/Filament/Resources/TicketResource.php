@@ -118,7 +118,7 @@ class TicketResource extends Resource
                     ->form([
                         Select::make('user_ids')
                             ->label('Assign to Users')
-                            ->options(User::query()->pluck('name', 'id'))
+                            ->options(self::getUsersToAssign())
                             ->multiple()
                             ->searchable()
                             ->required(),
@@ -208,6 +208,19 @@ class TicketResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getUsersToAssign(): array
+    {
+        $supportUnitIds = auth()->user()->supportUnits()->pluck('support_units.id');
+        return User::query()
+            ->whereHas('supportUnits', function ($q) use ($supportUnitIds) {
+                $q->whereIn('support_units.id', $supportUnitIds);
+            })
+            // ->where('id', '!=', auth()->id())
+            ->where('user_type', 'back')
+            ->pluck('name', 'id')
+            ->toArray(); // Exclude current user
     }
 
     public static function getPages(): array
