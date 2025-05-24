@@ -9,7 +9,7 @@ class PermissionConstants
     const PERMISSION_ASSIGN_TO_ME = 'Assign-to-me Ticket';
     const PERMISSION_ALL_TICKET = 'Show-all-kanban-board Ticket';
 
-    const PERMISSION_BRANCH_MANAGER = 'Branch Manager';
+    const PERMISSION_BRANCH_MANAGER = 'Can-access-branch tickets';
 
 
     // const PERMISSION_READ = 'read';

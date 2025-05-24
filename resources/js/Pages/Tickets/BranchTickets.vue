@@ -107,7 +107,7 @@
 
         <div class="py-8">
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <TicketTabs active="branch-tickets"></TicketTabs>
+                <TicketTabs active="branch-tickets" :has_bm_role="true"></TicketTabs>
                 <div class="overflow-hidden bg-white shadow-xl sm:rounded-xl">
                     <div class="p-6 sm:p-8">
                         <!-- Status cards section -->

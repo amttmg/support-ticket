@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\front;
 
+use App\Constants\PermissionConstants;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\SupportTopic;
@@ -42,6 +43,7 @@ class TicketController extends Controller
             'statuses' => $statuses,
             'filters' => $request->only(['status']),
             'total_tickets' => $tickets->count(),
+            'has_bm_role' => auth()->user()->can(PermissionConstants::PERMISSION_BRANCH_MANAGER),
         ]);
     }
 
@@ -70,6 +72,11 @@ class TicketController extends Controller
 
     public function branchTickets(Request $request)
     {
+
+        if (!auth()->user()->can(PermissionConstants::PERMISSION_BRANCH_MANAGER)) {
+            abort(403, 'Unauthorized action.');
+        }
+
         $query = auth()->user()->branch->tickets()->with([
             'supportTopic',
             'supportTopic.supportUnit',

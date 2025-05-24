@@ -20,6 +20,10 @@
         total_tickets: {
             type: Number,
             default: 0
+        },
+        has_bm_role: {
+            type: Boolean,
+            default: false
         }
     });
 
@@ -108,7 +112,7 @@
         <div class="py-8">
 
             <div class="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                <TicketTabs active="my-tickets"></TicketTabs>
+                <TicketTabs active="my-tickets" :has_bm_role="has_bm_role"></TicketTabs>
                 <div class="overflow-hidden bg-white shadow-xl sm:rounded-xl">
                     <div class="p-6 sm:p-8">
                         <!-- Status cards section -->
