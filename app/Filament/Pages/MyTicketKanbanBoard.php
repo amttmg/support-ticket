@@ -13,6 +13,7 @@ use Mokhosh\FilamentKanban\Pages\KanbanBoard;
 use Illuminate\Support\Collection;
 use Filament\Infolists;
 use Filament\Infolists\Infolist;
+use Filament\Notifications\Notification;
 
 class MyTicketKanbanBoard extends KanbanBoard
 {
@@ -83,5 +84,22 @@ class MyTicketKanbanBoard extends KanbanBoard
     public static function getNavigationBadgeColor(): ?string
     {
         return GeneralSetup::NAVIGATION_COUNT_COLOR;
+    }
+
+    public function onStatusChanged(int | string $recordId, string $status, array $fromOrderedIds, array $toOrderedIds): void
+    {
+        $ticket = Ticket::find($recordId);
+
+        $statusObj = TicketStatus::where('id', $status)->first();
+        if ($ticket) {
+            $ticket->update([
+                'status_id' => $status,
+            ]);
+        }
+
+        Notification::make()
+            ->title('Your ticket #' . $recordId . ' status has been changed to ' . $statusObj->name. ' by ' . auth()->user()->name)
+            ->success()
+            ->sendToDatabase($ticket->creator);
     }
 }
