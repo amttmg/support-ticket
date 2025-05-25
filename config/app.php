@@ -15,6 +15,7 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+    'auto_detect_ip' => env('AUTO_DETECT_IP', false),
     /*
     |--------------------------------------------------------------------------
     | Application Environment

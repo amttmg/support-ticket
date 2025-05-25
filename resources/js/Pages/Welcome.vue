@@ -3,6 +3,8 @@
     import { ref } from 'vue';
 
     defineProps({
+        branches: Array, // List of branches
+        auto_detect_ip: Boolean, // Whether to auto-detect IP
         canLogin: Boolean,
         canRegister: Boolean,
         errors: Object, // Laravel validation errors
@@ -23,6 +25,8 @@
     // Registration Form (using Inertia's useForm)
     const registerForm = useForm({
         name: '',
+        mobile_number: '',
+        branch_id: '', // Assuming branch selection is needed
         email: '',
         password: '',
         password_confirmation: '',
@@ -268,6 +272,24 @@
                                     <input type="email" placeholder="Email" v-model="registerForm.email" required
                                         class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
                                     <div v-if="errors.email" class="mt-1 text-sm text-red-500">{{ errors.email }}</div>
+                                </div>
+                                <div class="mt-4">
+                                    <input type="text" placeholder="Mobile" v-model="registerForm.mobile_number"
+                                        required
+                                        class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                    <div v-if="errors.mobile_number" class="mt-1 text-sm text-red-500">{{
+                                        errors.mobile_number }}</div>
+                                </div>
+                                <div class="mt-4" v-if="!auto_detect_ip">
+                                    <select v-model="registerForm.branch_id" required
+                                        class="block w-full px-3 py-2 mt-1 border border-gray-300 rounded-md shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm">
+                                        <option value="" disabled>Select Branch</option>
+                                        <option v-for="branch in branches" :key="branch.id" :value="branch.id">
+                                            {{ branch.name }}
+                                        </option>
+                                    </select>
+                                    <div v-if="errors.branch_id" class="mt-1 text-sm text-red-500">{{ errors.branch_id
+                                        }}</div>
                                 </div>
                                 <div class="mt-4">
                                     <input type="password" placeholder="Password" v-model="registerForm.password"

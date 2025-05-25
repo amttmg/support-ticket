@@ -32,14 +32,18 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'branch_id' => config('app.auto_detect_ip') ? 'nullable' : 'required|integer|exists:branches,id',
+            'mobile_number' => ['required', 'digits:10'],
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'branch_id' => $request->branch_id,
+            'mobile_number' => $request->mobile_number,
         ]);
 
         event(new Registered($user));

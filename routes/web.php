@@ -4,6 +4,7 @@ use App\Http\Controllers\front\NotificationController;
 use App\Http\Controllers\front\TicketCommentController;
 use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Branch;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -15,6 +16,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
+            'branches' => Branch::all(),
+            'auto_detect_ip' => config('app.auto_detect_ip'),
             'appName' => config('app.name')
         ]);
     })->name('home');
