@@ -6,8 +6,8 @@ services:
     restart: always
     container_name: workspace
     volumes:
-      - ./php.ini:/usr/local/etc/php/php.ini
-      - .:/var/www/html
+      - D:\liveProjects\support-ticket-testing\php.ini:/usr/local/etc/php/php.ini
+      - D:\liveProjects\support-ticket-testing:/var/www/html
     ports:
       - "8500:8000" # Map container port 8000 to host port 8500
     command: php artisan serve --host=0.0.0.0 --port=8000
