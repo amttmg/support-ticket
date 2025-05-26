@@ -17,9 +17,9 @@ class EditUser extends EditRecord
         ];
     }
 
-    protected function mutateFormDataBeforeSave(array $data): array
-    {
-        $data['user_type'] = 'back';
-        return $data;
-    }
+    // protected function mutateFormDataBeforeSave(array $data): array
+    // {
+    //     $data['user_type'] = 'back';
+    //     return $data;
+    // }
 }

@@ -118,7 +118,7 @@ class TicketResource extends Resource
                     ->form([
                         Select::make('user_ids')
                             ->label('Assign to Users')
-                            ->options(User::query()->pluck('name', 'id'))
+                            ->options(self::getUsersToAssign())
                             ->multiple()
                             ->searchable()
                             ->required(),
@@ -136,13 +136,27 @@ class TicketResource extends Resource
                             ]);
                         }
 
-                        // Update ticket status if not already assigned
-                        if ($record->assignments()->count() > 0 && $record->status->slug !== 'assigned') {
-                            $assignedStatus = \App\Models\TicketStatus::where('slug', 'assigned')->first();
-                            if ($assignedStatus) {
-                                $record->update(['status_id' => $assignedStatus->id]);
-                            }
+                        //Notification to back assigned users
+                        Notification::make()
+                            ->title('You have been assigned a new ticket  ' . '#' . $record->id . ': ' . $record->title . ' by ' . auth()->user()->name)
+                            ->success()
+                            ->sendToDatabase(User::whereIn('id', $newAssignments)->get());
+
+                        //Notification to ticket creator
+                        if ($record->creator && count($newAssignments) === 1) {
+                            $assignedUser = User::find($newAssignments[0]);
+                            Notification::make()
+                                ->title('Your ticket #' . $record->id . ' has been assigned to ' . ($assignedUser ? $assignedUser->name : 'a user'))
+                                ->success()
+                                ->sendToDatabase($record->creator);
+                        } elseif ($record->creator && count($newAssignments) > 1) {
+                            $assignedUsers = User::whereIn('id', $newAssignments)->pluck('name')->toArray();
+                            Notification::make()
+                                ->title('Your ticket #' . $record->id . ' has been assigned to: ' . implode(', ', $assignedUsers))
+                                ->success()
+                                ->sendToDatabase($record->creator);
                         }
+
 
                         Notification::make()
                             ->title(count($newAssignments) . ' users assigned successfully')
@@ -164,6 +178,17 @@ class TicketResource extends Resource
                             'role' => 'agent',
                             'status' => 'assigned'
                         ]);
+
+
+                        //Notification to ticket creator
+
+                        $assignedUser = User::find(auth()->user()->id);
+                        Notification::make()
+                            ->title('Your ticket #' . $record->id . ' has been assigned to ' . ($assignedUser ? $assignedUser->name : 'a user'))
+                            ->success()
+                            ->sendToDatabase($record->creator);
+
+
                         Notification::make()
                             ->title('users assigned successfully')
                             ->success()
@@ -183,6 +208,19 @@ class TicketResource extends Resource
         return [
             //
         ];
+    }
+
+    public static function getUsersToAssign(): array
+    {
+        $supportUnitIds = auth()->user()->supportUnits()->pluck('support_units.id');
+        return User::query()
+            ->whereHas('supportUnits', function ($q) use ($supportUnitIds) {
+                $q->whereIn('support_units.id', $supportUnitIds);
+            })
+            // ->where('id', '!=', auth()->id())
+            ->where('user_type', 'back')
+            ->pluck('name', 'id')
+            ->toArray(); // Exclude current user
     }
 
     public static function getPages(): array

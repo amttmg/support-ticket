@@ -14,12 +14,21 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        $permissions = PermissionConstants::PERMISSION_ALL;
+        $permissions = PermissionConstants::PERMISSION_ALL_ADMIN;
 
         foreach ($permissions as $permission) {
             \Spatie\Permission\Models\Permission::updateOrCreate(['name' => $permission], [
                 'name' => $permission,
                 'guard_name' => 'admin',
+            ]);
+        }
+
+        $permissions = PermissionConstants::PERMISSION_BRANCH_FRONT;
+
+        foreach ($permissions as $permission) {
+            \Spatie\Permission\Models\Permission::updateOrCreate(['name' => $permission], [
+                'name' => $permission,
+                'guard_name' => 'web',
             ]);
         }
     }

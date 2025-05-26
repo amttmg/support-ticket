@@ -1,8 +1,10 @@
 <?php
 
+use App\Http\Controllers\front\NotificationController;
 use App\Http\Controllers\front\TicketCommentController;
 use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Branch;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -14,6 +16,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         return Inertia::render('Welcome', [
             'canLogin' => Route::has('login'),
             'canRegister' => Route::has('register'),
+            'branches' => Branch::all(),
+            'auto_detect_ip' => config('app.auto_detect_ip'),
             'appName' => config('app.name')
         ]);
     })->name('home');
@@ -32,6 +36,7 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
         Route::resource('tickets', TicketController::class);
+        Route::get('branch-tickets', [TicketController::class, 'branchTickets'])->name('tickets.branch-tickets');
         Route::get('/departments', [TicketController::class, 'getDepartments']);
         Route::get('/departments/{departmentId}/units', [TicketController::class, 'getUnits']);
         Route::get('/units/{unitId}/topics', [TicketController::class, 'getTopics']);
@@ -41,5 +46,8 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         // Route::get('/abc', function () {
         //     dd(auth()->user()->branch);
         // })->name('knowledge-base');
+
+        Route::get('/notifications', [NotificationController::class, 'index']);
+        Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
     });
 });

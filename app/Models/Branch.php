@@ -17,4 +17,8 @@ class Branch extends Model
     {
         return "{$this->name} ({$this->code})";
     }
+    public function tickets()
+    {
+        return $this->hasMany(Ticket::class);
+    }
 }

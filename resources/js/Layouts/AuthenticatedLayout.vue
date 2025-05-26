@@ -1,14 +1,37 @@
 <script setup>
-    import { ref } from 'vue';
+    import { ref, computed } from 'vue';
     import ApplicationLogo from '@/Components/ApplicationLogo.vue';
     import Dropdown from '@/Components/Dropdown.vue';
     import DropdownLink from '@/Components/DropdownLink.vue';
     import NavLink from '@/Components/NavLink.vue';
     import ResponsiveNavLink from '@/Components/ResponsiveNavLink.vue';
     import { Link, usePage } from '@inertiajs/vue3';
+    import NotificationBell from '@/Components/NotificationBell.vue';
 
     const showingNavigationDropdown = ref(false);
-    const appName = "Support Center"; // Replace with your app name or use a prop if needed
+    const showingNotificationsDropdown = ref(false);
+    const appName = "Support Center";
+
+    // Sample notifications data - replace with your actual data source
+    const notifications = ref([
+        { id: 1, message: 'New ticket assigned to you', time: '2 hours ago', read: false },
+        { id: 2, message: 'Your ticket #1234 was resolved', time: '1 day ago', read: true },
+        { id: 3, message: 'System maintenance scheduled', time: '3 days ago', read: true },
+    ]);
+
+    // Count of unread notifications
+    const unreadCount = computed(() => {
+        return notifications.value.filter(n => !n.read).length;
+    });
+
+    // Mark notifications as read when dropdown is shown
+    const toggleNotifications = () => {
+        showingNotificationsDropdown.value = !showingNotificationsDropdown.value;
+        if (showingNotificationsDropdown.value) {
+            // Mark all as read when dropdown is opened
+            notifications.value = notifications.value.map(n => ({ ...n, read: true }));
+        }
+    };
 </script>
 
 <template>
@@ -36,9 +59,6 @@
                     <nav class="flex items-center space-x-8">
                         <!-- Main Navigation Links -->
                         <div class="hidden sm:flex sm:space-x-8">
-                            <!-- <NavLink :href="route('dashboard')" :active="route().current('dashboard')">
-                                Dashboard
-                            </NavLink> -->
                             <NavLink :href="route('tickets.index')" :active="route().current('tickets.index')">
                                 Dashboard
                             </NavLink>
@@ -46,6 +66,7 @@
                                 Create Ticket
                             </NavLink>
                         </div>
+                        <NotificationBell></NotificationBell>
 
                         <!-- User Dropdown -->
                         <div class="relative ml-3">
@@ -82,14 +103,14 @@
                                 class="inline-flex items-center justify-center p-2 text-gray-400 rounded-md hover:bg-gray-100 hover:text-gray-500 focus:outline-none">
                                 <svg class="w-6 h-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
                                     <path :class="{
-                                                hidden: showingNavigationDropdown,
-                                                'inline-flex': !showingNavigationDropdown,
-                                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    hidden: showingNavigationDropdown,
+                                                    'inline-flex': !showingNavigationDropdown,
+                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M4 6h16M4 12h16M4 18h16" />
                                     <path :class="{
-                                                hidden: !showingNavigationDropdown,
-                                                'inline-flex': showingNavigationDropdown,
-                                            }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                                    hidden: !showingNavigationDropdown,
+                                                    'inline-flex': showingNavigationDropdown,
+                                                }" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                         d="M6 18L18 6M6 6l12 12" />
                                 </svg>
                             </button>

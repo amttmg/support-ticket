@@ -25,6 +25,8 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'branch_id',
+        'mobile_number',
         'email',
         'password',
         'user_type',
@@ -63,17 +65,32 @@ class User extends Authenticatable
     {
         return $this->hasMany(Ticket::class, 'created_by');
     }
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
+    }
     protected static function booted()
     {
         static::creating(function ($user) {
             $user->ip_address = request()->ip();
+
+            if (config('app.auto_detect_ip')) {
+                $ipAddress = request()->ip();
+                $networkPart = implode('.', array_slice(explode('.', $ipAddress), 0, 3));
+                $branch = Branch::where('ip_range', 'like', $networkPart . '.%')->first();
+                $user->branch_id = $branch->id;
+            }
         });
     }
 
     public function getBranchAttribute()
     {
-        $ipAddress = $this->ip_address;
-        $networkPart = implode('.', array_slice(explode('.', $ipAddress), 0, 3));
-        return Branch::where('ip_range', 'like', $networkPart . '.%')->first();
+        if (config('app.auto_detect_ip')) {
+            $ipAddress = $this->ip_address;
+            $networkPart = implode('.', array_slice(explode('.', $ipAddress), 0, 3));
+            return Branch::where('ip_range', 'like', $networkPart . '.%')->first();
+        } else {
+            return ($this->branch()->first());
+        }
     }
 }
