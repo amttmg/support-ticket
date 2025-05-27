@@ -6,11 +6,12 @@ services:
     restart: always
     container_name: workspace
     volumes:
-      - D:\liveProjects\support-ticket-testing\php.ini:/usr/local/etc/php/php.ini
-      - D:\liveProjects\support-ticket-testing:/var/www/html
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - .:/var/www/html
     ports:
       - "8500:8000" # Map container port 8000 to host port 8500
-    command: php artisan serve --host=0.0.0.0 --port=8000
+    command: >
+      sh -c "npm install && npm run build && php artisan serve --host=0.0.0.0 --port=8000"
     networks:
       - internal
 
@@ -28,6 +29,18 @@ services:
       internal:
         ipv4_address: '172.101.0.7'
     container_name: db
+  queue:
+    build: .
+    restart: always
+    container_name: queue-worker
+    volumes:
+      - ./php.ini:/usr/local/etc/php/php.ini
+      - .:/var/www/html
+    command: php artisan queue:work
+    networks:
+      - internal
+    depends_on:
+      - db
 
   phpmyadmin:
     image: phpmyadmin

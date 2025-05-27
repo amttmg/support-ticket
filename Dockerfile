@@ -19,7 +19,7 @@ RUN docker-php-ext-install intl
 RUN apt-get update && apt-get install -y zip git 
 
 # For Node
-ENV NODE_VERSION=14.21.3
+ENV NODE_VERSION=20.13.1
 RUN apt install -y curl
 RUN curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.0/install.sh | bash
 ENV NVM_DIR=/root/.nvm
