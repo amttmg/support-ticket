@@ -6,8 +6,8 @@ services:
     restart: always
     container_name: workspace
     volumes:
-      - ./php.ini:/usr/local/etc/php/php.ini
-      - .:/var/www/html
+      - ${APP_PATH}/php.ini:/usr/local/etc/php/php.ini
+      - ${APP_PATH}:/var/www/html
     ports:
       - "8500:8000" # Map container port 8000 to host port 8500
     command: >
@@ -34,8 +34,8 @@ services:
     restart: always
     container_name: queue-worker
     volumes:
-      - ./php.ini:/usr/local/etc/php/php.ini
-      - .:/var/www/html
+      - ${APP_PATH}/php.ini:/usr/local/etc/php/php.ini
+      - ${APP_PATH}:/var/www/html
     command: php artisan queue:work
     networks:
       - internal
