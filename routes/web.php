@@ -13,13 +13,14 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
 
     // This route is used to serve the frontend application before login
     Route::get('/', function () {
-        return Inertia::render('Welcome', [
-            'canLogin' => Route::has('login'),
-            'canRegister' => Route::has('register'),
-            'branches' => Branch::all(),
-            'auto_detect_ip' => config('app.auto_detect_ip'),
-            'appName' => config('app.name')
-        ]);
+        // return Inertia::render('Welcome', [
+        //     'canLogin' => Route::has('login'),
+        //     'canRegister' => Route::has('register'),
+        //     'branches' => Branch::all(),
+        //     'auto_detect_ip' => config('app.auto_detect_ip'),
+        //     'appName' => config('app.name')
+        // ]);
+        return redirect()->route('login');
     })->name('home');
     require __DIR__ . '/auth.php';
 
