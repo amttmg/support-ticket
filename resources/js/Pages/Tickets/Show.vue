@@ -70,7 +70,7 @@
                                 </div>
 
                                 <!-- Comment Form -->
-                                <form @submit.prevent="submitComment" class="mt-4">
+                                <form @submit.prevent="submitComment" class="mt-4" v-if="ticket.status.name!='Closed'">
                                     <textarea v-model="form.body"
                                         class="w-full p-3 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
                                         rows="3" placeholder="Add a comment..." required></textarea>

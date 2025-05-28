@@ -33,10 +33,12 @@ class TicketController extends Controller
                 return $status;
             });
 
+        // Get the default status (Open) if no status filter is applied
+        $defaultStatus = TicketStatus::where('name', 'open')->first();
+
         $filteredTickets = $request->status
             ? $query->where('status_id', $request->status)->get()
-            : $tickets;
-
+            : ($defaultStatus ? $query->where('status_id', $defaultStatus->id)->get() : $tickets);
 
         return Inertia::render('Tickets/Index', [
             'tickets' => $filteredTickets,
@@ -72,7 +74,6 @@ class TicketController extends Controller
 
     public function branchTickets(Request $request)
     {
-
         if (!auth()->user()->can(PermissionConstants::PERMISSION_BRANCH_MANAGER)) {
             abort(403, 'Unauthorized action.');
         }
@@ -93,10 +94,12 @@ class TicketController extends Controller
                 return $status;
             });
 
+        // Get the default status (Open) if no status filter is applied
+        $defaultStatus = TicketStatus::where('name', 'open')->first();
+
         $filteredTickets = $request->status
             ? $query->where('status_id', $request->status)->get()
-            : $tickets;
-
+            : ($defaultStatus ? $query->where('status_id', $defaultStatus->id)->get() : $tickets);
 
         return Inertia::render('Tickets/BranchTickets', [
             'tickets' => $filteredTickets,
