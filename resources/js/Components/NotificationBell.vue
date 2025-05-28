@@ -85,6 +85,7 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import axios from 'axios'
+    import { router } from '@inertiajs/vue3'
 
     const notifications = ref([])
     const unreadCount = ref(0)
@@ -119,7 +120,9 @@
             }
         }
         // Optionally navigate to the notification target
-        // window.location.href = notification.data.url
+        if (notification.data?.color) {
+            router.visit(route('tickets.show', notification.data.color))
+        }
     }
 
     const markAllAsRead = async () => {

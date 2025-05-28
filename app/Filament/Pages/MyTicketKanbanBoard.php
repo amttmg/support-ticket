@@ -98,8 +98,11 @@ class MyTicketKanbanBoard extends KanbanBoard
         }
 
         Notification::make()
-            ->title('Your ticket #' . $recordId . ' status has been changed to ' . $statusObj->name. ' by ' . auth()->user()->name)
+            ->title('Your ticket #' . $recordId . ' status has been changed to ' . $statusObj->name . ' by ' . auth()->user()->name)
             ->success()
+            ->color(
+                $recordId
+            )
             ->sendToDatabase($ticket->creator);
     }
 }
