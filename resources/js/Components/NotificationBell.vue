@@ -157,6 +157,6 @@
     onMounted(() => {
         fetchNotifications()
         // Optional: Poll for new notifications every 60 seconds
-        setInterval(fetchNotifications, 30000)
+        //setInterval(fetchNotifications, 30000)
     })
 </script>

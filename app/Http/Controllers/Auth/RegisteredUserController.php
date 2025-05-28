@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Branch;
 use App\Models\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
@@ -20,7 +21,11 @@ class RegisteredUserController extends Controller
      */
     public function create(): Response
     {
-        return Inertia::render('Auth/Register');
+
+        return Inertia::render('Auth/Register', [
+            'branches' => Branch::all(),
+            'auto_detect_ip' => config('app.auto_detect_ip'),
+        ]);
     }
 
     /**
@@ -35,7 +40,8 @@ class RegisteredUserController extends Controller
             'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'branch_id' => config('app.auto_detect_ip') ? 'nullable' : 'required|integer|exists:branches,id',
-            'mobile_number' => ['required', 'digits:10'],
+            'mobile_number' => ['required', 'digits:10', 'unique:' . User::class],
+            'emp_no' => 'required|digits:5|unique:' . User::class
         ]);
 
         $user = User::create([
@@ -44,6 +50,7 @@ class RegisteredUserController extends Controller
             'password' => Hash::make($request->password),
             'branch_id' => $request->branch_id,
             'mobile_number' => $request->mobile_number,
+            'emp_no' => $request->emp_no
         ]);
 
         event(new Registered($user));
