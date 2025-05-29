@@ -50,7 +50,9 @@ class LoginRequest extends FormRequest
         if ($user) {
 
             if (is_null($user->ip_address)) {
+                $branch = getBranchIdFromIp($currentIp);
                 $user->ip_address = $currentIp;
+                $user->branch_id = $branch ? $branch->id : null;
                 $user->save();
             }
             // Extract network portion (first 3 octets) of both IPs
@@ -59,7 +61,7 @@ class LoginRequest extends FormRequest
 
             if ($userNetwork !== $currentNetwork) {
                 throw ValidationException::withMessages([
-                    'email' => "Different network detected. Please contact IT Department to reset.",
+                    'email' => "Different Branch detected. Please contact IT Department to reset.",
                 ]);
             }
         }
