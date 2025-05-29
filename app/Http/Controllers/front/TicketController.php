@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\front;
 
 use App\Constants\PermissionConstants;
+use App\Constants\TicketStatusConstant;
 use App\Http\Controllers\Controller;
 use App\Models\Department;
 use App\Models\SupportTopic;
@@ -34,11 +35,17 @@ class TicketController extends Controller
             });
 
         // Get the default status (Open) if no status filter is applied
-        $defaultStatus = TicketStatus::where('name', 'open')->first();
+        $defaultStatus = TicketStatus::where('id', TicketStatusConstant::OPEN)->first();
 
-        $filteredTickets = $request->status
-            ? $query->where('status_id', $request->status)->get()
-            : ($defaultStatus ? $query->where('status_id', $defaultStatus->id)->get() : $tickets);
+        if ($request->status == 'all') {
+            $filteredTickets = $tickets;
+        } elseif ($request->status) {
+            $filteredTickets = $query->where('status_id', $request->status)->get();
+        } elseif ($defaultStatus) {
+            $filteredTickets = $query->where('status_id', $defaultStatus->id)->get();
+        } else {
+            $filteredTickets = $tickets;
+        }
 
         return Inertia::render('Tickets/Index', [
             'tickets' => $filteredTickets,
@@ -95,11 +102,17 @@ class TicketController extends Controller
             });
 
         // Get the default status (Open) if no status filter is applied
-        $defaultStatus = TicketStatus::where('name', 'open')->first();
+        $defaultStatus = TicketStatus::where('id', TicketStatusConstant::OPEN)->first();
 
-        $filteredTickets = $request->status
-            ? $query->where('status_id', $request->status)->get()
-            : ($defaultStatus ? $query->where('status_id', $defaultStatus->id)->get() : $tickets);
+        if ($request->status == 'all') {
+            $filteredTickets = $tickets;
+        } elseif ($request->status) {
+            $filteredTickets = $query->where('status_id', $request->status)->get();
+        } elseif ($defaultStatus) {
+            $filteredTickets = $query->where('status_id', $defaultStatus->id)->get();
+        } else {
+            $filteredTickets = $tickets;
+        }
 
         return Inertia::render('Tickets/BranchTickets', [
             'tickets' => $filteredTickets,

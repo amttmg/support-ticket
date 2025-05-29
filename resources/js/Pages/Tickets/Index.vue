@@ -136,11 +136,11 @@
                                     {{ status.tickets_count || 0 }}
                                 </div>
                             </div>
-                            <div @click="clearFilters"
+                            <div @click="filterByStatus('all')"
                                 class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer hover:border-indigo-300"
                                 :class="[
                                                             'border-indigo-100 bg-indigo-50',
-                                                            { 'border-indigo-500 ring-1 ring-indigo-200': !filters?.status }
+                                                            { 'border-indigo-500 ring-1 ring-indigo-200': (filters?.status =='all')  }
                                                         ]">
                                 <div class="text-sm font-medium text-indigo-600">Total Tickets</div>
                                 <div class="mt-1 text-2xl font-bold text-indigo-800">
