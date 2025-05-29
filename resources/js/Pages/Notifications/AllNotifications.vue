@@ -15,6 +15,21 @@
             console.error('Failed to mark all as read:', error)
         }
     }
+    const markAsRead = async (notification) => {
+        if (!notification.read_at) {
+            try {
+                await axios.post(`/notifications/${notification.id}/read`)
+                notification.read_at = new Date()
+                unreadCount.value = Math.max(unreadCount.value - 1, 0)
+            } catch (error) {
+                console.error('Failed to mark as read:', error)
+            }
+        }
+        // Optionally navigate to the notification target
+        if (notification.data?.color) {
+            router.visit(route('tickets.show', notification.data.color))
+        }
+    }
 </script>
 
 <template>
@@ -49,7 +64,7 @@
                             'border-l-4 border-indigo-500': !notification.read_at,
                             'opacity-90': notification.read_at
                         }">
-                    <div class="flex items-start">
+                    <div class="flex items-start cursor-pointer" @click="markAsRead(notification)">
                         <div class="flex-shrink-0 pt-0.5">
                             <div
                                 class="flex items-center justify-center w-8 h-8 text-indigo-600 bg-indigo-100 rounded-full">
