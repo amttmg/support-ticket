@@ -48,7 +48,10 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         //     dd(auth()->user()->branch);
         // })->name('knowledge-base');
 
+
+        Route::get('/notifications-all', [NotificationController::class, 'allNotification'])->name('notifications.all');
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
+        Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
     });
 });
