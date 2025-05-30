@@ -2,12 +2,16 @@
 
 namespace App\Filament\Pages;
 
+use App\Filament\Helpers\TicketForms;
 use App\Models\Ticket; // Make sure to use your Ticket model
+use Filament\Actions\ViewAction;
 use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
 use Filament\Tables\Contracts\HasTable;
 use Filament\Tables\Table;
+use Filament\Tables;
+use Filament\Tables\Actions\ViewAction as ActionsViewAction;
 
 class AllTickets extends Page implements HasTable
 {
@@ -26,48 +30,72 @@ class AllTickets extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query(Ticket::query()) // Use your Ticket model
+            ->query(Ticket::query()->forSupportUnitUser()->with(['supportTopic', 'status', 'creator'])) // Use your Ticket model
             ->columns([
-                TextColumn::make('id')
-                    ->label('ID')
-                    ->sortable()
+
+                Tables\Columns\TextColumn::make('title')
                     ->searchable(),
 
-                TextColumn::make('subject')
-                    ->sortable()
-                    ->searchable(),
-
-                TextColumn::make('status')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'open' => 'success',
-                        'closed' => 'danger',
-                        'pending' => 'warning',
-                        default => 'gray',
-                    }),
-
-                TextColumn::make('priority')
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'high' => 'danger',
-                        'medium' => 'warning',
-                        'low' => 'success',
-                        default => 'gray',
-                    }),
-
-                TextColumn::make('created_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('supportTopic.name')
                     ->sortable(),
 
-                TextColumn::make('updated_at')
-                    ->dateTime()
+                Tables\Columns\TextColumn::make('priority')
+                    ->sortable()
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'low' => 'gray',
+                        'medium' => 'info',
+                        'high' => 'danger',
+                        default => 'gray',
+                    }),
+                TextColumn::make('status.name')  // Access the related status's name
+                    ->label('Status')
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->color(fn(string $state): string => match ($state) {
+                        'Open' => 'primary',
+                        'In Progress' => 'success',
+                        'Resolved' => 'warning',
+                        'Closed' => 'danger',
+                        default => 'secondary',
+                    }),
+
+                Tables\Columns\TextColumn::make('branch.formatted_name')
+                    ->label('Branch')
+                    ->searchable('name')
+                    ->placeholder('N/A'),
+
+
+                Tables\Columns\TextColumn::make('created_at')
+                    ->since()
                     ->sortable(),
             ])
             ->filters([
-                // Add filters if needed
+                Tables\Filters\SelectFilter::make('status')
+                    ->relationship('status', 'name'),
+
+                Tables\Filters\SelectFilter::make('priority')
+                    ->options([
+                        'low' => 'Low',
+                        'medium' => 'Medium',
+                        'high' => 'High',
+                    ]),
+
+                Tables\Filters\SelectFilter::make('support_topic_id')
+                    ->relationship('supportTopic', 'name')
+                    ->searchable()
+                    ->preload(),
+
+                Tables\Filters\SelectFilter::make('branch_id')
+                    ->relationship('branch', 'name')
+                    ->label('Branch')
+                    ->searchable()
+                    ->preload(),
             ])
             ->actions([
-                // Add actions like edit, view, etc.
+                ActionsViewAction::make()
+                    ->infolist(TicketForms::basicInfoListSchema()),
             ])
             ->bulkActions([
                 // Add bulk actions if needed
