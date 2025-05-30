@@ -101,6 +101,6 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         $url = Filament::getResetPasswordUrl($token, $this);
 
-        $this->notify(new FilamentNewUserNotification($token, $url, $this->email));
+        $this->notify(new FilamentNewUserNotification($token, $url, $this));
     }
 }
