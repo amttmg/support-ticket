@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\Branch;
 use App\Models\User;
+use App\Rules\AllowedEmailDomain;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -37,7 +38,15 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:' . User::class,
+            'email' => [
+                'required',
+                'string',
+                'lowercase',
+                'email',
+                'max:255',
+                'unique:' . User::class,
+                new AllowedEmailDomain(), // Add the custom rule here
+            ],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
             'branch_id' => config('app.auto_detect_ip') ? 'nullable' : 'required|integer|exists:branches,id',
             'mobile_number' => ['required', 'digits:10', 'unique:' . User::class],

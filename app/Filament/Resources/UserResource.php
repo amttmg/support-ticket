@@ -8,6 +8,7 @@ use App\Filament\Resources\UserResource\Pages;
 use App\Models\Department;
 use App\Models\SupportUnit;
 use App\Models\User;
+use App\Rules\AllowedEmailDomain;
 use Filament\Forms;
 use Filament\Forms\Components\CheckboxList;
 use Filament\Forms\Components\Section;
@@ -41,7 +42,11 @@ class UserResource extends Resource
                 TextInput::make('email')
                     ->required()
                     ->email()
-                    ->unique(ignoreRecord: true),
+                    ->rule(new AllowedEmailDomain())
+                    ->unique(ignoreRecord: true)
+                    ->validationMessages([
+                        'allowed_email_domain' => 'Only RBB email addresses (@rbb.com.np) are allowed.',
+                    ]),
                 TextInput::make('password')
                     ->password()
                     ->required(fn($context) => $context === 'create')
