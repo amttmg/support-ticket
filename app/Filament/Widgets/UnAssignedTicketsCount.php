@@ -18,7 +18,7 @@ class UnAssignedTicketsCount extends BaseWidget
                 ->icon('heroicon-o-inbox')
                 ->color('danger')
                 //->description('Tickets waiting for assignment')
-               // ->descriptionIcon('heroicon-o-clock')
+                // ->descriptionIcon('heroicon-o-clock')
                 // ->chart($this->getTicketTrend('unassigned'))
                 ->extraAttributes(['class' => 'hover:shadow-lg transition-shadow']),
 
@@ -55,7 +55,7 @@ class UnAssignedTicketsCount extends BaseWidget
                 // ->chart($this->getTicketTrend('resolved'))
                 ->extraAttributes(['class' => 'hover:shadow-lg transition-shadow']),
 
-            Stat::make("Today's Closed Tickets", Ticket::query()
+            Stat::make("Total Closed Tickets", Ticket::query()
                 ->forSupportUnitUser()
                 ->where('status_id', TicketStatusConstant::CLOSED)
                 ->count())
