@@ -4,6 +4,7 @@ namespace App\Filament\Resources\UserResource\Pages;
 
 use App\Filament\Resources\UserResource;
 use Filament\Actions;
+use Filament\Facades\Filament;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Support\Facades\Password;
 
@@ -20,8 +21,13 @@ class CreateUser extends CreateRecord
     {
         $record = parent::handleRecordCreation($data);
 
-        // ✅ Send password reset link
-        Password::sendResetLink(['email' => $record->email]);
+        Password::broker(Filament::getAuthPasswordBroker())
+            ->sendResetLink(
+                ['email' => $record->email],
+                function ($user, string $token) {
+                    $user->sendPasswordResetNotification($token);
+                }
+            );
 
         return $record;
     }

@@ -5,6 +5,8 @@ namespace App\Models;
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 
 use Althinect\FilamentSpatieRolesPermissions\Concerns\HasSuperAdmin;
+use App\Notifications\FilamentNewUserNotification;
+use Filament\Facades\Filament;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -94,5 +96,11 @@ class User extends Authenticatable implements MustVerifyEmail
         } else {
             return ($this->branch()->first());
         }
+    }
+    public function sendPasswordResetNotification($token)
+    {
+        $url = Filament::getResetPasswordUrl($token, $this);
+
+        $this->notify(new FilamentNewUserNotification($token, $url, $this->email));
     }
 }
