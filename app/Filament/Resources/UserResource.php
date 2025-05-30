@@ -55,7 +55,7 @@ class UserResource extends Resource
                 Forms\Components\CheckboxList::make('roles')
                     ->relationship('roles', 'name')
                     ->options(function (Forms\Get $get) {
-                        $userType = $get('user_type'); // assuming you have a user_type field
+                        $userType = $get('user_type') ?? 'back'; // assuming you have a user_type field
                         $guard = $userType == 'back' ? 'admin' : 'web';
                         return Role::where('guard_name', $guard)
                             ->pluck('name', 'id')

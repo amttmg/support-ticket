@@ -14,7 +14,7 @@ use Filament\Tables\Table;
 use Filament\Tables;
 use Filament\Tables\Actions\ViewAction as ActionsViewAction;
 
-class AllTickets extends Page implements HasTable
+class MyTickets extends Page implements HasTable
 {
     use InteractsWithTable;
 
@@ -22,7 +22,7 @@ class AllTickets extends Page implements HasTable
 
     protected static string $view = 'filament.pages.all-tickets';
 
-    protected static ?string $navigationLabel = 'All Tickets';
+    protected static ?string $navigationLabel = 'My Tickets';
 
     protected static ?string $navigationGroup = 'Reports';
 
@@ -35,7 +35,7 @@ class AllTickets extends Page implements HasTable
     }
     public static function getQuery()
     {
-        return Ticket::query()->forSupportUnitUser()->with(['supportTopic', 'status', 'creator']);
+        return Ticket::query()->myTickets()->with(['supportTopic', 'status', 'creator']);
     }
     public function table(Table $table): Table
     {
