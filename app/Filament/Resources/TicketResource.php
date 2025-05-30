@@ -22,6 +22,8 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 
+use function PHPUnit\Framework\isArray;
+
 class TicketResource extends Resource
 {
     protected static ?string $model = Ticket::class;
@@ -119,11 +121,15 @@ class TicketResource extends Resource
                         Select::make('user_ids')
                             ->label('Assign to Users')
                             ->options(self::getUsersToAssign())
-                            ->multiple()
+                            //->multiple()
                             ->searchable()
                             ->required(),
                     ])
-                    ->action(function (Ticket $record, array $data): void {
+                    ->action(function (Ticket $record, $data): void {
+                        if (!is_array($data['user_ids'])) {
+                            $data['user_ids'] = [$data['user_ids']];
+                        }
+
                         $existingAssignments = $record->assignments()->pluck('user_id')->toArray();
                         $newAssignments = array_diff($data['user_ids'], $existingAssignments);
 

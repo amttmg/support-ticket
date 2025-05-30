@@ -24,6 +24,7 @@ class UnAssignedTicketsCount extends BaseWidget
 
             Stat::make('Open Tickets', Ticket::query()
                 ->forSupportUnitUser()
+                ->assigned()
                 ->where('status_id', TicketStatusConstant::OPEN)
                 ->count())
                 ->icon('heroicon-o-exclamation-circle')
