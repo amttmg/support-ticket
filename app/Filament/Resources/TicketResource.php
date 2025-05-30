@@ -154,6 +154,9 @@ class TicketResource extends Resource
                             Notification::make()
                                 ->title('Your ticket #' . $record->id . ' has been assigned to: ' . implode(', ', $assignedUsers))
                                 ->success()
+                                ->color(
+                                    $record->id
+                                )
                                 ->sendToDatabase($record->creator);
                         }
 
@@ -183,8 +186,11 @@ class TicketResource extends Resource
                         //Notification to ticket creator
 
                         $assignedUser = User::find(auth()->user()->id);
-                        Notification::make()
+                        Notification::make($record->id)
                             ->title('Your ticket #' . $record->id . ' has been assigned to ' . ($assignedUser ? $assignedUser->name : 'a user'))
+                            ->color(
+                                $record->id
+                            )
                             ->success()
                             ->sendToDatabase($record->creator);
 

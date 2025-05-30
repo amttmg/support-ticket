@@ -72,9 +72,10 @@
                         </div>
                     </div>
                     <div class="px-4 py-2 text-center border-t border-gray-100">
-                        <a href="#" class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
-                            View all notifications
-                        </a>
+                        <Link :href="route('notifications.all')"
+                            class="text-sm font-medium text-indigo-600 hover:text-indigo-800">
+                        View all notifications
+                        </Link>
                     </div>
                 </div>
             </div>
@@ -85,6 +86,7 @@
 <script setup>
     import { ref, onMounted } from 'vue'
     import axios from 'axios'
+    import { router, Link } from '@inertiajs/vue3'
 
     const notifications = ref([])
     const unreadCount = ref(0)
@@ -119,7 +121,9 @@
             }
         }
         // Optionally navigate to the notification target
-        // window.location.href = notification.data.url
+        if (notification.data?.color) {
+            router.visit(route('tickets.show', notification.data.color))
+        }
     }
 
     const markAllAsRead = async () => {
@@ -157,6 +161,6 @@
     onMounted(() => {
         fetchNotifications()
         // Optional: Poll for new notifications every 60 seconds
-        setInterval(fetchNotifications, 30000)
+        //setInterval(fetchNotifications, 30000)
     })
 </script>

@@ -112,29 +112,34 @@
                     <div class="p-6 sm:p-8">
                         <!-- Status cards section -->
                         <div class="grid grid-cols-1 gap-4 mb-8 md:grid-cols-5">
-                            <div @click="clearFilters"
-                                class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer hover:border-indigo-300"
-                                :class="[
-                                    'border-indigo-100 bg-indigo-50',
-                                    { 'border-indigo-500 ring-1 ring-indigo-200': !filters?.status }
-                                ]">
-                                <div class="text-sm font-medium text-indigo-600">Total Tickets</div>
-                                <div class="mt-1 text-2xl font-bold text-indigo-800">
-                                    {{ total_tickets }}
-                                </div>
-                            </div>
+
                             <div v-for="status in statuses" :key="status.id" @click="filterByStatus(status.id)"
                                 class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer" :class="[
-                                    getStatusCardColor(status).border,
-                                    getStatusCardColor(status).bg,
-                                    { 'border-indigo-500 ring-1 ring-indigo-200': filters?.status == status.id },
-                                    getStatusCardColor(status).hover
-                                ]">
+                                                                getStatusCardColor(status).border,
+                                                                getStatusCardColor(status).bg,
+                                                                { 
+                                                                    'border-indigo-500 ring-1 ring-indigo-200': 
+                                                                        (filters?.status == status.id) || 
+                                                                        (!filters?.status && status.name.toLowerCase() === 'open')
+                                                                },
+                                                                getStatusCardColor(status).hover
+                                                            ]">
                                 <div class="text-sm font-medium" :class="getStatusCardColor(status).text">
                                     {{ status.name }}
                                 </div>
                                 <div class="mt-1 text-2xl font-bold" :class="getStatusCardColor(status).text">
                                     {{ status.tickets_count || 0 }}
+                                </div>
+                            </div>
+                            <div @click="filterByStatus('all')"
+                                class="p-4 transition-all duration-200 border-2 rounded-lg cursor-pointer hover:border-indigo-300"
+                                :class="[
+                                                                'border-indigo-100 bg-indigo-50',
+                                                                { 'border-indigo-500 ring-1 ring-indigo-200': filters?.status=='all' }
+                                                            ]">
+                                <div class="text-sm font-medium text-indigo-600">Total Tickets</div>
+                                <div class="mt-1 text-2xl font-bold text-indigo-800">
+                                    {{ total_tickets }}
                                 </div>
                             </div>
                         </div>

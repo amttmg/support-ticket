@@ -62,9 +62,16 @@
                             <NavLink :href="route('tickets.index')" :active="route().current('tickets.index')">
                                 Dashboard
                             </NavLink>
-                            <NavLink :href="route('tickets.create')" :active="route().current('tickets.create')">
+                            <Link :href="route('tickets.create')" :active="route().current('tickets.create')">
+                            <button
+                                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2">
+                                <svg class="inline w-4 h-4 mr-1 -mt-1" fill="none" stroke="currentColor"
+                                    stroke-width="2" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+                                </svg>
                                 Create Ticket
-                            </NavLink>
+                            </button>
+                            </Link>
                         </div>
                         <NotificationBell></NotificationBell>
 
@@ -176,7 +183,7 @@
             <!-- Footer - Matching Welcome.vue style -->
             <footer class="py-8 mt-12 bg-white">
                 <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <p class="text-sm text-center text-gray-500">&copy; 2025 IT Department Support Center. All rights
+                    <p class="text-sm text-center text-gray-500">&copy; 2025 Support Center. All rights
                         reserved.</p>
                 </div>
             </footer>
