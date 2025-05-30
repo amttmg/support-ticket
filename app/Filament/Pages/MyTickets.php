@@ -18,7 +18,7 @@ class MyTickets extends Page implements HasTable
 {
     use InteractsWithTable;
 
-    protected static ?string $navigationIcon = 'heroicon-o-document-text';
+    protected static ?string $navigationIcon = 'heroicon-o-identification';
 
     protected static string $view = 'filament.pages.all-tickets';
 
