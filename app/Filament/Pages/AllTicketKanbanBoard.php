@@ -34,6 +34,8 @@ class AllTicketKanbanBoard extends KanbanBoard
 
     protected static ?string $navigationIcon = 'heroicon-o-clipboard-document-list';
 
+    protected static bool $shouldRegisterNavigation = false;
+
     public static function canAccess(): bool
     {
         if (!auth()->user()) {
