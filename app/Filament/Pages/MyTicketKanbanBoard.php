@@ -33,8 +33,14 @@ class MyTicketKanbanBoard extends KanbanBoard
 
     protected static ?string $navigationIcon = 'heroicon-o-user-circle';
 
-
-
+    protected function statuses(): Collection
+    {
+        $statuses = TicketStatus::where('id', '!=', TicketStatusConstant::CLOSED)
+            ->get(['id', 'name']) // select only necessary fields
+            ->map(fn($status) => ['id' => $status->id, 'title' => $status->name]);
+            
+        return collect($statuses);
+    }
     protected function records(): Collection
     {
         return Ticket::query()

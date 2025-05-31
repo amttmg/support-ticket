@@ -1,6 +1,6 @@
 @props(['status'])
 
-<div class="md:w-[24rem] flex-shrink-0 mb-5 flex flex-col min-h-[80vh] md:min-h-[65vh]">
+<div class="w-72 flex-shrink-0 mb-5 flex flex-col min-h-[80vh] md:min-h-[65vh]">
     @include(static::$headerView)
 
     <div data-status-id="{{ $status['id'] }}"

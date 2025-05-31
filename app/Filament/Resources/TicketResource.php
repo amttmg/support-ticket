@@ -66,7 +66,12 @@ class TicketResource extends Resource
             ->query(Ticket::query()->forSupportUnitUser()->unassigned()->with(['supportTopic', 'status', 'creator']))
             ->columns([
 
+                Tables\Columns\TextColumn::make('id')
+                    ->label('ID')
+                    ->sortable()
+                    ->formatStateUsing(fn($state) => '#' . $state),
                 Tables\Columns\TextColumn::make('title')
+                    ->limitWithTooltip(20)
                     ->searchable(),
 
                 Tables\Columns\TextColumn::make('supportTopic.name')
