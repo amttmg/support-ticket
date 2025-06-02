@@ -44,9 +44,11 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::get('/ticket-statuses', [TicketController::class, 'getStatuses']);
 
         Route::post('tickets/{ticket}/comments', [TicketCommentController::class, 'storeComment'])->name('tickets.comments.store');
-        // Route::get('/abc', function () {
-        //     dd(auth()->user()->branch);
-        // })->name('knowledge-base');
+        Route::put('tickets/{ticket}/reopen', [TicketController::class, 'reopen'])
+            ->name('tickets.reopen');
+
+        Route::put('tickets/{ticket}/close', [TicketController::class, 'close'])
+            ->name('tickets.close');
 
 
         Route::get('/notifications-all', [NotificationController::class, 'allNotification'])->name('notifications.all');

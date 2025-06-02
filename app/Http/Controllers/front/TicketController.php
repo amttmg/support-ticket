@@ -169,4 +169,18 @@ class TicketController extends Controller
         $statuses = TicketStatus::orderBy('order')->get();
         return response()->json($statuses);
     }
+
+    public function reopen(Ticket $ticket)
+    {
+        $ticket->update(['status_id' => TicketStatusConstant::OPEN]);
+
+        return back()->with('success', 'Ticket re-opened successfully');
+    }
+
+    public function close(Ticket $ticket)
+    {
+        $ticket->update(['status_id' => TicketStatusConstant::CLOSED]);
+
+        return back()->with('success', 'Ticket closed successfully');
+    }
 }

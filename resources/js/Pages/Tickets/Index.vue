@@ -2,6 +2,7 @@
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue';
     import { Head, Link, router } from '@inertiajs/vue3';
     import TicketTabs from '@/Components/TicketTabs.vue';
+    import Swal from '@/Helpers/sweetalert'
     import { computed } from 'vue';
 
     const props = defineProps({
@@ -26,6 +27,48 @@
             default: false
         }
     });
+
+    const confirmReopen = async (ticket) => {
+        const result = await Swal.confirm({
+            title: 'Re-open Ticket?',
+            text: 'This will change the ticket status back to open',
+            icon: 'question',
+            confirmColor: '#10B981', // green
+            confirmText: 'Re-open'
+        })
+
+        if (result.isConfirmed) {
+            router.put(route('tickets.reopen', ticket.id), {
+                onSuccess: () => {
+                    Swal.success('Ticket has been re-opened!')
+                },
+                onError: () => {
+                    Swal.error('Failed to re-open ticket')
+                }
+            })
+        }
+    }
+
+    const confirmClose = async (ticket) => {
+        const result = await Swal.confirm({
+            title: 'Close Ticket?',
+            text: 'This will permanently close the ticket',
+            icon: 'warning',
+            confirmColor: '#EF4444', // red
+            confirmText: 'Close'
+        })
+
+        if (result.isConfirmed) {
+            router.put(route('tickets.close', ticket.id), {
+                onSuccess: () => {
+                    Swal.success('Ticket has been closed!')
+                },
+                onError: () => {
+                    Swal.error('Failed to close ticket')
+                }
+            })
+        }
+    }
 
     // Priority colors
     const priorityColors = {
@@ -250,11 +293,12 @@
                                             <td class="px-6 py-4 text-sm text-gray-500 whitespace-nowrap">
                                                 {{ ticket.creator.name }}
                                             </td>
-                                            <td class="px-6 py-4 text-sm font-medium text-right whitespace-nowrap">
-                                                <div class="flex justify-end space-x-3">
+                                            <td class="px-4 py-3 text-sm text-right whitespace-nowrap">
+                                                <div class="flex flex-col items-end space-y-2">
+                                                    <!-- View Button (always shown) -->
                                                     <Link :href="route('tickets.show', ticket.id)"
-                                                        class="flex items-center text-indigo-600 hover:text-indigo-900 group">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5 mr-1"
+                                                        class="flex items-center px-2.5 py-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors duration-150 rounded hover:bg-indigo-50">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1"
                                                         fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                         <path stroke-linecap="round" stroke-linejoin="round"
                                                             stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -264,6 +308,40 @@
                                                     </svg>
                                                     View
                                                     </Link>
+
+                                                    <!-- Status Buttons (only shown when resolved) -->
+                                                    <div v-if="ticket.status.name.toLowerCase() === 'resolved'"
+                                                        class="flex space-x-2">
+                                                        <!-- Re-open Button -->
+                                                        <button @click="confirmReopen(ticket)"
+                                                            class="flex items-center px-2.5 py-1 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded transition-colors duration-150"
+                                                            title="Re-open Ticket">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M13 7h3v3" />
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M17 17a5 5 0 10-5-5" />
+                                                            </svg>
+                                                            Re-open
+                                                        </button>
+
+                                                        <!-- Close Button -->
+                                                        <button @click="confirmClose(ticket)"
+                                                            class="flex items-center px-2.5 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded transition-colors duration-150"
+                                                            title="Close Ticket">
+                                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                                class="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24"
+                                                                stroke="currentColor">
+                                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                                    stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                                                            </svg>
+                                                            Close
+                                                        </button>
+                                                    </div>
                                                 </div>
                                             </td>
                                         </tr>
