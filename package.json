@@ -4,7 +4,7 @@
     "scripts": {
         "build": "vite build",
         "dev": "vite",
-        "start": "concurrently \"php artisan serve\" \"npm run dev\" \"php artisan queue:work\""
+        "start": "concurrently \"php artisan serve --host=172.16.4.237 --port=8500\" \"npm run dev\" \"php artisan queue:work\""
     },
     "devDependencies": {
         "@inertiajs/vue3": "^2.0.0",
