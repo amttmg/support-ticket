@@ -28,6 +28,19 @@
         }
     });
 
+    const sort = (field) => {
+        // Determine the new sort direction
+        const newSort = props.filters.sort === field ? `-${field}` : field;
+
+        router.get(route('tickets.index'), {
+            ...props.filters,
+            sort: newSort
+        }, {
+            preserveState: true,
+            replace: true
+        });
+    };
+
     const confirmReopen = async (ticket) => {
         const result = await Swal.confirm({
             title: 'Re-open Ticket?',
@@ -212,24 +225,31 @@
                                     <thead class="bg-gray-50">
                                         <tr>
                                             <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer select-none hover:text-indigo-700"
+                                                @click="sort('title')">
                                                 Ticket Details
+                                                <span v-if="filters?.sort === 'title'">▲</span>
+                                                <span v-else-if="filters?.sort === '-title'">▼</span>
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                 Department
                                             </th>
-                                            <th scope="col"
+                                            <th scope="col" @click="sort('priority')"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                 Priority
+                                                <span v-if="filters?.sort === 'priority'">▲</span>
+                                                <span v-else-if="filters?.sort === '-priority'">▼</span>
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
                                                 Status
                                             </th>
-                                            <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
+                                            <th scope="col" @click="sort('updated_at')"
+                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase ">
                                                 Last Updated
+                                                <span v-if="filters?.sort === 'updated_at'">▲</span>
+                                                <span v-else-if="filters?.sort === '-updated_at'">▼</span>
                                             </th>
                                             <th scope="col"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
@@ -298,15 +318,15 @@
                                                     <!-- View Button (always shown) -->
                                                     <Link :href="route('tickets.show', ticket.id)"
                                                         class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2">
-                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
-                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                            <path stroke-linecap="round" stroke-linejoin="round"
-                                                                stroke-width="2"
-                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                        </svg>
-                                                        View
+                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                        <path stroke-linecap="round" stroke-linejoin="round"
+                                                            stroke-width="2"
+                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                    </svg>
+                                                    View
                                                     </Link>
 
                                                     <!-- Status Buttons (only shown when resolved) -->
@@ -316,9 +336,8 @@
                                                         <button @click="confirmReopen(ticket)"
                                                             class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-green-400"
                                                             title="Re-open Ticket">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
@@ -333,9 +352,8 @@
                                                         <button @click="confirmClose(ticket)"
                                                             class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-red-400"
                                                             title="Close Ticket">
-                                                            <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
-                                                                stroke="currentColor">
+                                                            <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                                fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                             </svg>

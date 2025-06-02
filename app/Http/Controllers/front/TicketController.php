@@ -24,7 +24,28 @@ class TicketController extends Controller
             'supportTopic.supportUnit.department',
             'status',
             'creator'
-        ])->latest();
+        ]);
+
+        // Handle sorting
+        if ($request->has('sort')) {
+            $sort = $request->sort;
+            $direction = 'asc';
+
+            if (str_starts_with($sort, '-')) {
+                $direction = 'desc';
+                $sort = substr($sort, 1);
+            }
+
+            // Validate sortable fields
+            $allowedSorts = ['title', 'created_at', 'updated_at', 'priority'];
+            if (in_array($sort, $allowedSorts)) {
+                $query->orderBy($sort, $direction);
+            }
+        } else {
+            // Default sorting
+            $query->latest();
+        }
+
         $tickets = $query->get();
 
         $statuses = TicketStatus::orderBy('order')->get()
@@ -40,9 +61,9 @@ class TicketController extends Controller
         if ($request->status == 'all') {
             $filteredTickets = $tickets;
         } elseif ($request->status) {
-            $filteredTickets = $query->where('status_id', $request->status)->get();
+            $filteredTickets = $query->clone()->where('status_id', $request->status)->get();
         } elseif ($defaultStatus) {
-            $filteredTickets = $query->where('status_id', $defaultStatus->id)->get();
+            $filteredTickets = $query->clone()->where('status_id', $defaultStatus->id)->get();
         } else {
             $filteredTickets = $tickets;
         }
@@ -50,7 +71,7 @@ class TicketController extends Controller
         return Inertia::render('Tickets/Index', [
             'tickets' => $filteredTickets,
             'statuses' => $statuses,
-            'filters' => $request->only(['status']),
+            'filters' => $request->only(['status', 'sort']), // Include sort in filters
             'total_tickets' => $tickets->count(),
             'has_bm_role' => auth()->user()->can(PermissionConstants::PERMISSION_BRANCH_MANAGER),
         ]);
