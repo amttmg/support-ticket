@@ -11,6 +11,7 @@ use App\Models\SupportUnit;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class TicketController extends Controller
@@ -163,16 +164,23 @@ class TicketController extends Controller
     // Get all departments
     public function getDepartments()
     {
-        $departments = Department::with('supportUnits')->get();
+        $departments = Cache::remember('departments_with_units', 3600, function () {
+            return Department::with('supportUnits')->get();
+        });
+
         return response()->json($departments);
     }
 
     // Get units for a department
     public function getUnits($departmentId)
     {
-        $units = SupportUnit::where('department_id', $departmentId)
-            ->with('supportTopics')
-            ->get();
+        $cacheKey = "units_with_topics_department_$departmentId";
+
+        $units = Cache::remember($cacheKey, 3600, function () use ($departmentId) {
+            return SupportUnit::where('department_id', $departmentId)
+                ->with('supportTopics')
+                ->get();
+        });
 
         return response()->json($units);
     }
@@ -180,10 +188,14 @@ class TicketController extends Controller
     // Get topics for a unit
     public function getTopics($unitId)
     {
-        $topics = SupportTopic::where('support_unit_id', $unitId)->get();
+        $cacheKey = "topics_for_unit_$unitId";
+
+        $topics = Cache::remember($cacheKey, 3600, function () use ($unitId) {
+            return SupportTopic::where('support_unit_id', $unitId)->get();
+        });
+
         return response()->json($topics);
     }
-
     // Get ticket statuses
     public function getStatuses()
     {
