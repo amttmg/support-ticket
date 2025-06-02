@@ -197,10 +197,11 @@
                                             class="flex space-x-2">
 
                                             <!-- Re-open Button -->
+                                            <!-- Re-open Button -->
                                             <button @click="confirmReopen(ticket)"
-                                                class="flex items-center px-2.5 py-1 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded transition-colors duration-150"
+                                                class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-green-600 rounded-md shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
                                                 title="Re-open Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1"
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
@@ -214,9 +215,9 @@
 
                                             <!-- Close Button -->
                                             <button @click="confirmClose(ticket)"
-                                                class="flex items-center px-2.5 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded transition-colors duration-150"
+                                                class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-red-600 rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
                                                 title="Close Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1"
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
                                                     fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M6 18L18 6M6 6l12 12" />

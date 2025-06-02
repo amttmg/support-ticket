@@ -297,16 +297,16 @@
                                                 <div class="flex flex-col items-end space-y-2">
                                                     <!-- View Button (always shown) -->
                                                     <Link :href="route('tickets.show', ticket.id)"
-                                                        class="flex items-center px-2.5 py-1 text-xs font-medium text-indigo-600 hover:text-indigo-800 transition-colors duration-150 rounded hover:bg-indigo-50">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" class="w-3.5 h-3.5 mr-1"
-                                                        fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                                                        <path stroke-linecap="round" stroke-linejoin="round"
-                                                            stroke-width="2"
-                                                            d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
-                                                    </svg>
-                                                    View
+                                                        class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-indigo-400 mr-2">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-1"
+                                                            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                                stroke-width="2"
+                                                                d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                                                        </svg>
+                                                        View
                                                     </Link>
 
                                                     <!-- Status Buttons (only shown when resolved) -->
@@ -314,10 +314,10 @@
                                                         class="flex space-x-2">
                                                         <!-- Re-open Button -->
                                                         <button @click="confirmReopen(ticket)"
-                                                            class="flex items-center px-2.5 py-1 text-xs font-medium text-green-700 bg-green-50 hover:bg-green-100 rounded transition-colors duration-150"
+                                                            class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-green-600 hover:bg-green-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-green-400"
                                                             title="Re-open Ticket">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24"
+                                                                class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
@@ -331,10 +331,10 @@
 
                                                         <!-- Close Button -->
                                                         <button @click="confirmClose(ticket)"
-                                                            class="flex items-center px-2.5 py-1 text-xs font-medium text-red-700 bg-red-50 hover:bg-red-100 rounded transition-colors duration-150"
+                                                            class="inline-flex items-center px-3 py-1.5 text-xs font-semibold text-white bg-red-600 hover:bg-red-700 rounded-lg shadow transition-colors duration-150 focus:outline-none focus:ring-2 focus:ring-red-400"
                                                             title="Close Ticket">
                                                             <svg xmlns="http://www.w3.org/2000/svg"
-                                                                class="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24"
+                                                                class="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24"
                                                                 stroke="currentColor">
                                                                 <path stroke-linecap="round" stroke-linejoin="round"
                                                                     stroke-width="2" d="M6 18L18 6M6 6l12 12" />
