@@ -117,7 +117,7 @@ class Login extends SimplePage
                     ->schema([
                         $this->getEmailFormComponent(),
                         $this->getPasswordFormComponent(),
-                        $this->getRememberFormComponent(),
+                        //$this->getRememberFormComponent(),
                     ])
                     ->statePath('data'),
             ),

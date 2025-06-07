@@ -232,8 +232,7 @@
                                                 <span v-else-if="filters?.sort === '-title'">▼</span>
                                             </th>
                                             <th scope="col"
-                                                class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
-                                                Department
+                                            class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase cursor-pointer select-none hover:text-indigo-700"                                                Department
                                             </th>
                                             <th scope="col" @click="sort('priority')"
                                                 class="px-6 py-3 text-xs font-medium tracking-wider text-left text-gray-500 uppercase">
