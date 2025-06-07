@@ -2,6 +2,7 @@
 
 namespace App\Filament\Pages;
 
+use App\Constants\PermissionConstants;
 use App\Filament\Helpers\TicketForms;
 use App\Models\Ticket; // Make sure to use your Ticket model
 use Filament\Actions\ViewAction;
@@ -27,6 +28,11 @@ class AllTickets extends Page implements HasTable
     protected static ?string $navigationGroup = 'Reports';
 
     protected static ?int $navigationSort = 1;
+
+    public static function canAccess(): bool
+    {
+        return auth()->user() ? auth()->user()->can(PermissionConstants::PERMISSION_ALL_TICKET) : false;
+    }
 
     public static function getNavigationBadge(): ?string
     {

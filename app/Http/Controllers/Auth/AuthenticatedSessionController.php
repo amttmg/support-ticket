@@ -43,8 +43,10 @@ class AuthenticatedSessionController extends Controller
     {
         Auth::guard('web')->logout();
 
-        $request->session()->invalidate();
+        // Only forget the user data of 'web' guard without killing entire session
+        $request->session()->forget('login_web_' . Auth::guard('web')->getName());
 
+        // Regenerate CSRF token for security
         $request->session()->regenerateToken();
 
         return redirect('/');
