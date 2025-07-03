@@ -57,7 +57,7 @@
     onMounted(async () => {
         try {
             loadingDepartments.value = true;
-            const response = await axios.get('/departments');
+            const response = await axios.get(`${window.APP_URL}/departments`);
             departments.value = response.data;
         } catch (error) {
             console.error('Error fetching departments:', error);
@@ -74,7 +74,7 @@
 
         try {
             loadingUnits.value = true;
-            const response = await axios.get(`/departments/${departmentId}/units`);
+            const response = await axios.get(`${window.APP_URL}/departments/${departmentId}/units`);
             units.value = response.data;
         } catch (error) {
             console.error('Error fetching units:', error);
@@ -91,7 +91,7 @@
         try {
             loadingTopics.value = true;
 
-            const response = await axios.get(`/units/${unitId}/topics`);
+            const response = await axios.get(`${window.APP_URL}/units/${unitId}/topics`);
             topics.value = response.data;
         } catch (error) {
             console.error('Error fetching topics:', error);

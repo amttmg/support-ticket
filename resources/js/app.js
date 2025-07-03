@@ -9,6 +9,8 @@ import { createApp, h } from 'vue';
 import { ZiggyVue } from '../../vendor/tightenco/ziggy';
 
 const appName = import.meta.env.VITE_APP_NAME || 'Laravel';
+const appUrl = import.meta.env.VITE_APP_URL;
+console.log(import.meta.env);
 
 // resources/js/app.js
 import { formatDistanceToNow } from 'date-fns';
@@ -33,6 +35,8 @@ createInertiaApp({
                 return formatDistanceToNow(new Date(dateString), { addSuffix: true });
             }
         };
+
+        window.APP_URL = appUrl;
 
         return app.mount(el);
     },

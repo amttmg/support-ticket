@@ -3,11 +3,6 @@ import laravel from 'laravel-vite-plugin';
 import vue from '@vitejs/plugin-vue';
 
 export default defineConfig({
-    server: {
-        hmr: {
-            host: 'localhost',
-        },
-    }, 
     plugins: [
         laravel({
             input: 'resources/js/app.js',
@@ -22,4 +17,5 @@ export default defineConfig({
             },
         }),
     ],
+    base: '/support-ticket/public/build/', // Add this line
 });

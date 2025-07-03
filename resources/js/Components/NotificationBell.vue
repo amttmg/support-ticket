@@ -102,7 +102,7 @@
 
     const fetchNotifications = async () => {
         try {
-            const res = await axios.get('/notifications')
+            const res = await axios.get(`${window.APP_URL}/notifications`)
             notifications.value = res.data.notifications
             unreadCount.value = res.data.unread_count
         } catch (error) {

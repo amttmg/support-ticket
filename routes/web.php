@@ -6,6 +6,7 @@ use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Branch;
 use Illuminate\Foundation\Application;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 
@@ -55,5 +56,13 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
         Route::get('/notifications', [NotificationController::class, 'index']);
         Route::post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
         Route::post('/notifications/mark-all-read', [NotificationController::class, 'markAllRead'])->name('notifications.markAllRead');
+        Route::get('refresh', function () {
+            Artisan::call('cache:clear');
+            Artisan::call('view:clear');
+            Artisan::call('route:clear');
+            Artisan::call('config:clear');
+
+            return redirect()->back();
+        });
     });
 });
