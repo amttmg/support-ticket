@@ -23,7 +23,7 @@ class CacheManagement extends Page
 
     public static function canAccess(): bool
     {
-        return auth()->user()?->hasRole('Super Admin');
+        return auth()->user()?->hasRole('Super Admin') ?? false;
     }
     protected function getHeaderActions(): array
     {
