@@ -7,10 +7,12 @@ use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
 {
-    use SoftDeletes, HasComments, HasReactions;
+    use SoftDeletes, HasComments, HasReactions, LogsActivity;
 
     protected $fillable = [
         'support_topic_id',
@@ -26,6 +28,23 @@ class Ticket extends Model
     protected $appends = [
         'formatted_updated_at',
     ];
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'title',
+                'description',
+                'status.name',
+                'priority',
+                'supportTopic.name',
+                
+            ])
+            ->setDescriptionForEvent(fn(string $eventName) => "Ticket has been {$eventName}")
+            ->useLogName('Ticket')
+            ->logOnlyDirty();
+        // Chain fluent methods for configuration options
+    }
 
     public function supportTopic()
     {

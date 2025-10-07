@@ -15,11 +15,13 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Panel;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasSuperAdmin;
+    use HasFactory, Notifiable, HasRoles, HasSuperAdmin, LogsActivity;
 
     protected $appends = ['branch'];
 
@@ -54,6 +56,14 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
 
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->setDescriptionForEvent(fn(string $eventName) => "User has been {$eventName}")
+            ->useLogName('User')
+            ->logOnlyDirty();
+        // Chain fluent methods for configuration options
+    }
     /**
      * Get the attributes that should be cast.
      *
