@@ -59,6 +59,7 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()
+            ->logAll()
             ->setDescriptionForEvent(fn(string $eventName) => "User has been {$eventName}")
             ->useLogName('User')
             ->logOnlyDirty();

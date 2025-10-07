@@ -38,11 +38,12 @@ class Ticket extends Model
                 'status.name',
                 'priority',
                 'supportTopic.name',
-                
+
             ])
             ->setDescriptionForEvent(fn(string $eventName) => "Ticket has been {$eventName}")
             ->useLogName('Ticket')
-            ->logOnlyDirty();
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
         // Chain fluent methods for configuration options
     }
 
