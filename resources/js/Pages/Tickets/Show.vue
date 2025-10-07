@@ -191,18 +191,17 @@
                                         <p class="mt-1 text-sm text-gray-900">
                                             {{ ticket.creator?.name }}</p>
                                     </div>
-                                    <div>
+                                    <div v-if="ticket.status.name.toLowerCase() === 'resolved'">
                                         <h4 class="text-sm font-medium text-gray-500">Action</h4>
-                                        <div v-if="ticket.status.name.toLowerCase() === 'resolved'"
-                                            class="flex space-x-2">
+                                        <div class="flex space-x-2">
 
                                             <!-- Re-open Button -->
                                             <!-- Re-open Button -->
                                             <button @click="confirmReopen(ticket)"
                                                 class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-green-600 rounded-md shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
                                                 title="Re-open Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -217,8 +216,8 @@
                                             <button @click="confirmClose(ticket)"
                                                 class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-red-600 rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
                                                 title="Close Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
@@ -226,6 +225,55 @@
                                             </button>
                                         </div>
                                     </div>
+                                    <!-- 🔽 Add History Section Below -->
+                                    <div v-if="ticket.activities && ticket.activities.length" class="mt-6">
+                                        <h4 class="mb-2 text-sm font-medium text-gray-500">History</h4>
+                                        <div class="space-y-3">
+                                            <div v-for="activity in ticket.activities" :key="activity.id"
+                                                class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                                <!-- Avatar -->
+                                                <img :src="activity.causer?.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activity.causer?.name || 'System')"
+                                                    alt="Avatar" class="object-cover w-8 h-8 border rounded-full" />
+
+                                                <!-- Details -->
+                                                <div class="flex-1">
+                                                    <p class="text-sm text-gray-900">
+                                                        <strong>{{ activity.causer?.name || 'System' }}: </strong>
+
+                                                        <!-- ✅ Custom message if status.name changed -->
+                                                        <span class="text-gray-600">
+                                                            <template v-if="activity.properties?.new?.['status.name']">
+                                                                Change Status to
+                                                                <strong class="capitalize">{{
+                                                                    activity.properties.new['status.name'] }}</strong>
+                                                            </template>
+                                                            <template v-else>
+                                                                {{ activity.description }}
+                                                            </template>
+                                                        </span>
+                                                    </p>
+
+                                                    <!-- 🧾 Optional: show what it changed from -->
+                                                    <div v-if="activity.properties?.old?.['status.name'] && activity.properties?.new?.['status.name']"
+                                                        class="mt-1 text-xs text-gray-700">
+                                                        <span class="text-red-500">
+                                                            {{ activity.properties.old['status.name'] }}
+                                                        </span>
+                                                        →
+                                                        <span class="text-green-600">
+                                                            {{ activity.properties.new['status.name'] }}
+                                                        </span>
+                                                    </div>
+
+                                                    <p class="mt-2 text-xs text-gray-500">
+                                                        {{ new Date(activity.created_at).toLocaleString() }}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
                                 </div>
                             </div>
                         </div>

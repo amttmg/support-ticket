@@ -147,8 +147,7 @@ class TicketController extends Controller
     // Show a single ticket
     public function show(Ticket $ticket)
     {
-        $ticket->load(['status', 'comments', 'creator', 'agents']);
-
+        $ticket->load(['status', 'comments', 'creator', 'agents', 'activities.causer']);
         $comments = $ticket->comments()
             ->with(['user', 'children.user', 'children.children'])
             ->whereNull('parent_id')
