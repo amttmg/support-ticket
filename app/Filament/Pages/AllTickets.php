@@ -46,7 +46,7 @@ class AllTickets extends Page implements HasTable
     public function table(Table $table): Table
     {
         return $table
-            ->query($this->getQuery()) // Use your Ticket model
+            ->query($this->getQuery()->with(['status', 'supportTopic', 'branch'])) // Use your Ticket model
             ->columns([
 
                 Tables\Columns\TextColumn::make('id')

@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('name');
         });
 
         // Departments
@@ -26,6 +28,9 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('company_id');
+            $table->index('name');
         });
 
         // Support Units
@@ -35,6 +40,9 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('department_id');
+            $table->index('name');
         });
 
         // Support Topics
@@ -44,6 +52,9 @@ return new class extends Migration
             $table->string('name');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('support_unit_id');
+            $table->index('name');
         });
         Schema::create('ticket_statuses', function (Blueprint $table) {
             $table->id();
@@ -54,6 +65,10 @@ return new class extends Migration
             $table->integer('order')->default(0);
             $table->timestamps();
             $table->softDeletes();
+
+            //$table->unique('slug');
+            $table->index('is_default');
+            $table->index('order');
         });
 
         // Tickets
@@ -67,6 +82,13 @@ return new class extends Migration
             $table->enum('priority', ['low', 'medium', 'high'])->default('medium');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('support_topic_id');
+            $table->index('created_by');
+            $table->index('status_id');
+            $table->index('priority');
+            $table->index('created_at');
+            $table->index(['status_id', 'priority']);
         });
 
         // Ticket-Agent Assignments
@@ -78,6 +100,10 @@ return new class extends Migration
             $table->enum('status', ['assigned', 'in_progress', 'completed'])->default('assigned');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('ticket_id');
+            $table->index('user_id');
+            $table->index('status');
         });
 
         // Ticket Replies
@@ -88,6 +114,10 @@ return new class extends Migration
             $table->text('message');
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index('ticket_id');
+            $table->index('user_id');
+            $table->index('created_at');
         });
 
         // Ticket Internal Notes
@@ -98,7 +128,12 @@ return new class extends Migration
             $table->text('note');
             $table->timestamps();
             $table->softDeletes();
-        });
+
+            $table->index('ticket_id');
+            $table->index('user_id');
+            $table->index('created_at');
+
+            });
 
         // Ticket Attachments
         Schema::create('ticket_attachments', function (Blueprint $table) {
@@ -107,6 +142,9 @@ return new class extends Migration
             $table->string('file_path');
             $table->timestamp('uploaded_at');
             $table->softDeletes();
+
+            $table->index('ticket_reply_id');
+            $table->index('uploaded_at');
         });
 
         // Files (Polymorphic)
@@ -116,6 +154,8 @@ return new class extends Migration
             $table->nullableMorphs('fileable'); // fileable_id & fileable_type
             $table->timestamps();
             $table->softDeletes();
+
+            $table->index(['fileable_id']);
         });
 
         // Custom Fields
