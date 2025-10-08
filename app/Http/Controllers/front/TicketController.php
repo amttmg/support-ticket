@@ -92,10 +92,23 @@ class TicketController extends Controller
             'description' => 'required|string',
             'priority' => 'required|in:low,medium,high',
             'support_topic_id' => 'required|exists:support_topics,id',
+            'attachments.*' => 'file|max:10240', // 10MB max each
         ]);
 
         $validated['status_id'] = TicketStatus::where('name', 'open')->first()->id;
-        $request->user()->tickets()->create($validated);
+        $ticket = $request->user()->tickets()->create($validated);
+
+        // Handle file uploads
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('tickets', 'public');
+                $ticket->files()->create([
+                    'file_path' => $path,
+                    //'original_name' => $file->getClientOriginalName(),
+                ]);
+            }
+        }
+
 
         return redirect()->route('tickets.index')
             ->with('success', 'Ticket created successfully!');

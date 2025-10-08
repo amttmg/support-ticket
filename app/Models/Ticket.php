@@ -29,6 +29,11 @@ class Ticket extends Model
         'formatted_updated_at',
     ];
 
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
+
     public function getActivitylogOptions(): LogOptions
     {
         return LogOptions::defaults()

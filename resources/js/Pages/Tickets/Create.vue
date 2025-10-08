@@ -28,7 +28,13 @@
         description: '',
         priority: 'medium',
         support_topic_id: '',
+        attachments: null, // Add this line
     });
+
+    // Handle file change
+    const handleFileChange = (event) => {
+        form.attachments = event.target.files;
+    };
 
     // Priority options
     const priorities = [
@@ -127,7 +133,7 @@
         form.department = selectedDepartment.value;
         form.unit = selectedUnit.value;
         form.topic = selectedTopic.value;
-
+        console.log(form);
         form.post(route('tickets.store'), {
             preserveScroll: true,
             onSuccess: () => {
@@ -387,6 +393,16 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div>
+                                    <InputLabel for="attachments" value="Attach Files (optional)" />
+                                    <input id="attachments" type="file" multiple @change="handleFileChange"
+                                        class="block w-full mt-1 text-sm text-gray-700 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" />
+                                    <p class="mt-1 text-xs text-gray-500">
+                                        You can upload multiple files (max 10MB each)
+                                    </p>
+                                    <InputError :message="form.errors.attachments" class="mt-2" />
+                                </div>
+
 
                                 <div class="pt-4">
                                     <PrimaryButton @click="submit" :disabled="form.processing"
