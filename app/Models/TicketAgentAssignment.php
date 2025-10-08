@@ -20,4 +20,28 @@ class TicketAgentAssignment extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::created(function ($model) {
+            $currentUser = auth()->user();
+            if ($model->user_id == $currentUser->id) {
+                $description = 'Ticket is  claimed by ' . $model->user->name;
+            } else {
+                $description = 'Ticket is  assigned to ' . $model->user->name;
+            }
+
+            activity()
+                ->useLog('Ticket Assignment')
+                ->performedOn($model->ticket)
+                ->causedBy($currentUser ?? null) // optional, if user is logged in
+                ->withProperties(['attributes' => $model->getAttributes()])
+                ->tap(function ($activity) {
+                    $activity->event = 'assigned'; // custom event name
+                })
+                ->log($description);
+        });
+    }
 }
