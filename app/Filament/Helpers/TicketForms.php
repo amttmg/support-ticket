@@ -15,6 +15,7 @@ use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\Section as InfolistSection;
 
 use Filament\Infolists\Components\Grid as InfolistGrid;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Support\Enums\FontWeight;
 
 class TicketForms
@@ -125,8 +126,13 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->prose() // Adds nice typography for HTML content
                                 ->extraAttributes(['class' => 'max-w-none']), // Removes max-width constraint
-
+                            ViewEntry::make('Files')
+                                ->label("Attachments")
+                                ->view('filament.infolists.ticket-files'),
                             \Coolsam\NestedComments\Filament\Infolists\CommentsEntry::make('comments'),
+
+
+                            //->columnSpanFull(),
                             // Add more details if needed
                         ]),
 

@@ -135,7 +135,7 @@
                                                     d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l7.778-7.778a4 4 0 00-5.656-5.656L4.93 11.07a6 6 0 108.485 8.485L19 14" />
                                             </svg>
                                             <span class="text-sm text-gray-700 truncate max-w-[200px]">
-                                                {{ file.file_path.split('/').pop() }}
+                                                {{ file.original_name.split('/').pop() }}
                                             </span>
                                         </div>
 
@@ -158,8 +158,9 @@
                                         class="absolute text-2xl font-bold text-gray-600 top-2 right-2 hover:text-red-500">&times;</button>
 
                                     <div class="p-4">
-                                        <!-- <h4 class="mb-4 text-lg font-medium">{{ selectedFile?.file_path.split('/').pop()
-                                            }}</h4> -->
+                                        <h4 class="mb-4 text-lg font-medium">{{
+                                            selectedFile?.original_name.split('/').pop()
+                                            }}</h4>
 
                                         <!-- Preview (image or iframe) -->
                                         <div v-if="isImage(selectedFile.file_path)" class="flex justify-center">

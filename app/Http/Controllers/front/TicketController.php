@@ -104,7 +104,7 @@ class TicketController extends Controller
                 $path = $file->store('tickets', 'public');
                 $ticket->files()->create([
                     'file_path' => $path,
-                    //'original_name' => $file->getClientOriginalName(),
+                    'original_name' => $file->getClientOriginalName(),
                 ]);
             }
         }
