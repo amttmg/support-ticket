@@ -225,53 +225,51 @@
                                             </button>
                                         </div>
                                     </div>
-                                    <!-- 🔽 Add History Section Below -->
-                                    <div v-if="ticket.activities && ticket.activities.length" class="mt-6">
+
+                                    <!-- History Section -->
+                                    <div v-if="ticket.activities?.length" class="mt-6">
                                         <h4 class="mb-2 text-sm font-medium text-gray-500">History</h4>
-                                        <div class="space-y-3">
+                                        <div class="space-y-2">
                                             <div v-for="activity in ticket.activities" :key="activity.id"
-                                                class="flex items-start gap-3 p-3 border border-gray-200 rounded-lg bg-gray-50">
+                                                class="flex gap-3 p-2 border rounded bg-gray-50">
                                                 <!-- Avatar -->
-                                                <img :src="activity.causer?.avatar || 'https://ui-avatars.com/api/?name=' + encodeURIComponent(activity.causer?.name || 'System')"
+                                                <img :src="activity.causer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(activity.causer?.name || 'System')}`"
                                                     alt="Avatar" class="object-cover w-8 h-8 border rounded-full" />
 
                                                 <!-- Details -->
-                                                <div class="flex-1">
-                                                    <p class="text-sm text-gray-900">
-                                                        <strong>{{ activity.causer?.name || 'System' }}: </strong>
+                                                <div class="flex-1 text-sm text-gray-900">
+                                                    <strong>{{ activity.causer?.name || 'System' }}:</strong>
+                                                    <span class="text-gray-600">
+                                                        <!-- Check if status changed -->
+                                                        <template
+                                                            v-if="activity.properties?.attributes?.['status.name'] && activity.properties?.old?.['status.name']">
+                                                            Changed status to <strong class="capitalize">{{
+                                                                activity.properties.attributes['status.name']
+                                                                }}</strong>
+                                                        </template>
+                                                        <template v-else>
+                                                            {{ activity.description }}
+                                                        </template>
+                                                    </span>
 
-                                                        <!-- ✅ Custom message if status.name changed -->
-                                                        <span class="text-gray-600">
-                                                            <template v-if="activity.properties?.new?.['status.name']">
-                                                                Change Status to
-                                                                <strong class="capitalize">{{
-                                                                    activity.properties.new['status.name'] }}</strong>
-                                                            </template>
-                                                            <template v-else>
-                                                                {{ activity.description }}
-                                                            </template>
-                                                        </span>
-                                                    </p>
-
-                                                    <!-- 🧾 Optional: show what it changed from -->
-                                                    <div v-if="activity.properties?.old?.['status.name'] && activity.properties?.new?.['status.name']"
+                                                    <!-- Show old → new status -->
+                                                    <div v-if="activity.properties?.old?.['status.name'] && activity.properties?.attributes?.['status.name']"
                                                         class="mt-1 text-xs text-gray-700">
-                                                        <span class="text-red-500">
-                                                            {{ activity.properties.old['status.name'] }}
-                                                        </span>
+                                                        <span class="text-red-500">{{
+                                                            activity.properties.old['status.name'] }}</span>
                                                         →
-                                                        <span class="text-green-600">
-                                                            {{ activity.properties.new['status.name'] }}
-                                                        </span>
+                                                        <span class="text-green-600">{{
+                                                            activity.properties.attributes['status.name'] }}</span>
                                                     </div>
 
-                                                    <p class="mt-2 text-xs text-gray-500">
+                                                    <div class="mt-1 text-xs text-gray-500">
                                                         {{ new Date(activity.created_at).toLocaleString() }}
-                                                    </p>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+
 
 
                                 </div>
