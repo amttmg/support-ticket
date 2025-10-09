@@ -116,6 +116,11 @@ class Ticket extends Model
         return \Carbon\Carbon::parse($this->updated_at)->diffForHumans();
     }
 
+    public function getTicketIdAttribute()
+    {
+        return '#' . $this->id;
+    }
+
     protected static function boot()
     {
         parent::boot();

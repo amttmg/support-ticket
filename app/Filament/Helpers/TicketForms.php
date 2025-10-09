@@ -118,7 +118,8 @@ class TicketForms
                             TextEntry::make('title')
                                 ->label('Title')
                                 ->columnSpanFull()
-                                ->size(TextEntry\TextEntrySize::Large),
+                                ->size(TextEntry\TextEntrySize::Large)
+                                ->formatStateUsing(fn($state, $record) => $record->ticket_id . ' ' . $state),
 
                             TextEntry::make('description')
                                 ->label('Description')
