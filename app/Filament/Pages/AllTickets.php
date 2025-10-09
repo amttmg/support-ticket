@@ -41,7 +41,7 @@ class AllTickets extends Page implements HasTable
     }
     public static function getQuery()
     {
-        return Ticket::query()->forSupportUnitUser()->with(['supportTopic', 'status', 'creator']);
+        return Ticket::query()->forSupportUnitUser()->latest()->with(['supportTopic', 'status', 'creator']);
     }
     public function table(Table $table): Table
     {
