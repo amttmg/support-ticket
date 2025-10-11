@@ -69,7 +69,10 @@ class Ticket extends Model
 
     public function agents()
     {
-        return $this->belongsToMany(User::class, 'ticket_agent_assignments');
+        return $this->belongsToMany(User::class, 'ticket_agent_assignments')
+            ->using(TicketAgentAssignment::class) // tell it to use your custom pivot
+            ->withTimestamps()
+            ->whereNull('ticket_agent_assignments.deleted_at'); // filter
     }
 
     public function ticketReplies()

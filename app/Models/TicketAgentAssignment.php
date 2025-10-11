@@ -3,11 +3,15 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class TicketAgentAssignment extends Model
+class TicketAgentAssignment extends Pivot
 {
     use SoftDeletes;
+
+    protected $table = 'ticket_agent_assignments'; // ✅ fix
+
 
     protected $fillable = ['ticket_id', 'user_id', 'role', 'status'];
 
