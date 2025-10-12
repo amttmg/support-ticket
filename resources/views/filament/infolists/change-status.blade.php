@@ -6,20 +6,18 @@
 
 <div x-data="{ editing: false, status: '{{ $getState()->name }}' }" class="inline-flex items-center gap-2">
     {{-- Badge --}}
-    <div x-show="!editing" @click="editing = true" class="cursor-pointer">
-        <x-filament::badge :color="match ($getState()->name) {
-            'Open' => 'info',
-            'In Progress' => 'warning',
-            'Resolved' => 'success',
-            'Closed' => 'gray',
-            default => 'primary',
-        }">
+
+    <div x-show="!editing" @click="(status !== 'Rejected' && status !== 'Closed') && (editing = true)"
+        :class="(status === 'Rejected' || status === 'Closed') ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'"
+        :title="(status === 'Rejected' || status === 'Closed') ? 'Editing disabled for this status' : 'Click to edit'">
+        <x-filament::badge :color="getStatusColor($getState()->name)">
             <span class="inline-flex items-center gap-1">
                 @php
                     $icon = match ($getState()->name) {
                         'Open' => 'heroicon-o-exclamation-circle',
                         'In Progress' => 'heroicon-o-arrow-path',
                         'Resolved' => 'heroicon-o-check-circle',
+                        'Rejected' => 'heroicon-o-x-circle',
                         'Closed' => 'heroicon-o-lock-closed',
                         default => null,
                     };

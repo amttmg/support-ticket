@@ -75,13 +75,7 @@ class MyTickets extends Page implements HasTable
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Open' => 'primary',
-                        'In Progress' => 'success',
-                        'Resolved' => 'warning',
-                        'Closed' => 'danger',
-                        default => 'secondary',
-                    }),
+                    ->color(fn(string $state): string => getStatusColor($state)),
 
                 Tables\Columns\TextColumn::make('branch.formatted_name')
                     ->label('Branch')

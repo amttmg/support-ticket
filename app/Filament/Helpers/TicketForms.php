@@ -2,6 +2,7 @@
 // app/Filament/Helpers/TicketForms.php
 namespace App\Filament\Helpers;
 
+use App\Constants\TicketStatusConstant;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
@@ -158,24 +159,11 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->icon('heroicon-o-user'),
 
-                            TextEntry::make('status.name')
+                            ViewEntry::make('status')
                                 ->label('Status')
-                                ->columnSpanFull()
-                                ->badge()
-                                ->color(fn($state) => match ($state) {
-                                    'Open' => 'info',
-                                    'In Progress' => 'warning',
-                                    'Resolved' => 'success',
-                                    'Closed' => 'gray',
-                                    default => 'primary',
-                                })
-                                ->icon(fn($state) => match ($state) {
-                                    'Open' => 'heroicon-o-exclamation-circle',
-                                    'In Progress' => 'heroicon-o-arrow-path',
-                                    'Resolved' => 'heroicon-o-check-circle',
-                                    'Closed' => 'heroicon-o-lock-closed',
-                                    default => null,
-                                }),
+                                ->view('filament.infolists.change-status', [
+                                    'statuses' => \App\Models\TicketStatus::whereNot('id', TicketStatusConstant::CLOSED)->get(),
+                                ]),
 
                             TextEntry::make('priority')
                                 ->label('Priority')
@@ -208,11 +196,7 @@ class TicketForms
                                 ->contained(false), // Removes container padding for tighter layout
 
                             //add a text box for change status
-                            ViewEntry::make('status')
-                                ->label('Status')
-                                ->view('filament.infolists.change-status', [
-                                    'statuses' => \App\Models\TicketStatus::all(),
-                                ]),
+
                         ])
                         ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
                     //->collapsible(),
