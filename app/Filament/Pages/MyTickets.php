@@ -7,6 +7,7 @@ use App\Filament\Helpers\TicketForms;
 use App\Models\Ticket; // Make sure to use your Ticket model
 use App\Models\TicketAgentAssignment;
 use App\Models\User;
+use App\Traits\HasStatusChange;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
@@ -21,7 +22,7 @@ use Filament\Tables\Actions\ViewAction as ActionsViewAction;
 
 class MyTickets extends Page implements HasTable
 {
-    use InteractsWithTable;
+    use InteractsWithTable, HasStatusChange;
 
     protected static ?string $navigationIcon = 'heroicon-o-identification';
 

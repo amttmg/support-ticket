@@ -206,6 +206,13 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->grid(1)
                                 ->contained(false), // Removes container padding for tighter layout
+
+                            //add a text box for change status
+                            ViewEntry::make('status')
+                                ->label('Status')
+                                ->view('filament.infolists.change-status', [
+                                    'statuses' => \App\Models\TicketStatus::all(),
+                                ]),
                         ])
                         ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
                     //->collapsible(),
