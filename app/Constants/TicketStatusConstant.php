@@ -9,6 +9,7 @@ class TicketStatusConstant
     const IN_PROGRESS = 2;
     const RESOLVED = 3;
     const CLOSED = 4;
+    const REJECTED = 5;
 
     public static function getStatuses()
     {
@@ -17,6 +18,7 @@ class TicketStatusConstant
             ['id' => self::IN_PROGRESS, 'name' => 'In Progress', 'slug' => 'in-progress'],
             ['id' => self::RESOLVED, 'name' => 'Resolved', 'slug' => 'resolved'],
             ['id' => self::CLOSED, 'name' => 'Closed', 'slug' => 'closed'],
+            ['id' => self::REJECTED, 'name' => 'Rejected', 'slug' => 'rejected'],
         ];
     }
 }
