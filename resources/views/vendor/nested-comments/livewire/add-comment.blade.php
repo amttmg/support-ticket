@@ -13,10 +13,11 @@
         @if (
             $this->commentable->status_id !== App\Constants\TicketStatusConstant::CLOSED &&
                 $this->commentable->status_id !== App\Constants\TicketStatusConstant::REJECTED)
-            <x-filament::input.wrapper :inline-prefix="true" prefix-icon="heroicon-o-chat-bubble-bottom-center-text">
-                <x-filament::input :placeholder="$this->replyTo?->getKey() ? 'Add a reply' : 'Add a new comment'" type="text" wire:click.prevent.stop="showForm(true)"
-                    :readonly="true" />
-            </x-filament::input.wrapper>
+            {{-- <x-filament::input.wrapper :inline-prefix="true" prefix-icon="heroicon-o-chat-bubble-bottom-center-text"> --}}
+            <x-filament::button color="primary" wire:click.prevent.stop="showForm(true)">
+                {{ $this->replyTo?->getKey() ? 'Add a reply' : 'Add a new comment' }}
+            </x-filament::button>
+            {{-- </x-filament::input.wrapper> --}}
         @endif
     @endif
     <x-filament-actions::modals />
