@@ -66,18 +66,25 @@ class TicketForms
                             Select::make('branch_id')
                                 ->relationship('branch', 'name')
                                 ->required()
-                                ->disabled()
+                                ->disabled($disabled)
                                 ->columnSpanFull(),
-                            TextInput::make('created_at')
-                                ->label('Created')
-                                ->disabled()
-                                ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->diffForHumans() : null)
+                            // TextInput::make('created_at')
+                            //     ->label('Created')
+                            //     ->disabled()
+                            //     ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->diffForHumans() : null)
+                            //     ->columnSpanFull(),
+                            // Select::make('created_by')
+                            //     ->label('Created By')
+                            //     ->relationship('user', 'name')
+                            //     ->disabled()
+                            //     ->columnSpanFull(),
+
+                             Select::make('support_topic_id')
+                                ->relationship('supportTopic', 'name')
+                                ->required()
+                                ->disabled($disabled)
                                 ->columnSpanFull(),
-                            Select::make('created_by')
-                                ->label('Created By')
-                                ->relationship('user', 'name')
-                                ->disabled()
-                                ->columnSpanFull(),
+
                             Select::make('status_id')
                                 ->relationship('status', 'name')
                                 ->required()
