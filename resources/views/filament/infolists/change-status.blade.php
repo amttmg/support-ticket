@@ -6,10 +6,13 @@
 
 <div x-data="{ editing: false, status: '{{ $getState()->name }}' }" class="inline-flex items-center gap-2">
     {{-- Badge --}}
-
-    <div x-show="!editing" @click="(status !== 'Rejected' && status !== 'Closed') && (editing = true)"
-        :class="(status === 'Rejected' || status === 'Closed') ? 'cursor-not-allowed opacity-60' : 'cursor-pointer'"
-        :title="(status === 'Rejected' || status === 'Closed') ? 'Editing disabled for this status' : 'Click to edit'">
+    @php
+        $assigned = $getRecord()->agents()->exists();
+        $isEditable = !in_array($getState()->name, ['Rejected', 'Closed']) && $assigned;
+    @endphp
+    <div x-show="!editing" @click="{{ $isEditable ? 'editing = true' : '' }}"
+        class="{{ $isEditable ? 'cursor-pointer' : 'cursor-not-allowed opacity-60' }}"
+        title="{{ $isEditable ? 'Click to edit' : 'Editing disabled for this status' }}">
         <x-filament::badge :color="getStatusColor($getState()->name)">
             <span class="inline-flex items-center gap-1">
                 @php
