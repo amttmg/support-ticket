@@ -196,6 +196,9 @@ class TicketForms
                                 ->contained(false), // Removes container padding for tighter layout
 
                             //add a text box for change status
+                            ViewEntry::make('History')
+                                ->label('History')
+                                ->view('filament.infolists.ticket-history')
 
                         ])
                         ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
