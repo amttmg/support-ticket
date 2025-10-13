@@ -264,7 +264,7 @@ class TicketResource extends Resource
                 ->url(static::getUrl('create')) // Create page
                 ->group('Support')
                 ->icon('heroicon-o-plus')
-                ->visible(fn(): bool => auth()->user() ? auth()->user()->can('create-ticket') : false), // <-- permission check
+                ->visible(fn(): bool => auth()->user() ? auth()->user()->can('create Ticket') : false), // <-- permission check
 
         ];
     }

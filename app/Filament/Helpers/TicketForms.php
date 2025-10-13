@@ -67,7 +67,9 @@ class TicketForms
                                 ->relationship('branch', 'name')
                                 ->required()
                                 ->disabled($disabled)
-                                ->columnSpanFull(),
+                                ->columnSpanFull()
+                                ->searchable()
+                                ->preload(),
                             // TextInput::make('created_at')
                             //     ->label('Created')
                             //     ->disabled()
@@ -79,7 +81,7 @@ class TicketForms
                             //     ->disabled()
                             //     ->columnSpanFull(),
 
-                             Select::make('support_topic_id')
+                            Select::make('support_topic_id')
                                 ->relationship('supportTopic', 'name')
                                 ->required()
                                 ->disabled($disabled)
