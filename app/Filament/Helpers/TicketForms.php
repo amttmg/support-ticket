@@ -201,7 +201,7 @@ class TicketForms
                                 ->view('filament.infolists.ticket-history')
 
                         ])
-                        ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
+                        ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-0 rounded-lg']) // Subtle background
                     //->collapsible(),
 
 
