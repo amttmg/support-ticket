@@ -36,13 +36,13 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'web' => [ // frontend
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'front_users',
         ],
-        'admin' => [ // For backend/filament users
+        'admin' => [ // backend
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'back_users',
         ],
     ],
 
@@ -64,15 +64,18 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'front_users' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => App\Models\User::class,
+            'table' => 'users',
+            'scope' => fn($query) => $query->where('user_type', 'front'), // optional
         ],
-
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'back_users' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\User::class,
+            'table' => 'users',
+            'scope' => fn($query) => $query->where('user_type', 'back'), // optional
+        ],
     ],
 
     /*
@@ -95,9 +98,15 @@ return [
     */
 
     'passwords' => [
-        'users' => [
-            'provider' => 'users',
-            'table' => env('AUTH_PASSWORD_RESET_TOKEN_TABLE', 'password_reset_tokens'),
+        'front_users' => [
+            'provider' => 'front_users',
+            'table' => 'password_reset_tokens',
+            'expire' => 60,
+            'throttle' => 60,
+        ],
+        'back_users' => [
+            'provider' => 'back_users',
+            'table' => 'password_reset_tokens',
             'expire' => 60,
             'throttle' => 60,
         ],
