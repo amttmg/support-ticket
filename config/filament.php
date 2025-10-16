@@ -100,7 +100,7 @@ return [
 
     'auth' => [
         'guard' => 'admin',
-        'passwords' => 'admins',
+        'passwords' => 'back_users',
     ],
 
 ];
