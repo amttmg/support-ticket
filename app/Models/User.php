@@ -17,6 +17,8 @@ use Spatie\Permission\Traits\HasRoles;
 use Filament\Panel;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Auth\Notifications\ResetPassword;
+
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
@@ -117,8 +119,14 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
     public function sendPasswordResetNotification($token)
     {
-        $url = Filament::getResetPasswordUrl($token, $this);
+        if ($this->user_type === 'back') {
+            // Filament password reset link
+            $url = \Filament\Facades\Filament::getResetPasswordUrl($token, $this);
 
-        $this->notify(new FilamentNewUserNotification($token, $url, $this));
+            $this->notify(new \App\Notifications\FilamentNewUserNotification($token, $url, $this));
+        } else {
+            // Default Laravel reset password notification
+            $this->notify(new ResetPassword($token));
+        }
     }
 }
