@@ -123,7 +123,8 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
             // Filament password reset link
             $url = \Filament\Facades\Filament::getResetPasswordUrl($token, $this);
 
-            $this->notify(new \App\Notifications\FilamentNewUserNotification($token, $url, $this));
+            // $this->notify(new \App\Notifications\FilamentNewUserNotification($token, $url, $this));
+            $this->notify(new \Filament\Notifications\Auth\ResetPassword($token, $url, $this));
         } else {
             // Default Laravel reset password notification
             $this->notify(new ResetPassword($token));
