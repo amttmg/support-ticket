@@ -17,5 +17,5 @@ export default defineConfig({
             },
         }),
     ],
-    base: '/support-ticket/public/build/', // Add this line
+    //base: '/support-ticket/public/build/', // Add this line
 });
