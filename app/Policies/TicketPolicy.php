@@ -21,7 +21,11 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $user->checkPermissionTo('view Ticket');
+        if ($user->user_type === 'back') {
+            return $user->checkPermissionTo('view Ticket');
+        } else {
+            return $user->id === $ticket->created_by;
+        }
     }
 
     /**
