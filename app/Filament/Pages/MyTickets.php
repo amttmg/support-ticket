@@ -2,10 +2,16 @@
 
 namespace App\Filament\Pages;
 
+use App\Constants\PermissionConstants;
 use App\Filament\Helpers\TicketForms;
 use App\Models\Ticket; // Make sure to use your Ticket model
+use App\Models\TicketAgentAssignment;
+use App\Models\User;
+use App\Traits\HasStatusChange;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Select;
+use Filament\Notifications\Notification;
 use Filament\Pages\Page;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Concerns\InteractsWithTable;
@@ -16,7 +22,7 @@ use Filament\Tables\Actions\ViewAction as ActionsViewAction;
 
 class MyTickets extends Page implements HasTable
 {
-    use InteractsWithTable;
+    use InteractsWithTable, HasStatusChange;
 
     protected static ?string $navigationIcon = 'heroicon-o-identification';
 
@@ -35,7 +41,7 @@ class MyTickets extends Page implements HasTable
     }
     public static function getQuery()
     {
-        return Ticket::query()->myTickets()->with(['supportTopic', 'status', 'creator']);
+        return Ticket::query()->myTickets()->latest()->with(['supportTopic', 'status', 'creator']);
     }
     public function table(Table $table): Table
     {
@@ -69,13 +75,7 @@ class MyTickets extends Page implements HasTable
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Open' => 'primary',
-                        'In Progress' => 'success',
-                        'Resolved' => 'warning',
-                        'Closed' => 'danger',
-                        default => 'secondary',
-                    }),
+                    ->color(fn(string $state): string => getStatusColor($state)),
 
                 Tables\Columns\TextColumn::make('branch.formatted_name')
                     ->label('Branch')
@@ -126,9 +126,87 @@ class MyTickets extends Page implements HasTable
             ->actions([
                 ActionsViewAction::make()
                     ->infolist(TicketForms::basicInfoListSchema()),
+
+                Tables\Actions\Action::make('assignUsers')
+                    ->visible(fn() => auth()->user()->can(PermissionConstants::PERMISSION_FORWARD_TICKET))
+                    ->label('Forward')
+                    ->icon('heroicon-o-arrow-right')
+                    ->modalHeading('Assign Users to Ticket')
+                    ->modalWidth('sm')
+                    ->form([
+                        Select::make('user_ids')
+                            ->label('Assign to Users')
+                            ->options(self::getUsersToAssign())
+                            //->multiple()
+                            ->searchable()
+                            ->required(),
+                    ])
+                    ->action(function (Ticket $record, $data): void {
+                        if (!is_array($data['user_ids'])) {
+                            $data['user_ids'] = [$data['user_ids']];
+                        }
+
+                        // Get existing assignments
+                        $existingAssignments = $record->assignments()->pluck('user_id')->toArray();
+
+                        // Remove assignments that are no longer in the new list
+                        $toRemove = array_diff($existingAssignments, $data['user_ids']);
+                        TicketAgentAssignment::where('ticket_id', $record->id)
+                            ->whereIn('user_id', $toRemove)
+                            ->delete();
+
+                        // Add or keep assignments in the new list
+                        foreach ($data['user_ids'] as $userId) {
+                            TicketAgentAssignment::updateOrCreate(
+                                [
+                                    'ticket_id' => $record->id,
+                                    'user_id' => $userId
+                                ],
+                                [
+                                    'role' => 'agent',
+                                    'status' => 'assigned'
+                                ]
+                            );
+                        }
+
+                        // Notifications for newly assigned users
+                        $newAssignments = $data['user_ids'];
+                        Notification::make()
+                            ->title('You have been assigned a new ticket #' . $record->id . ': ' . $record->title . ' by ' . auth()->user()->name)
+                            ->success()
+                            ->sendToDatabase(User::whereIn('id', $newAssignments)->get());
+
+                        // Notifications for ticket creator
+                        if ($record->creator) {
+                            $assignedUsers = User::whereIn('id', $newAssignments)->pluck('name')->toArray();
+                            Notification::make()
+                                ->title('Your ticket #' . $record->id . ' has been assigned to: ' . implode(', ', $assignedUsers))
+                                ->success()
+                                ->sendToDatabase($record->creator);
+                        }
+
+                        // Success notification
+                        Notification::make()
+                            ->title(count($newAssignments) . ' users assigned successfully')
+                            ->success()
+                            ->send();
+                    }),
+
             ])
             ->bulkActions([
                 // Add bulk actions if needed
             ]);
+    }
+    public static function getUsersToAssign(): array
+    {
+        $supportUnitIds = auth()->user()->supportUnits()->pluck('support_units.id');
+        return User::query()
+            ->whereHas('supportUnits', function ($q) use ($supportUnitIds) {
+                $q->whereIn('support_units.id', $supportUnitIds);
+            })
+            // ->where('id', '!=', auth()->id())
+            ->where('user_type', 'back')
+            ->pluck('name', 'id')
+            ->toArray(); // Exclude current user
     }
 }

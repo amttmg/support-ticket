@@ -10,12 +10,14 @@ use App\Models\SupportTopic;
 use App\Models\SupportUnit;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
+use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Inertia\Inertia;
 
 class TicketController extends Controller
 {
+    use AuthorizesRequests;
     // Display all tickets for the authenticated user
     public function index(Request $request)
     {
@@ -92,10 +94,23 @@ class TicketController extends Controller
             'description' => 'required|string',
             'priority' => 'required|in:low,medium,high',
             'support_topic_id' => 'required|exists:support_topics,id',
+            'attachments.*' => 'file|max:10240', // 10MB max each
         ]);
 
         $validated['status_id'] = TicketStatus::where('name', 'open')->first()->id;
-        $request->user()->tickets()->create($validated);
+        $ticket = $request->user()->tickets()->create($validated);
+
+        // Handle file uploads
+        if ($request->hasFile('attachments')) {
+            foreach ($request->file('attachments') as $file) {
+                $path = $file->store('tickets', 'public');
+                $ticket->files()->create([
+                    'file_path' => $path,
+                    'original_name' => $file->getClientOriginalName(),
+                ]);
+            }
+        }
+
 
         return redirect()->route('tickets.index')
             ->with('success', 'Ticket created successfully!');
@@ -147,8 +162,9 @@ class TicketController extends Controller
     // Show a single ticket
     public function show(Ticket $ticket)
     {
-        $ticket->load(['status', 'comments', 'creator', 'agents']);
+        $this->authorize('view', $ticket);
 
+        $ticket->load(['status', 'comments', 'creator', 'agents', 'activities.causer', 'files']);
         $comments = $ticket->comments()
             ->with(['user', 'children.user', 'children.children'])
             ->whereNull('parent_id')
@@ -205,6 +221,8 @@ class TicketController extends Controller
 
     public function reopen(Ticket $ticket)
     {
+        $this->authorize('view', $ticket); // Ensure the user can view the ticket
+
         $ticket->update(['status_id' => TicketStatusConstant::OPEN]);
 
         return back()->with('success', 'Ticket re-opened successfully');
@@ -212,6 +230,8 @@ class TicketController extends Controller
 
     public function close(Ticket $ticket)
     {
+        $this->authorize('view', $ticket); // Ensure the user can view the ticket
+
         $ticket->update(['status_id' => TicketStatusConstant::CLOSED]);
 
         return back()->with('success', 'Ticket closed successfully');

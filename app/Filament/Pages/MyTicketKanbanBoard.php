@@ -8,6 +8,7 @@ use App\Filament\Helpers\TicketForms;
 use App\Filament\Resources\TicketResource;
 use App\Models\Ticket;
 use App\Models\TicketStatus;
+use App\Traits\HasStatusChange;
 use Filament\Forms\Form;
 use Mokhosh\FilamentKanban\Pages\KanbanBoard;
 use Illuminate\Support\Collection;
@@ -17,6 +18,8 @@ use Filament\Notifications\Notification;
 
 class MyTicketKanbanBoard extends KanbanBoard
 {
+    use HasStatusChange;
+
     protected static string $model = Ticket::class;
     protected static string $statusEnum = TicketStatus::class;
     protected static string $recordStatusAttribute = 'status_id';
@@ -36,9 +39,10 @@ class MyTicketKanbanBoard extends KanbanBoard
     protected function statuses(): Collection
     {
         $statuses = TicketStatus::where('id', '!=', TicketStatusConstant::CLOSED)
+            ->where('id', '!=', TicketStatusConstant::REJECTED)
             ->get(['id', 'name']) // select only necessary fields
             ->map(fn($status) => ['id' => $status->id, 'title' => $status->name]);
-            
+
         return collect($statuses);
     }
     protected function records(): Collection

@@ -4,6 +4,25 @@
     import Comment from '@/Components/Comment.vue';
     import Swal from '@/Helpers/sweetalert'
 
+    import { ref } from 'vue'
+
+    const showModal = ref(false)
+    const selectedFile = ref(null)
+
+    const openFile = (file) => {
+        selectedFile.value = file
+        showModal.value = true
+    }
+
+    const closeModal = () => {
+        showModal.value = false
+        selectedFile.value = null
+    }
+
+    const isImage = (path) => {
+        return /\.(jpg|jpeg|png|gif|bmp|webp)$/i.test(path)
+    }
+
     const props = defineProps({
         ticket: Object,
         comments: Object,
@@ -101,6 +120,63 @@
                                 <p class="whitespace-pre-line">{{ ticket.description }}</p>
                             </div>
 
+                            <!-- ✅ Files Section -->
+                            <!-- ✅ Files Section -->
+                            <div v-if="ticket.files && ticket.files.length" class="p-4 mb-8 rounded-lg bg-gray-50">
+                                <h4 class="mb-3 text-lg font-medium">Attachments</h4>
+
+                                <ul class="space-y-2">
+                                    <li v-for="file in ticket.files" :key="file.id"
+                                        class="flex items-center justify-between p-2 border rounded-md">
+                                        <div class="flex items-center space-x-2">
+                                            <svg class="w-5 h-5 text-gray-500" fill="none" stroke="currentColor"
+                                                stroke-width="2" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round"
+                                                    d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l7.778-7.778a4 4 0 00-5.656-5.656L4.93 11.07a6 6 0 108.485 8.485L19 14" />
+                                            </svg>
+                                            <span class="text-sm text-gray-700 truncate max-w-[200px]">
+                                                {{ file.original_name.split('/').pop() }}
+                                            </span>
+                                        </div>
+
+                                        <!-- ✅ View Button -->
+                                        <button @click="openFile(file)"
+                                            class="inline-flex items-center px-3 py-1 text-sm font-medium text-white bg-blue-600 rounded hover:bg-blue-700 focus:ring-2 focus:ring-blue-500">
+                                            View
+                                        </button>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <!-- ✅ Popup Modal -->
+                            <div v-if="showModal"
+                                class="fixed inset-0 z-50 flex items-center justify-center transition-all bg-black bg-opacity-50">
+                                <div
+                                    class="relative bg-white rounded-lg shadow-lg w-11/12 md:w-3/4 lg:w-1/2 max-h-[90vh] overflow-auto">
+                                    <!-- Close button -->
+                                    <button @click="closeModal"
+                                        class="absolute text-2xl font-bold text-gray-600 top-2 right-2 hover:text-red-500">&times;</button>
+
+                                    <div class="p-4">
+                                        <h4 class="mb-4 text-lg font-medium">{{
+                                            selectedFile?.original_name.split('/').pop()
+                                            }}</h4>
+
+                                        <!-- Preview (image or iframe) -->
+                                        <div v-if="isImage(selectedFile.file_path)" class="flex justify-center">
+                                            <img :src="`/storage/${selectedFile.file_path}`" alt="Preview"
+                                                class="max-w-full max-h-[80vh] rounded">
+                                        </div>
+                                        <div v-else class="w-full h-[80vh]">
+                                            <iframe :src="`/storage/${selectedFile.file_path}`"
+                                                class="w-full h-full rounded" frameborder="0"></iframe>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <!-- Comments Section -->
                             <div class="mt-8">
                                 <h4 class="mb-4 text-lg font-medium">Comments</h4>
@@ -191,18 +267,17 @@
                                         <p class="mt-1 text-sm text-gray-900">
                                             {{ ticket.creator?.name }}</p>
                                     </div>
-                                    <div>
+                                    <div v-if="ticket.status.name.toLowerCase() === 'resolved'">
                                         <h4 class="text-sm font-medium text-gray-500">Action</h4>
-                                        <div v-if="ticket.status.name.toLowerCase() === 'resolved'"
-                                            class="flex space-x-2">
+                                        <div class="flex space-x-2">
 
                                             <!-- Re-open Button -->
                                             <!-- Re-open Button -->
                                             <button @click="confirmReopen(ticket)"
                                                 class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-green-600 rounded-md shadow hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-400 focus:ring-offset-2"
                                                 title="Re-open Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M9 17v-2a4 4 0 014-4h3" />
                                                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -217,8 +292,8 @@
                                             <button @click="confirmClose(ticket)"
                                                 class="inline-flex items-center px-4 py-2 text-sm font-semibold text-white transition bg-red-600 rounded-md shadow hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-400 focus:ring-offset-2"
                                                 title="Close Ticket">
-                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2"
-                                                    fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                                <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 mr-2" fill="none"
+                                                    viewBox="0 0 24 24" stroke="currentColor">
                                                     <path stroke-linecap="round" stroke-linejoin="round"
                                                         stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                                                 </svg>
@@ -226,6 +301,53 @@
                                             </button>
                                         </div>
                                     </div>
+
+                                    <!-- History Section -->
+                                    <div v-if="ticket.activities?.length" class="mt-6">
+                                        <h4 class="mb-2 text-sm font-medium text-gray-500">History</h4>
+                                        <div class="space-y-2">
+                                            <div v-for="activity in ticket.activities" :key="activity.id"
+                                                class="flex gap-3 p-2 border rounded bg-gray-50">
+                                                <!-- Avatar -->
+                                                <img :src="activity.causer?.avatar || `https://ui-avatars.com/api/?name=${encodeURIComponent(activity.causer?.name || 'System')}`"
+                                                    alt="Avatar" class="object-cover w-8 h-8 border rounded-full" />
+
+                                                <!-- Details -->
+                                                <div class="flex-1 text-sm text-gray-900">
+                                                    <strong>{{ activity.causer?.name || 'System' }}:</strong>
+                                                    <span class="text-gray-600">
+                                                        <!-- Check if status changed -->
+                                                        <template
+                                                            v-if="activity.properties?.attributes?.['status.name'] && activity.properties?.old?.['status.name']">
+                                                            Changed status to <strong class="capitalize">{{
+                                                                activity.properties.attributes['status.name']
+                                                                }}</strong>
+                                                        </template>
+                                                        <template v-else>
+                                                            {{ activity.description }}
+                                                        </template>
+                                                    </span>
+
+                                                    <!-- Show old → new status -->
+                                                    <div v-if="activity.properties?.old?.['status.name'] && activity.properties?.attributes?.['status.name']"
+                                                        class="mt-1 text-xs text-gray-700">
+                                                        <span class="text-red-500">{{
+                                                            activity.properties.old['status.name'] }}</span>
+                                                        →
+                                                        <span class="text-green-600">{{
+                                                            activity.properties.attributes['status.name'] }}</span>
+                                                    </div>
+
+                                                    <div class="mt-1 text-xs text-gray-500">
+                                                        {{ new Date(activity.created_at).toLocaleString() }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
                                 </div>
                             </div>
                         </div>

@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Constants\PermissionConstants;
 use App\Filament\Helpers\TicketForms;
 use App\Models\Ticket; // Make sure to use your Ticket model
+use App\Traits\HasStatusChange;
 use Filament\Actions\ViewAction;
 use Filament\Forms\Components\DatePicker;
 use Filament\Pages\Page;
@@ -17,7 +18,7 @@ use Filament\Tables\Actions\ViewAction as ActionsViewAction;
 
 class AllTickets extends Page implements HasTable
 {
-    use InteractsWithTable;
+    use InteractsWithTable, HasStatusChange;
 
     protected static ?string $navigationIcon = 'heroicon-o-archive-box';
 
@@ -41,12 +42,12 @@ class AllTickets extends Page implements HasTable
     }
     public static function getQuery()
     {
-        return Ticket::query()->forSupportUnitUser()->with(['supportTopic', 'status', 'creator']);
+        return Ticket::query()->forSupportUnitUser()->latest()->with(['supportTopic', 'status', 'creator']);
     }
     public function table(Table $table): Table
     {
         return $table
-            ->query($this->getQuery()) // Use your Ticket model
+            ->query($this->getQuery()->with(['status', 'supportTopic', 'branch'])) // Use your Ticket model
             ->columns([
 
                 Tables\Columns\TextColumn::make('id')
@@ -75,13 +76,8 @@ class AllTickets extends Page implements HasTable
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'Open' => 'primary',
-                        'In Progress' => 'success',
-                        'Resolved' => 'warning',
-                        'Closed' => 'danger',
-                        default => 'secondary',
-                    }),
+                    ->color(fn(string $state): string => getStatusColor($state)),
+
 
                 Tables\Columns\TextColumn::make('branch.formatted_name')
                     ->label('Branch')

@@ -7,10 +7,12 @@ use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class Ticket extends Model
 {
-    use SoftDeletes, HasComments, HasReactions;
+    use SoftDeletes, HasComments, HasReactions, LogsActivity;
 
     protected $fillable = [
         'support_topic_id',
@@ -26,6 +28,29 @@ class Ticket extends Model
     protected $appends = [
         'formatted_updated_at',
     ];
+
+    public function files()
+    {
+        return $this->morphMany(File::class, 'fileable');
+    }
+
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logOnly([
+                'title',
+                'description',
+                'status.name',
+                'priority',
+                'supportTopic.name',
+
+            ])
+            ->setDescriptionForEvent(fn(string $eventName) => "Ticket has been {$eventName}")
+            ->useLogName('Ticket')
+            ->logOnlyDirty()
+            ->dontSubmitEmptyLogs();
+        // Chain fluent methods for configuration options
+    }
 
     public function supportTopic()
     {
@@ -44,7 +69,10 @@ class Ticket extends Model
 
     public function agents()
     {
-        return $this->belongsToMany(User::class, 'ticket_agent_assignments');
+        return $this->belongsToMany(User::class, 'ticket_agent_assignments')
+            ->using(TicketAgentAssignment::class) // tell it to use your custom pivot
+            ->withTimestamps()
+            ->whereNull('ticket_agent_assignments.deleted_at'); // filter
     }
 
     public function ticketReplies()
@@ -89,6 +117,11 @@ class Ticket extends Model
         }
 
         return \Carbon\Carbon::parse($this->updated_at)->diffForHumans();
+    }
+
+    public function getTicketIdAttribute()
+    {
+        return '#' . $this->id;
     }
 
     protected static function boot()

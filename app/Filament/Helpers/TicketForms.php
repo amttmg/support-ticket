@@ -2,6 +2,7 @@
 // app/Filament/Helpers/TicketForms.php
 namespace App\Filament\Helpers;
 
+use App\Constants\TicketStatusConstant;
 use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
@@ -15,6 +16,7 @@ use Filament\Infolists\Components\KeyValueEntry;
 use Filament\Infolists\Components\Section as InfolistSection;
 
 use Filament\Infolists\Components\Grid as InfolistGrid;
+use Filament\Infolists\Components\ViewEntry;
 use Filament\Support\Enums\FontWeight;
 
 class TicketForms
@@ -64,18 +66,27 @@ class TicketForms
                             Select::make('branch_id')
                                 ->relationship('branch', 'name')
                                 ->required()
-                                ->disabled()
+                                ->disabled($disabled)
+                                ->columnSpanFull()
+                                ->searchable()
+                                ->preload(),
+                            // TextInput::make('created_at')
+                            //     ->label('Created')
+                            //     ->disabled()
+                            //     ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->diffForHumans() : null)
+                            //     ->columnSpanFull(),
+                            // Select::make('created_by')
+                            //     ->label('Created By')
+                            //     ->relationship('user', 'name')
+                            //     ->disabled()
+                            //     ->columnSpanFull(),
+
+                            Select::make('support_topic_id')
+                                ->relationship('supportTopic', 'name')
+                                ->required()
+                                ->disabled($disabled)
                                 ->columnSpanFull(),
-                            TextInput::make('created_at')
-                                ->label('Created')
-                                ->disabled()
-                                ->formatStateUsing(fn($state) => $state ? \Carbon\Carbon::parse($state)->diffForHumans() : null)
-                                ->columnSpanFull(),
-                            Select::make('created_by')
-                                ->label('Created By')
-                                ->relationship('user', 'name')
-                                ->disabled()
-                                ->columnSpanFull(),
+
                             Select::make('status_id')
                                 ->relationship('status', 'name')
                                 ->required()
@@ -117,7 +128,8 @@ class TicketForms
                             TextEntry::make('title')
                                 ->label('Title')
                                 ->columnSpanFull()
-                                ->size(TextEntry\TextEntrySize::Large),
+                                ->size(TextEntry\TextEntrySize::Large)
+                                ->formatStateUsing(fn($state, $record) => $record->ticket_id . ' ' . $state),
 
                             TextEntry::make('description')
                                 ->label('Description')
@@ -125,8 +137,13 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->prose() // Adds nice typography for HTML content
                                 ->extraAttributes(['class' => 'max-w-none']), // Removes max-width constraint
-
+                            ViewEntry::make('Files')
+                                ->label("Attachments")
+                                ->view('filament.infolists.ticket-files'),
                             \Coolsam\NestedComments\Filament\Infolists\CommentsEntry::make('comments'),
+
+
+                            //->columnSpanFull(),
                             // Add more details if needed
                         ]),
 
@@ -151,24 +168,11 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->icon('heroicon-o-user'),
 
-                            TextEntry::make('status.name')
+                            ViewEntry::make('status')
                                 ->label('Status')
-                                ->columnSpanFull()
-                                ->badge()
-                                ->color(fn($state) => match ($state) {
-                                    'Open' => 'info',
-                                    'In Progress' => 'warning',
-                                    'Resolved' => 'success',
-                                    'Closed' => 'gray',
-                                    default => 'primary',
-                                })
-                                ->icon(fn($state) => match ($state) {
-                                    'Open' => 'heroicon-o-exclamation-circle',
-                                    'In Progress' => 'heroicon-o-arrow-path',
-                                    'Resolved' => 'heroicon-o-check-circle',
-                                    'Closed' => 'heroicon-o-lock-closed',
-                                    default => null,
-                                }),
+                                ->view('filament.infolists.change-status', [
+                                    'statuses' => \App\Models\TicketStatus::whereNot('id', TicketStatusConstant::CLOSED)->get(),
+                                ]),
 
                             TextEntry::make('priority')
                                 ->label('Priority')
@@ -199,8 +203,14 @@ class TicketForms
                                 ->columnSpanFull()
                                 ->grid(1)
                                 ->contained(false), // Removes container padding for tighter layout
+
+                            //add a text box for change status
+                            ViewEntry::make('History')
+                                ->label('History')
+                                ->view('filament.infolists.ticket-history')
+
                         ])
-                        ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-4 rounded-lg']) // Subtle background
+                        ->extraAttributes(['class' => 'bg-gray-50 dark:bg-gray-800 p-0 rounded-lg']) // Subtle background
                     //->collapsible(),
 
 

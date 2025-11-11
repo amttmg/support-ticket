@@ -17,6 +17,7 @@
         "laravel/tinker": "^2.10.1",
         "mokhosh/filament-kanban": "^2.10",
         "opcodesio/log-viewer": "^3.18",
+        "spatie/laravel-activitylog": "^4.10",
         "tightenco/ziggy": "^2.0"
     },
     "require-dev": {

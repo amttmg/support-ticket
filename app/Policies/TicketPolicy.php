@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Constants\PermissionConstants;
 use Illuminate\Auth\Access\Response;
 use App\Models\Ticket;
 use App\Models\User;
@@ -21,7 +22,13 @@ class TicketPolicy
      */
     public function view(User $user, Ticket $ticket): bool
     {
-        return $user->checkPermissionTo('view Ticket');
+        if ($user->user_type === 'back') {
+            return $user->checkPermissionTo('view Ticket');
+        } elseif ($user->checkPermissionTo(PermissionConstants::PERMISSION_BRANCH_MANAGER)) {
+            return $user->branch_id === $ticket->branch_id;
+        } else {
+            return $user->id === $ticket->created_by;
+        }
     }
 
     /**

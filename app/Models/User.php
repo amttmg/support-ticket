@@ -15,11 +15,15 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Testing\Fluent\Concerns\Has;
 use Spatie\Permission\Traits\HasRoles;
 use Filament\Panel;
+use Spatie\Activitylog\LogOptions;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Auth\Notifications\ResetPassword;
+
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasSuperAdmin;
+    use HasFactory, Notifiable, HasRoles, HasSuperAdmin, LogsActivity;
 
     protected $appends = ['branch'];
 
@@ -54,6 +58,15 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
 
 
+    public function getActivitylogOptions(): LogOptions
+    {
+        return LogOptions::defaults()
+            ->logAll()
+            ->setDescriptionForEvent(fn(string $eventName) => "User has been {$eventName}")
+            ->useLogName('User')
+            ->logOnlyDirty();
+        // Chain fluent methods for configuration options
+    }
     /**
      * Get the attributes that should be cast.
      *
@@ -106,8 +119,15 @@ class User extends Authenticatable implements MustVerifyEmail, FilamentUser
     }
     public function sendPasswordResetNotification($token)
     {
-        $url = Filament::getResetPasswordUrl($token, $this);
+        if ($this->user_type === 'back') {
+            // Filament password reset link
+            $url = \Filament\Facades\Filament::getResetPasswordUrl($token, $this);
 
-        $this->notify(new FilamentNewUserNotification($token, $url, $this));
+            // $this->notify(new \App\Notifications\FilamentNewUserNotification($token, $url, $this));
+            $this->notify(new \Filament\Notifications\Auth\ResetPassword($token, $url, $this));
+        } else {
+            // Default Laravel reset password notification
+            $this->notify(new ResetPassword($token));
+        }
     }
 }

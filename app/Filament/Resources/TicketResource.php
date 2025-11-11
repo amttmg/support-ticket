@@ -14,6 +14,7 @@ use Dom\Text;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Form;
+use Filament\Navigation\NavigationItem;
 use Filament\Notifications\Notification;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -40,7 +41,7 @@ class TicketResource extends Resource
 
     public static function form(Form $form): Form
     {
-        return $form->schema(TicketForms::basicSchema(true));
+        return $form->schema(TicketForms::basicSchema(false));
     }
     public static function getNavigationBadge(): ?string
     {
@@ -246,6 +247,25 @@ class TicketResource extends Resource
             'index' => Pages\ListTickets::route('/'),
             'create' => Pages\CreateTicket::route('/create'),
             // 'edit' => Pages\EditTicket::route('/{record}/edit'),
+        ];
+    }
+
+    public static function getNavigationItems(): array
+    {
+        return [
+            NavigationItem::make('Unassigned Tickets')
+                ->url(static::getUrl()) // List page
+                ->group('Support')
+                ->badge(fn() => (string) Ticket::query()->forSupportUnitUser()->unassigned()->count())
+
+                ->icon('heroicon-o-rectangle-stack'),
+
+            NavigationItem::make('Create Ticket')
+                ->url(static::getUrl('create')) // Create page
+                ->group('Support')
+                ->icon('heroicon-o-plus')
+                ->visible(fn(): bool => auth()->user() ? auth()->user()->can('create Ticket') : false), // <-- permission check
+
         ];
     }
 }
