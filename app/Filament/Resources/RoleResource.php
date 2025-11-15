@@ -2,12 +2,13 @@
 
 namespace Althinect\FilamentSpatieRolesPermissions\Resources;
 
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\Pages\CreateRole;
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\Pages\EditRole;
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\Pages\ListRoles;
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\Pages\ViewRole;
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\RelationManager\PermissionRelationManager;
-use Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource\RelationManager\UserRelationManager;
+use App\Filament\Resources\RoleResource\Pages\CreateRole;
+use App\Filament\Resources\RoleResource\Pages\EditRole;
+use App\Filament\Resources\RoleResource\Pages\ListRoles;
+use App\Filament\Resources\RoleResource\Pages\ViewRole;
+use App\Filament\Resources\RoleResource\RelationManager\PermissionRelationManager;
+use App\Filament\Resources\RoleResource\RelationManager\UserRelationManager;
+
 use App\Constants\MenuGroups;
 use Filament\Facades\Filament;
 use Filament\Forms\Components\CheckboxList;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Filament\Pages\Auth;
+namespace App\Filament\Pages\Auth;
 
 use Exception;
 use Filament\Actions\Action;
