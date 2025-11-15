@@ -18,12 +18,12 @@ use Filament\Panel;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Auth\Notifications\ResetPassword;
-
+use NotificationChannels\WebPush\HasPushSubscriptions;
 
 class User extends Authenticatable implements MustVerifyEmail, FilamentUser
 {
     /** @use HasFactory<\Database\Factories\UserFactory> */
-    use HasFactory, Notifiable, HasRoles, HasSuperAdmin, LogsActivity;
+    use HasFactory, Notifiable, HasRoles, HasSuperAdmin, LogsActivity, HasPushSubscriptions;
 
     protected $appends = ['branch'];
 

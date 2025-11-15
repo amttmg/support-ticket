@@ -6,9 +6,11 @@ use App\Http\Controllers\front\TicketController;
 use App\Http\Controllers\ProfileController;
 use App\Models\Branch;
 use Illuminate\Foundation\Application;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use Livewire\Livewire;
 
 Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
 
@@ -60,4 +62,22 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
     Livewire::setUpdateRoute(function ($handle) {
         return Route::post('/support-ticket/livewire/update', $handle);
     });
+});
+
+Route::post('/save-subscription', function (Request $request) {
+    $request->user()->updatePushSubscription(
+        $request->endpoint,
+        $request->publicKey,
+        $request->authToken,
+        $request->contentEncoding
+    );
+
+    return response()->json(['success' => true]);
+});
+
+Route::get('/test-notification', function () {
+    $user = \App\Models\User::find(4);
+    $user->notify(new \App\Notifications\TestWebPush());
+
+    return "Notification sent!";
 });
