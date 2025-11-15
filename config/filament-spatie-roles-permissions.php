@@ -1,10 +1,24 @@
 <?php
 
+use App\Filament\Resources\RoleResource;
+use App\Models\Branch;
+use App\Models\Company;
+use App\Models\CustomField;
+use App\Models\Department;
+use App\Models\File;
+use App\Models\SupportUnit;
+use App\Models\TicketAgentAssignment;
+use App\Models\TicketAttachment;
+use App\Models\TicketCustomFieldValue;
+use App\Models\TicketInternalNote;
+use App\Models\TicketReply;
+use App\Models\TicketStatus;
+
 return [
 
     'resources' => [
-        'PermissionResource' => \Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource::class,
-        'RoleResource' => \Althinect\FilamentSpatieRolesPermissions\Resources\RoleResource::class,
+        //'PermissionResource' => \Althinect\FilamentSpatieRolesPermissions\Resources\PermissionResource::class,
+        'RoleResource' => RoleResource::class,
     ],
 
     'preload_roles' => true,
@@ -26,7 +40,7 @@ return [
      * Set as false to remove from navigation.
      */
     'should_register_on_navigation' => [
-        'permissions' => true,
+        'permissions' => false,
         'roles' => true,
     ],
 
@@ -66,9 +80,9 @@ return [
      * Set to true to display relation managers in the resources
      */
     'should_display_relation_managers' => [
-        'permissions' => true,
+        'permissions' => false,
         'users' => true,
-        'roles' => true,
+        'roles' => false,
     ],
 
     /*
@@ -202,7 +216,19 @@ return [
          * Define excluded_models
          */
         'excluded_models' => [
-            //
+            Branch::class,
+            Company::class,
+            CustomField::class,
+            Department::class,
+            File::class,
+            SupportUnit::class,
+            TicketAgentAssignment::class,
+            TicketAttachment::class,
+            TicketCustomFieldValue::class,
+            TicketInternalNote::class,
+            TicketReply::class,
+            TicketStatus::class,
+
         ],
 
         'excluded_policy_models' => [
