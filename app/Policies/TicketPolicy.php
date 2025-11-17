@@ -25,7 +25,7 @@ class TicketPolicy
         if ($user->user_type === 'back') {
             return $user->checkPermissionTo('view Ticket');
         } elseif ($user->checkPermissionTo(PermissionConstants::PERMISSION_BRANCH_MANAGER)) {
-            return $user->branch_id === $ticket->branch_id;
+            return $user->id === $ticket->created_by || $user->branch_id === $ticket->branch_id;
         } else {
             return $user->id === $ticket->created_by;
         }
