@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use App\Constants\TicketStatusConstant;
+use App\Mail\TicketResolved;
 use Coolsam\NestedComments\Concerns\HasComments;
 use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Query\Builder;
+use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -134,6 +137,17 @@ class Ticket extends Model
                 $model->created_by = $currentUser->id;
                 $model->created_from_ip_address = request()->ip();
                 $model->branch_id = $currentUser->branch->id ?? null;
+            }
+        });
+
+        static::updated(function ($ticket) {
+            // Check if status changed and now is 'Resolved'
+            $resolvedStatusId = TicketStatusConstant::RESOLVED; // <-- replace with your actual Resolved status ID
+            if ($ticket->isDirty('status_id') && $ticket->status_id == $resolvedStatusId) {
+                if ($ticket->creator && $ticket->creator->email) {
+                    Mail::to($ticket->creator->email)
+                        ->send(new TicketResolved($ticket));
+                }
             }
         });
     }
