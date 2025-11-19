@@ -18,11 +18,13 @@ use Filament\Infolists\Components\Section as InfolistSection;
 use Filament\Infolists\Components\Grid as InfolistGrid;
 use Filament\Infolists\Components\ViewEntry;
 use Filament\Support\Enums\FontWeight;
+use Illuminate\Container\Attributes\Auth;
 
 class TicketForms
 {
     public static function basicSchema($disabled = false): array
     {
+        //$userSupportUnitIds = auth()->user()->supportUnits->pluck('id');
         return [
             Grid::make()
                 ->columns(3) // Important: define 3 columns to support 2/3 and 1/3 layout
@@ -31,6 +33,28 @@ class TicketForms
                     Section::make('Ticket Details')
                         ->columnSpan(2)
                         ->schema([
+                            Select::make('branch_id')
+                                ->relationship('branch', 'name')
+                                ->required()
+                                ->disabled($disabled)
+                                ->columnSpanFull()
+                                ->searchable()
+                                ->preload(),
+                            Select::make('support_topic_id')
+                                ->label('Support Topic')
+                                //->searchable()
+                                ->preload()
+                                ->relationship(
+                                    name: 'supportTopic',
+                                    titleAttribute: 'name',
+                                    modifyQueryUsing: function ($query) {
+                                        $userUnitIds = auth()->user()->supportUnits->pluck('id');
+                                        $query->whereIn('support_unit_id', $userUnitIds);
+                                    }
+                                )
+                                ->required()
+                                ->disabled($disabled)
+                                ->columnSpanFull(),
                             TextInput::make('title')
                                 ->required()
                                 ->maxLength(255)
@@ -63,13 +87,7 @@ class TicketForms
                     Section::make('Ticket Properties')
                         ->columnSpan(1)
                         ->schema([
-                            Select::make('branch_id')
-                                ->relationship('branch', 'name')
-                                ->required()
-                                ->disabled($disabled)
-                                ->columnSpanFull()
-                                ->searchable()
-                                ->preload(),
+
                             // TextInput::make('created_at')
                             //     ->label('Created')
                             //     ->disabled()
@@ -81,16 +99,12 @@ class TicketForms
                             //     ->disabled()
                             //     ->columnSpanFull(),
 
-                            Select::make('support_topic_id')
-                                ->relationship('supportTopic', 'name')
-                                ->required()
-                                ->disabled($disabled)
-                                ->columnSpanFull(),
 
-                            Select::make('status_id')
-                                ->relationship('status', 'name')
-                                ->required()
-                                ->columnSpanFull(),
+
+                            // Select::make('status_id')
+                            //     ->relationship('status', 'name')
+                            //     ->required()
+                            //     ->columnSpanFull(),
 
                             Select::make('priority')
                                 ->options([
@@ -99,17 +113,28 @@ class TicketForms
                                     'high' => 'High',
                                     'critical' => 'Critical',
                                 ])
+                                ->default('medium') // <-- self selected by default
                                 ->disabled($disabled)
                                 ->required()
                                 ->columnSpanFull(),
 
                             Select::make('agents')
-                                ->relationship('agents', 'name')
-                                ->multiple()
-                                ->preload()
                                 ->label('Assign To')
-                                //->disabled($disabled)
-                                ->columnSpanFull(),
+
+                                ->preload()
+                                ->default([auth()->id()]) // <-- self selected by default
+                                ->relationship(
+                                    name: 'agents',
+                                    titleAttribute: 'name',
+                                    modifyQueryUsing: function ($query) {
+                                        $userUnitIds = auth()->user()->supportUnits->pluck('id');
+
+                                        $query->whereHas('supportUnits', function ($q) use ($userUnitIds) {
+                                            $q->whereIn('support_unit_id', $userUnitIds);
+                                        });
+                                    }
+                                )
+                                ->columnSpanFull()
                         ]),
                 ])
         ];

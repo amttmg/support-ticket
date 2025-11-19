@@ -28,6 +28,10 @@ class Ticket extends Model
         'branch_id',
     ];
 
+    protected $attributes = [
+        'status_id' => TicketStatusConstant::OPEN, // default value
+    ];
+
     protected $appends = [
         'formatted_updated_at',
     ];
