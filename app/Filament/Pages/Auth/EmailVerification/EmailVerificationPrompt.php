@@ -1,6 +1,6 @@
 <?php
 
-namespace Filament\Pages\Auth\EmailVerification;
+namespace App\Filament\Pages\Auth\EmailVerification;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;

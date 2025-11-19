@@ -1,6 +1,6 @@
 <?php
 
-namespace Filament\Pages\Auth\PasswordReset;
+namespace App\Filament\Pages\Auth\PasswordReset;
 
 use DanHarrin\LivewireRateLimiting\Exceptions\TooManyRequestsException;
 use DanHarrin\LivewireRateLimiting\WithRateLimiting;
