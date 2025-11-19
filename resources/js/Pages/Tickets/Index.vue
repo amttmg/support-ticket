@@ -279,7 +279,7 @@
                                                             {{ ticket.title }}
                                                         </div>
                                                         <div class="text-xs text-gray-500">
-                                                            #{{ ticket.id }} • {{ new
+                                                            {{ ticket.formatted_ticket_id }} • {{ new
                                                             Date(ticket.created_at).toLocaleDateString() }}
                                                         </div>
                                                     </div>

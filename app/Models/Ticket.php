@@ -34,6 +34,7 @@ class Ticket extends Model
 
     protected $appends = [
         'formatted_updated_at',
+        'formatted_ticket_id',
     ];
 
     public function files()
@@ -126,9 +127,9 @@ class Ticket extends Model
         return \Carbon\Carbon::parse($this->updated_at)->diffForHumans();
     }
 
-    public function getTicketIdAttribute()
+    public function getFormattedTicketIdAttribute()
     {
-        return '#' . $this->id;
+        return '#' . $this->branch->code . '-' . $this->id;
     }
 
     protected static function boot()

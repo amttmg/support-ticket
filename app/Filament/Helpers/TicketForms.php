@@ -120,6 +120,7 @@ class TicketForms
 
                             Select::make('agents')
                                 ->label('Assign To')
+                                ->disabled(auth()->user()->cannot('Assign-to-other Ticket'))
 
                                 ->preload()
                                 ->default([auth()->id()]) // <-- self selected by default
