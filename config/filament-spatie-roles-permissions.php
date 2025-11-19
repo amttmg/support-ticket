@@ -221,7 +221,7 @@ return [
             CustomField::class,
             Department::class,
             File::class,
-            SupportUnit::class,
+            //SupportUnit::class,
             TicketAgentAssignment::class,
             TicketAttachment::class,
             TicketCustomFieldValue::class,

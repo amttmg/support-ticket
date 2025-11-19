@@ -61,16 +61,23 @@ class AllTickets extends Page implements HasTable
 
                 Tables\Columns\TextColumn::make('supportTopic.name')
                     ->sortable(),
-
-                Tables\Columns\TextColumn::make('priority')
+                Tables\Columns\TextColumn::make('agents')
+                    ->label('Assigned Agents')
                     ->sortable()
-                    ->badge()
-                    ->color(fn(string $state): string => match ($state) {
-                        'low' => 'gray',
-                        'medium' => 'info',
-                        'high' => 'danger',
-                        default => 'gray',
+                    ->formatStateUsing(function ($state, $record) {
+                        // Assuming $record->agents returns a collection of agent models
+                        return $record->agents->pluck('name')->join(', ');
                     }),
+
+                // Tables\Columns\TextColumn::make('priority')
+                //     ->sortable()
+                //     ->badge()
+                //     ->color(fn(string $state): string => match ($state) {
+                //         'low' => 'gray',
+                //         'medium' => 'info',
+                //         'high' => 'danger',
+                //         default => 'gray',
+                //     }),
                 TextColumn::make('status.name')  // Access the related status's name
                     ->label('Status')
                     ->sortable()
@@ -92,6 +99,11 @@ class AllTickets extends Page implements HasTable
             ->filters([
                 Tables\Filters\SelectFilter::make('status')
                     ->relationship('status', 'name'),
+                Tables\Filters\SelectFilter::make('agents')
+                    ->label('Assigned Agents')
+                    ->preload()
+                    ->multiple() // allows selecting multiple agents
+                    ->relationship('agents', 'name'),
 
                 Tables\Filters\SelectFilter::make('priority')
                     ->options([

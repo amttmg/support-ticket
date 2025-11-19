@@ -28,73 +28,78 @@ class SupportTopicResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('support_unit_id')
-                    ->relationship('supportUnit', 'name')
+                    ->relationship('supportUnit', 'name', function ($query) {
+                        // Filter support units to only those of the current user
+                        $userUnitIds = auth()->user()->supportUnits->pluck('id');
+                        $query->whereIn('id', $userUnitIds);
+                    })
                     ->required()
                     ->searchable()
                     ->preload()
-                    ->createOptionForm([
+                    ->createOptionForm(auth()->user()->hasPermissionTo('create SupportUnit') ? [
                         Forms\Components\Select::make('department_id')
                             ->relationship('department', 'name')
                             ->required(),
                         Forms\Components\TextInput::make('name')
                             ->required()
                             ->maxLength(255),
-                    ]),
+                    ] : null),
 
                 Forms\Components\TextInput::make('name')
                     ->required()
                     ->maxLength(255),
 
                 // Custom Fields Section
-                Forms\Components\Section::make('Custom Fields')
-                    ->schema([
-                        Forms\Components\Repeater::make('customFields')
-                            ->relationship()
-                            ->schema([
-                                Forms\Components\TextInput::make('label')
-                                    ->required()
-                                    ->maxLength(255),
+                // Forms\Components\Section::make('Custom Fields')
+                //     ->schema([
+                //         Forms\Components\Repeater::make('customFields')
+                //             ->relationship()
+                //             ->schema([
+                //                 Forms\Components\TextInput::make('label')
+                //                     ->required()
+                //                     ->maxLength(255),
 
-                                Forms\Components\Select::make('field_type')
-                                    ->options([
-                                        'text' => 'Text',
-                                        'textarea' => 'Text Area',
-                                        'select' => 'Dropdown',
-                                        'checkbox' => 'Checkbox',
-                                        'radio' => 'Radio Buttons',
-                                        'file' => 'File Upload',
-                                        'date' => 'Date',
-                                    ])
-                                    ->required()
-                                    ->live(),
+                //                 Forms\Components\Select::make('field_type')
+                //                     ->options([
+                //                         'text' => 'Text',
+                //                         'textarea' => 'Text Area',
+                //                         'select' => 'Dropdown',
+                //                         'checkbox' => 'Checkbox',
+                //                         'radio' => 'Radio Buttons',
+                //                         'file' => 'File Upload',
+                //                         'date' => 'Date',
+                //                     ])
+                //                     ->required()
+                //                     ->live(),
 
-                                Forms\Components\Textarea::make('options')
-                                    ->rows(3)
-                                    ->helperText('For select, radio, checkbox. Enter options comma separated.')
-                                    ->visible(fn(Forms\Get $get) => in_array($get('field_type'), ['select', 'radio', 'checkbox'])),
+                //                 Forms\Components\Textarea::make('options')
+                //                     ->rows(3)
+                //                     ->helperText('For select, radio, checkbox. Enter options comma separated.')
+                //                     ->visible(fn(Forms\Get $get) => in_array($get('field_type'), ['select', 'radio', 'checkbox'])),
 
-                                Forms\Components\Toggle::make('is_required')
-                                    ->inline(false),
+                //                 Forms\Components\Toggle::make('is_required')
+                //                     ->inline(false),
 
-                                // Forms\Components\TextInput::make('sort')
-                                //     ->numeric()
-                                //     ->default(0),
-                            ])
-                            ->columns(2)
-                            ->itemLabel(fn(array $state): ?string => $state['label'] ?? null)
-                            ->addActionLabel('Add Custom Field')
-                            ->collapsible()
-                            ->collapsed()
-                            ->orderable()
-                            ->defaultItems(0),
-                    ])
-                    ->collapsible(),
+                //                 // Forms\Components\TextInput::make('sort')
+                //                 //     ->numeric()
+                //                 //     ->default(0),
+                //             ])
+                //             ->columns(2)
+                //             ->itemLabel(fn(array $state): ?string => $state['label'] ?? null)
+                //             ->addActionLabel('Add Custom Field')
+                //             ->collapsible()
+                //             ->collapsed()
+                //             ->orderable()
+                //             ->defaultItems(0),
+                //     ])
+                //     ->collapsible(),
             ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
+            ->query(SupportTopic::query()->whereIn('support_unit_id', auth()->user()->supportUnits->pluck('id')))
             ->columns([
                 Tables\Columns\TextColumn::make('supportUnit.name')
                     ->sortable()
