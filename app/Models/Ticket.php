@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Constants\TicketStatusConstant;
 use App\Mail\TicketResolved;
+use Illuminate\Support\Facades\Notification;
 use Coolsam\NestedComments\Concerns\HasComments;
 use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
@@ -34,6 +35,7 @@ class Ticket extends Model
 
     protected $appends = [
         'formatted_updated_at',
+        'ticket_id',
     ];
 
     public function files()
@@ -143,6 +145,21 @@ class Ticket extends Model
                 $model->branch_id = $currentUser->branch->id ?? null;
             }
         });
+        static::created(function ($ticket) {
+            if (config('app.enable_slack')) {
+                $slackUrl = $ticket->supportTopic->supportUnit->slack_url;
+                $ticketUrl = route('filament.app.resources.tickets.index'); // or your ticket URL
+                // $message = "🆕 *New Ticket Received!* <!channel> 📝\n\n"
+                //     . "*Ticket ID:* {$ticket->ticket_id}\n"
+                //     . "*Support Topic:* {$ticket->supportTopic->name}\n"
+                //     . "*Title:* {$ticket->title}\n"
+                //     . "*Created By:* {$ticket->creator->name} ({$ticket->creator->branch->name} - {$ticket->creator->branch->code})\n"
+                //     . "*View Ticket:* <{$ticketUrl}|Click Here>";
+                $message = $message = "<!channel> New Ticket {$ticket->ticket_id} ({$ticket->supportTopic->name}) - `{$ticket->title}` created by {$ticket->creator->name} ({$ticket->creator->branch->name} - {$ticket->creator->branch->code}) | <{$ticketUrl}|View Ticket>";
+                Notification::route('slack', $slackUrl)
+                    ->notify(new \App\Notifications\SlackNotification($message, $slackUrl));
+            }
+        });
 
         static::updated(function ($ticket) {
             // Check if status changed and now is 'Resolved'
@@ -164,6 +181,7 @@ class Ticket extends Model
             $q->where('users.id', $userId);
         });
     }
+
 
     public function scopeMyTickets($query, $userId = null)
     {

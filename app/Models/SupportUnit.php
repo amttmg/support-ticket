@@ -9,7 +9,7 @@ class SupportUnit extends Model
 {
     use SoftDeletes;
 
-    protected $fillable = ['department_id', 'name'];
+    protected $fillable = ['department_id', 'name', 'slack_url'];
 
     public function department()
     {

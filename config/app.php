@@ -13,6 +13,8 @@ return [
     |
     */
 
+    'enable_slack' => env('ENABLE_SLACK', false),
+
     'name' => env('APP_NAME', 'Laravel'),
 
     'auto_detect_ip' => env('AUTO_DETECT_IP', false),
