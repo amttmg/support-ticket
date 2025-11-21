@@ -33,7 +33,7 @@
         <div class="mt-8 space-y-2 text-center">
 
             <p class="text-xs text-gray-400 dark:text-gray-500">
-                © 2023 SupportCenter. All rights reserved.
+               Developed by IT Department, Research and Development Section - {{ new Date().getFullYear() }}
             </p>
         </div>
     </div>

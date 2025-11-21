@@ -183,8 +183,7 @@
             <!-- Footer - Matching Welcome.vue style -->
             <footer class="py-8 mt-12 bg-white">
                 <div class="px-4 mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    <p class="text-sm text-center text-gray-500">&copy; 2025 Support Center. All rights
-                        reserved.</p>
+                    <p class="text-sm text-center text-gray-500">&copy;Developed by IT Department, Research and Development Section - {{ new Date().getFullYear() }}</p>
                 </div>
             </footer>
         </div>
