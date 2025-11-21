@@ -1,30 +1,42 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import laravel from "laravel-vite-plugin";
 import vue from "@vitejs/plugin-vue";
 
-export default defineConfig({
-    plugins: [
-        laravel({
-            input: "resources/js/app.js",
-            refresh: true,
-        }),
-        vue({
-            template: {
-                transformAssetUrls: {
-                    base: null,
-                    includeAbsolute: false,
+export default defineConfig(({ mode }) => {
+    const env = loadEnv(mode, process.cwd(), "");
+
+    const isLocal = mode === "development";
+
+    return {
+        base: env.VITE_BASE_URL || "/", // auto for server or subfolder
+        plugins: [
+            laravel({
+                input: "resources/js/app.js",
+                refresh: true,
+            }),
+            vue({
+                template: {
+                    transformAssetUrls: {
+                        base: null,
+                        includeAbsolute: false,
+                    },
                 },
-            },
-        }),
-    ],
-    server: {
-        host: "support-ticket.local", // <-- your subdomain here
-        port: 5173, // optional, default 5173
-        strictPort: true, // fail if port is busy
-        cors: true,
-        hmr: {
-            host: "support-ticket.local", // important for HMR
-        },
-    },
-    //base: '/support-ticket/public/build/', // Add this line
+            }),
+        ],
+
+        // Only apply this in local development
+        ...(isLocal
+            ? {
+                  server: {
+                      host: "support-ticket.local",
+                      port: 5173,
+                      strictPort: true,
+                      cors: true,
+                      hmr: {
+                          host: "support-ticket.local",
+                      },
+                  },
+              }
+            : {}),
+    };
 });
