@@ -64,20 +64,20 @@ Route::group(['middleware' => ['web', 'ensure.frontend.user']], function () {
     });
 });
 
-Route::post('/save-subscription', function (Request $request) {
-    $request->user()->updatePushSubscription(
-        $request->endpoint,
-        $request->publicKey,
-        $request->authToken,
-        $request->contentEncoding
-    );
+// Route::post('/save-subscription', function (Request $request) {
+//     $request->user()->updatePushSubscription(
+//         $request->endpoint,
+//         $request->publicKey,
+//         $request->authToken,
+//         $request->contentEncoding
+//     );
 
-    return response()->json(['success' => true]);
-});
+//     return response()->json(['success' => true]);
+// });
 
-Route::get('/test-notification', function () {
-    $user = \App\Models\User::find(4);
-    $user->notify(new \App\Notifications\TestWebPush());
+// Route::get('/test-notification', function () {
+//     $user = \App\Models\User::find(4);
+//     $user->notify(new \App\Notifications\TestWebPush());
 
-    return "Notification sent!";
-});
+//     return "Notification sent!";
+// });

@@ -20,7 +20,7 @@
 <body class="font-sans antialiased">
     @inertia
 </body>
-<script>
+{{-- <script>
     if ("serviceWorker" in navigator) {
         navigator.serviceWorker.register("/service-worker.js").then(async (registration) => {
 
@@ -51,6 +51,6 @@
             });
         });
     }
-</script>
+</script> --}}
 
 </html>
