@@ -3,14 +3,10 @@
 namespace App\Models;
 
 use App\Constants\TicketStatusConstant;
-use App\Mail\TicketResolved;
-use Illuminate\Support\Facades\Notification;
 use Coolsam\NestedComments\Concerns\HasComments;
 use Coolsam\NestedComments\Concerns\HasReactions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use Illuminate\Database\Query\Builder;
-use Illuminate\Support\Facades\Mail;
 use Spatie\Activitylog\LogOptions;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -131,46 +127,6 @@ class Ticket extends Model
     public function getTicketIdAttribute()
     {
         return '#' . $this->id;
-    }
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            if (auth()->check()) {
-                $currentUser = auth()->user();
-                $model->created_by = $currentUser->id;
-                $model->created_from_ip_address = request()->ip();
-                $model->branch_id = $currentUser->branch->id ?? null;
-            }
-        });
-        static::created(function ($ticket) {
-            if (config('app.enable_slack')) {
-                $slackUrl = $ticket->supportTopic->supportUnit->slack_url;
-                $ticketUrl = route('filament.app.resources.tickets.index'); // or your ticket URL
-                // $message = "🆕 *New Ticket Received!* <!channel> 📝\n\n"
-                //     . "*Ticket ID:* {$ticket->ticket_id}\n"
-                //     . "*Support Topic:* {$ticket->supportTopic->name}\n"
-                //     . "*Title:* {$ticket->title}\n"
-                //     . "*Created By:* {$ticket->creator->name} ({$ticket->creator->branch->name} - {$ticket->creator->branch->code})\n"
-                //     . "*View Ticket:* <{$ticketUrl}|Click Here>";
-                $message = $message = "<!channel> New Ticket {$ticket->ticket_id} ({$ticket->supportTopic->name}) - `{$ticket->title}` created by {$ticket->creator->name} ({$ticket->creator->branch->name} - {$ticket->creator->branch->code}) | <{$ticketUrl}|View Ticket>";
-                Notification::route('slack', $slackUrl)
-                    ->notify(new \App\Notifications\SlackNotification($message, $slackUrl));
-            }
-        });
-
-        static::updated(function ($ticket) {
-            // Check if status changed and now is 'Resolved'
-            $resolvedStatusId = TicketStatusConstant::RESOLVED; // <-- replace with your actual Resolved status ID
-            if ($ticket->isDirty('status_id') && $ticket->status_id == $resolvedStatusId) {
-                if ($ticket->creator && $ticket->creator->email) {
-                    Mail::to($ticket->creator->email)
-                        ->send(new TicketResolved($ticket));
-                }
-            }
-        });
     }
 
     public function scopeForSupportUnitUser($query, $userId = null)
